@@ -1,0 +1,143 @@
+/* Misc classes
+-------------------------------------------------------------- */
+
+.hide {display: none;}
+
+.first {margin-left:0; padding-left:0;}
+.last {margin-right:0; padding-right:0;}
+.top {margin-top:0; padding-top:0;}
+.bottom {margin-bottom:0; padding-bottom:0;}
+
+/* padding and margins */
+
+.p12 {padding:12px}
+.p10 {padding:10px}
+.p8 {padding:8px}
+.p6 {padding:6px}
+.p4 {padding:4px}
+.p2 {padding:2px}
+
+.pv12 {padding-top:12px;padding-bottom:12px}
+.pv10 {padding-top:10px;padding-bottom:10px}
+.pv8 {padding-top:8px;padding-bottom:8px}
+.pv6 {padding-top:6px;padding-bottom:6px}
+.pv4 {padding-top:4px;padding-bottom:4px}
+.pv2 {padding-top:2px;padding-bottom:2px}
+
+.ph12 {padding-left:12px;padding-right:12px}
+.ph10 {padding-left:10px;padding-right:10px}
+.ph8 {padding-left:8px;padding-right:8px}
+.ph6 {padding-left:6px;padding-right:6px}
+.ph4 {padding-left:4px;padding-right:4px}
+.ph2 {padding-left:2px;padding-right:2px}
+
+.p105 {padding: 5px 10px}
+.p84 {padding: 4px 8px}
+.p63 {padding: 3px 6px}
+.p42 {padding: 2px 4px}
+
+.m12 {margin:12px}
+.m10 {margin:10px}
+.m8 {margin:8px}
+.m6 {margin:6px}
+.m4 {margin:4px}
+.m2 {margin:2px}
+
+.mv12 {margin-top:12px;margin-bottom:12px}
+.mv10 {margin-top:10px;margin-bottom:10px}
+.mv8 {margin-top:8px;margin-bottom:8px}
+.mv6 {margin-top:6px;margin-bottom:6px}
+.mv4 {margin-top:4px;margin-bottom:4px}
+.mv2 {margin-top:2px;margin-bottom:2px}
+
+.mv12 {margin-top:12px;margin-bottom:12px}
+.mv10 {margin-top:10px;margin-bottom:10px}
+.mh8 {margin-left:8px;margin-right:8px}
+.mh6 {margin-left:6px;margin-right:6px}
+.mh4 {margin-left:4px;margin-right:4px}
+.mh2 {margin-left:2px;margin-right:2px}
+
+.m105 {margin: 5px 10px}
+.m84 {margin: 4px 8px}
+.m63 {margin: 3px 6px}
+.m42 {margin: 2px 4px}
+
+/* border padding for images */
+
+.p20r {padding-right: 20px} /* Column + Gutter 16+4 */
+.p16r {padding-right: 16px} /* Column 16 */
+.p10r {padding-right: 10px} /* 1/2 Column + Gutter */
+
+.p8r {padding-right: 8px} /* 1/2 Column */
+.p6r {padding-right: 6px}
+.p4r {padding-right: 4px}
+.p2r {padding-right: 2px}
+
+/* default 1 pixel 4-sided borders in black levels */
+.box-blk {border: #000000 1px solid}
+.box-dkg {border: #333333 1px solid}
+.box-gry {border: #7f7f7f 1px solid}
+.box-ltg {border: #cbcbcb 1px solid}
+.box-wht {border: #ffffff 1px solid}
+
+/* default background black levels */
+.line-blk { border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; }
+.line-dkg { border-bottom-color: #333333; border-bottom-width: 1px; border-bottom-style: solid; }
+.line-gry { border-bottom-color: #7f7f7f; border-bottom-width: 1px; border-bottom-style: solid; }
+.line-ltg { border-bottom-color: #cbcbcb; border-bottom-width: 1px; border-bottom-style: solid; }
+.line-wht { border-bottom-color: #ffffff; border-bottom-width: 1px; border-bottom-style: solid; }
+
+/* default background black levels */
+.bg-blk {background-color: #000000}
+.bg-dkg {background-color: #333333}
+.bg-gry {background-color: #7f7f7f}
+.bg-ltg {background-color: #cbcbcb}
+.bg-wht {background-color: #ffffff}
+
+/* default text black levels */
+.txt-blk {color: #000000}
+.txt-dkg {color: #333333}
+.txt-gry {color: #7f7f7f}
+.txt-ltg {color: #cbcbcb}
+.txt-wht {color: #ffffff}
+
+.b {font-weight: bold} /* bold */
+.i {font-style: italic}
+.bi {font-style: italic; font-weight: bold;}
+.ssm {font-size: .8em} /* super small */
+.sm {font-size: .9em} /* small */
+.lg {font-size: 1.1em} /* large */
+.slg {font-size: 1.2em} /* super large */
+
+.ar {text-align: right} /* align text right */
+.ac {text-align: center} /* align text center */
+.al {text-align: left} /* align text left -- kinda default but here to be complete */
+
+/* align a img "sprite" - this gives us 9 images per sprite */
+.tl {background-position: top left}
+.tc {background-position: top center}
+.tr {background-position: top right}
+.cl {background-position: center left}
+.cc {background-position: center center}
+.cr {background-position: center right}
+.bl {background-position: bottom left}
+.bc {background-position: bottom center}
+.br {background-position: bottom right}
+
+/*
+auto hover "sprite" default top, hover bottom height needs to be default height x 2
+still need to setup img class
+*/
+.hv:hover {background-position: bottom left}
+.hv {background-position: top left}
+
+/*
+auto hover "sprite" and click, default top, hover center, click (active) bottom
+height needs to be default height x 3
+still need to setup img class
+*/
+.hv3 {background-position: top left}
+.hv3:hover {background-position: center left}
+.hv3:active {background-position: bottom left}
+.dbug-box { border-color: #ff8000; border-width: 1px; border-style: dashed; }
+.dbug-bg { background-color: #fef0b2; }

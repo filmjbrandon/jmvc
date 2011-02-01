@@ -1,0 +1,287 @@
+/* Misc classes
+-------------------------------------------------------------- */
+/* custom */
+button::-moz-focus-inner { border:0; }
+:focus { outline:0; }
+:focus { -moz-outline:none!important; }
+
+.hide {display: none;}
+
+.first {margin-left:0; padding-left:0;}
+.last {margin-right:0; padding-right:0;}
+.top {margin-top:0; padding-top:0;}
+.bottom {margin-bottom:0; padding-bottom:0;}
+
+/* padding and margins */
+
+.p12 {padding:12px}
+.p10 {padding:10px}
+.p8 {padding:8px}
+.p6 {padding:6px}
+.p4 {padding:4px}
+.p2 {padding:2px}
+
+.pv12 {padding-top:12px;padding-bottom:12px}
+.pv10 {padding-top:10px;padding-bottom:10px}
+.pv8 {padding-top:8px;padding-bottom:8px}
+.pv6 {padding-top:6px;padding-bottom:6px}
+.pv4 {padding-top:4px;padding-bottom:4px}
+.pv2 {padding-top:2px;padding-bottom:2px}
+
+.ph12 {padding-left:12px;padding-right:12px}
+.ph10 {padding-left:10px;padding-right:10px}
+.ph8 {padding-left:8px;padding-right:8px}
+.ph6 {padding-left:6px;padding-right:6px}
+.ph4 {padding-left:4px;padding-right:4px}
+.ph2 {padding-left:2px;padding-right:2px}
+
+.p105 {padding: 5px 10px}
+.p84 {padding: 4px 8px}
+.p63 {padding: 3px 6px}
+.p42 {padding: 2px 4px}
+
+.m12 {margin:12px}
+.m10 {margin:10px}
+.m8 {margin:8px}
+.m6 {margin:6px}
+.m4 {margin:4px}
+.m2 {margin:2px}
+
+.mv12 {margin-top:12px;margin-bottom:12px}
+.mv10 {margin-top:10px;margin-bottom:10px}
+.mv8 {margin-top:8px;margin-bottom:8px}
+.mv6 {margin-top:6px;margin-bottom:6px}
+.mv4 {margin-top:4px;margin-bottom:4px}
+.mv2 {margin-top:2px;margin-bottom:2px}
+
+.mv12 {margin-top:12px;margin-bottom:12px}
+.mv10 {margin-top:10px;margin-bottom:10px}
+.mh8 {margin-left:8px;margin-right:8px}
+.mh6 {margin-left:6px;margin-right:6px}
+.mh4 {margin-left:4px;margin-right:4px}
+.mh2 {margin-left:2px;margin-right:2px}
+
+.m105 {margin: 5px 10px}
+.m84 {margin: 4px 8px}
+.m63 {margin: 3px 6px}
+.m42 {margin: 2px 4px}
+
+/* border padding for images */
+
+.p20r {padding-right: 20px} /* Column + Gutter 16+4 */
+.p16r {padding-right: 16px} /* Column 16 */
+.p10r {padding-right: 10px} /* 1/2 Column + Gutter */
+
+.p8r {padding-right: 8px} /* 1/2 Column */
+.p6r {padding-right: 6px}
+.p4r {padding-right: 4px}
+.p2r {padding-right: 2px}
+
+/* default 1 pixel 4-sided borders in black levels */
+.box-blk {border: #000000 1px solid}
+.box-dkg {border: #333333 1px solid}
+.box-gry {border: #7f7f7f 1px solid}
+.box-ltg {border: #cbcbcb 1px solid}
+.box-wht {border: #ffffff 1px solid}
+
+/* default background black levels */
+.line-blk { border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid}
+.line-dkg { border-bottom-color: #333333; border-bottom-width: 1px; border-bottom-style: solid}
+.line-gry { border-bottom-color: #7f7f7f; border-bottom-width: 1px; border-bottom-style: solid}
+.line-ltg { border-bottom-color: #cbcbcb; border-bottom-width: 1px; border-bottom-style: solid}
+.line-wht { border-bottom-color: #ffffff; border-bottom-width: 1px; border-bottom-style: solid}
+
+/* default background black levels */
+.bg-blk {background-color: #000000}
+.bg-dkg {background-color: #333333}
+.bg-gry {background-color: #7f7f7f}
+.bg-ltg {background-color: #cbcbcb}
+.bg-wht {background-color: #ffffff}
+
+/* default text black levels */
+.txt-blk {color: #000000}
+.txt-dkg {color: #333333}
+.txt-gry {color: #7f7f7f}
+.txt-ltg {color: #cbcbcb}
+.txt-wht {color: #ffffff}
+
+/* font style */
+.b {font-weight: bold} /* bold */
+.i {font-style: italic}
+.bi {font-style: italic; font-weight: bold;}
+
+/* font size */
+.ssm {font-size: .8em} /* super small */
+.sm {font-size: .9em} /* small */
+.lg {font-size: 1.1em} /* large */
+.slg {font-size: 1.2em} /* super large */
+
+/* text align */
+.ar {text-align: right} /* align text right */
+.ac {text-align: center} /* align text center */
+.al {text-align: left} /* align text left -- kinda default but here to be complete */
+
+/* align a img "sprite" - this gives us 9 images per sprite */
+.tl {background-position: top left}
+.tc {background-position: top center}
+.tr {background-position: top right}
+.cl {background-position: center left}
+.cc {background-position: center center}
+.cr {background-position: center right}
+.bl {background-position: bottom left}
+.bc {background-position: bottom center}
+.br {background-position: bottom right}
+
+/*
+auto hover "sprite" default top, hover bottom height needs to be default height x 2
+still need to setup img class
+*/
+.hv:hover {background-position: center right}
+.hv {background-position: top left}
+
+/*
+auto hover "sprite" and click, default top, hover center, click (active) bottom
+height needs to be default height x 3
+still need to setup img class
+*/
+.hv3 {background-position: top left}
+.hv3:hover {background-position: center left}
+.hv3:active {background-position: bottom left}
+
+/* some debug code */
+.dbug-box { border-color: #ff8000; border-width: 1px; border-style: dashed}
+.dbug-bg { background-color: #fef0b2}
+
+/* basic image floating */
+.float-image-left { margin-right:8px; float:left}
+.float-image-right { margin-left:8px; float:right}
+
+/* standard center a div block */
+.centerblock { margin:0px auto}
+
+/* element width as percent float left */
+.w10p { width:10%; float:left}
+.w20p { width:20%; float:left}
+.w30p { width:30%; float:left}
+.w40p { width:40%; float:left}
+.w50p { width:50%; float:left}
+.w60p { width:60%; float:left}
+.w70p { width:70%; float:left}
+.w80p { width:80%; float:left}
+.w90p { width:90%; float:left}
+.w75p { width:75%; float:left}
+.w25p { width:25%; float:left}
+.w33p { width:33%; float:left}
+.w32p { width:32%; float:left}
+.w48p { width:48%; float:left}
+
+/* line right, left, top, bottom, all */
+.line-r { border-right-width:1px; border-right-style:solid}
+.line-l { border-left-width:1px; border-left-style:solid}
+.line-t { border-top-width:1px; border-top-style:solid}
+.line-b { border-bottom-width:1px; border-bottom-style:solid}
+.line-a { border-width:1px; border-style:solid}
+
+/* line color */
+.line-blk { border-right-color:#000000; border-left-color:#000000; border-top-color:#000000; border-bottom-color:#000000}
+.line-dkg { border-right-color:#333333; border-left-color:#333333; border-top-color:#333333; border-bottom-color:#333333}
+.line-gry { border-right-color:#7f7f7f; border-left-color:#7f7f7f; border-top-color:#7f7f7f; border-bottom-color:#7f7f7f}
+.line-ltg { border-right-color:#cbcbcb; border-left-color:#cbcbcb; border-top-color:#cbcbcb; border-bottom-color:#cbcbcb}
+.line-wht { border-right-color:#ffffff; border-left-color:#ffffff; border-top-color:#ffffff; border-bottom-color:#ffffff}
+
+/* hr line styling - make them look better */
+.hrp2 {margin:0 0 2px;padding:0;line-height:3px;font-size:1px;clear:both;border-bottom-color:#9f9f9f;border-bottom-width:1px;border-bottom-style:solid}
+.hrp4 {margin:0 0 4px;padding:0;line-height:5px;font-size:1px;clear:both;border-bottom-color:#9f9f9f;border-bottom-width:1px;border-bottom-style:solid}
+.hrp6 {margin:0 0 6px;padding:0;line-height:7px;font-size:1px;clear:both;border-bottom-color:#9f9f9f;border-bottom-width:1px;border-bottom-style:solid}
+.hrp8 {margin:0 0 8px;padding:0;line-height:9px;font-size:1px;clear:both;border-bottom-color:#9f9f9f;border-bottom-width:1px;border-bottom-style:solid}
+.hrp10 {margin:0 0 10px;padding:0;line-height:11px;font-size:1px;clear:both;border-bottom-color:#9f9f9f;border-bottom-width:1px;border-bottom-style:solid}
+
+/* basic floating */
+.floatl {float: left}
+.floatr {float: right}
+
+input[type=text],input[type=password],textarea { padding:0.3em; }
+
+.rounded6 {-moz-border-radius: 6px;-webkit-border-radius: 6px;}
+.rounded8 {-moz-border-radius: 8px;-webkit-border-radius: 8px;}
+.rounded10 {-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+
+/* textarea height presets */
+textarea.row-1 {height: 1.25em}
+textarea.row-2 {height: 2.5em}
+textarea.row-3 {height: 3.75em}
+textarea.row-4 {height: 5em}
+textarea.row-5 {height: 6.25em}
+textarea.row-6 {height: 7.5em}
+textarea.row-7 {height: 8.75em}
+textarea.row-8 {height: 10em}
+textarea.row-9 {height: 11.25em}
+textarea.row-10 {height: 12.5em}
+textarea.row-11 {height: 13.75em}
+textarea.row-12 {height: 15em}
+textarea.row-13 {height: 16.25em}
+textarea.row-14 {height: 17.5em}
+textarea.row-15 {height: 18.75em}
+textarea.row-16 {height: 20em}
+
+pr4 {padding-right: 4px};
+pr6 {padding-right: 6px};
+pr8 {padding-right: 8px};
+pr10 {padding-right: 10px};
+
+/* basic element heights */
+.h8  {height: 8px}
+.h10 {height: 10px}
+.h12 {height: 12px}
+.h14 {height: 14px}
+.h16 {height: 16px}
+.h18 {height: 18px}
+.h20 {height: 20px}
+.h22 {height: 22px}
+.h24 {height: 24px}
+.h26 {height: 26px}
+.h28 {height: 28px}
+.h30 {height: 30px}
+.h32 {height: 32px}
+.h34 {height: 34px}
+.h36 {height: 36px}
+.h38 {height: 38px}
+.h40 {height: 40px}
+
+.pt2 {padding-top: 2px}
+.pt4 {padding-top: 4px}
+.pt6 {padding-top: 6px}
+.pt8 {padding-top: 8px}
+.pt10 {padding-top: 10px}
+.pt12 {padding-top: 12px}
+.pt14 {padding-top: 14px}
+.pt16 {padding-top: 16px}
+
+/* Form Layout Defaults
+------------------------------------------------------------------ */
+form dl {
+  padding:0;
+  margin:0;
+  clear:both;
+}
+
+form dt,form dd {
+  padding: 1px 0 1px 0;
+  margin:0;
+  display: block;
+  float:left;
+}
+
+form dt {
+  width: 29%;
+  padding-right: 4px;
+  text-align:right;
+  line-height: 100%;
+}
+
+form dd {
+  margin-top: -2px;
+  width: 70%;
+}
+
+form dl dt label { line-height: 100%; top: 6px; position: relative; }
