@@ -237,7 +237,7 @@ jQuery.mvcAjax = function (name, json, type, update) {
   json.mvc_update = update;
   json.mvc_timestamp = Number(new Date());
 
-  if (jQuery.session_uuid) {
+  if (jQuery.session_uid) {
     json.mvc_uuid = jQuery.session_uid();
     json.mvc_session_id = jQuery.session_id();
   }
