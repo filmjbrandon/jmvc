@@ -1,5 +1,5 @@
 /*
-requires jquery 1.4.2+ and jquery.cookie.js
+requires jquery 1.4.2+, jquery.json-2.2, jquery.cookie.js
 Written by Don Myers 2009
 */
 jQuery.session_start = function() {
@@ -40,6 +40,7 @@ jQuery.session_regenerate_id = function(delete_old_session) {
 };
 
 jQuery.session_destroy = function() {
+  $.cookie("mvc_sessionid", null,{ path: '/' });
   $.cookie("mvc_session", null,{ path: '/' });
 };
 

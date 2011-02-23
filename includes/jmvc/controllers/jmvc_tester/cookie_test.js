@@ -8,6 +8,12 @@ var controller_jmvc_tester_method_cookie_test = new function() {
     this.click = function() {
       var x = $.cookie('mycookie','is true');
     };
+    this.mouseover = function () {
+      $.log('hello');
+    };
+    this.mouseout = function () {
+      $.log('click key');
+    }
   };
 
   this.readcookie = new function() {

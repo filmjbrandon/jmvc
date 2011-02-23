@@ -1,10 +1,10 @@
-var controller_jmvc_tester_method_index = new function() {
+var controller_jmvc_tester_method_mvc_test = new function() {
 
   this.__construct = function() {
-    $.log('controller_index init');
+    $.log('controller_jmvc_tester_method_mvc_test init');
   }
 
-  this.action1 = new function() {
+  this.mvcController = new function() {
     this.click = function() {
       var d = $("#action2").mvcData('new_value',"dog");
       console.log(d);
@@ -16,28 +16,28 @@ var controller_jmvc_tester_method_index = new function() {
     }
   };
 
-  this.action2 = new function() {
+  this.mvcController2 = new function() {
     this.click = function() {
       var d = $("#action2").mvcData("not_set");
       console.log(d);
     };
   };
 
-  this.action3 = new function() {
+  this.mvcController3 = new function() {
     this.click = function() {
       var d = $("#action3").mvcData();
       console.log(d);
     };
   };
 
-  this.action4 = new function() {
+  this.mvcController4 = new function() {
     this.click = function() {
       var d = $("#action4").mvcEvent({});
       console.log(d);
     };
   };
 
-  this.action5 = new function() {
+  this.fire_action = new function() {
     this.click = function() {
       var d = $("#action5").mvcEvent();
       console.log(d);
