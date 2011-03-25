@@ -47,6 +47,12 @@ jQuery.mvcModelUpdate = function(name) {
 }
 
 /*
+$.mvcModelUpsert('primary_id_as_string','model_name');
+*/
+
+
+
+/*
 $.mvcModelDelete('model_name',primary id,'file (url)');
 $.mvcModelDelete('user',23,'m_user');
 */

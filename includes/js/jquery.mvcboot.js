@@ -60,7 +60,7 @@ mvc.default_cursor = 'pointer';
 mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
-mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.cookie','jquery.json-2.2','jstorage'); /*  */
+mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.cookie','jquery.json-2.2','jquery.session','jstorage'); /*  */
 
 /* setup some globalish mvc variables */
 /* holds all the models */

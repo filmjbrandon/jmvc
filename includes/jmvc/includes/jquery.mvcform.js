@@ -52,8 +52,8 @@ $("#form_id").mvcFormValidate('url',true,{'extra':'abc123'});
 */
 jQuery.fn.mvcFormValidate = function (url, submit, json) {
 /*
-validate this against some back end php via ajax
-pass back a json object with and array for the view [key] = value
+validate this against some backend code via ajax
+pass back a json object with an array for the view [key] = value
 and variable mvc_model_valid = true/false
 other options include:
 mvc_pre_view with valid javascript code to run

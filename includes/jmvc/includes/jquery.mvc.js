@@ -269,8 +269,7 @@ jQuery.mvcAjax = function (name, json, type, update) {
 };
 
 /*
-execute code
-function or string
+execute code - function or string
 */
 jQuery.exec = function (code) {
   if (code !== '' || code !== undefined) {
@@ -307,6 +306,6 @@ jQuery.fn.exists = function() {
 /* create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON(); */
 jQuery.extend({
   postJSON: function( url, data, callback) {
-    return jQuery.post(url, data, callback, "json");
+    return jQuery.post(url, data, callback, 'json');
   }
 });
