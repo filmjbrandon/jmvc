@@ -32,6 +32,7 @@
 
   $tests[] = array('exists','does a element exists by id');
   $tests[] = array('testjsonpost','Post JSON via post');
+  $tests[] = array('add_multi_clicks','Add Multi Clicks'); /* test */
 ?>
 <!DOCTYPE html>
 <html>
