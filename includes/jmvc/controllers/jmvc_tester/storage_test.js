@@ -22,7 +22,7 @@ var controller_jmvc_tester_method_storage_test = new function() {
     };
   };
 
-  this.get = new function() {
+  this.get_seta = new function() {
     this.click = function() {
       var z = $.jStorage.get('seta');
       $.log(z);

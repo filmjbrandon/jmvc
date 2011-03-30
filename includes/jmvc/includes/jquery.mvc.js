@@ -1,5 +1,5 @@
 /*
-Requires jQuery 1.4.3
+Requires jQuery 1.4.3+
 
 $.mvcController();
   load the config file controller by default (seg 3 or 4) nameController.js with no "finished" function
@@ -31,7 +31,7 @@ jQuery.mvcController = function (name,func) {
       if (typeof(ctrlr[elementid]) === 'object') {
         for (var eventname in ctrlr[elementid]) {
           if (typeof(ctrlr[elementid][eventname]) === 'function') {
-            /* data-mvc is now automagically attached via jquery 1.4.3 */
+            /* data-mvc is now automagically attached via jquery 1.4.3+ */
             /* attach any events to matching classes and ids */
             jQuery('#' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');            
             jQuery('.' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');            

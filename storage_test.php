@@ -4,7 +4,7 @@ require_once('functions.inc.php');
 $tests[] = array('seta','Set Value A');
 $tests[] = array('setb','Set Value B');
 $tests[] = array('setc','Set Value C');
-$tests[] = array('get','Get Value');
+$tests[] = array('get_seta','Get Value');
 $tests[] = array('get_default','Get With Default');
 $tests[] = array('deletekey','Delete Key');
 $tests[] = array('flush','Flush');

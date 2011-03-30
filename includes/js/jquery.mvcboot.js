@@ -87,7 +87,7 @@ jQuery.mvc = function (name,func) {
     /* else if they didn't send in any thing then the controller is mvc.controller */
     name = (!name) ? mvc.controller : name;
   }
-  /* load the required includes */
+  /* load the required includes from inside the jmvc folder*/
   for (var i=0, len = mvc.auto_include.length; i<len; ++i) {
     jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.auto_include[i] + '.js');
   }
