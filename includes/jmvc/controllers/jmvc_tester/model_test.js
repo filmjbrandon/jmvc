@@ -1,3 +1,5 @@
+models = {};
+
 var controller_jmvc_tester_method_model_test = new function() {
 
   this.__construct = function() {
@@ -7,7 +9,12 @@ var controller_jmvc_tester_method_model_test = new function() {
   this.read_model = new function() {
     this.click = function() {
       $.log('read_model.click action');
-      $.mvcModelRead('user',23,'m_user');
+      
+      models.person = new model('people');
+      $.log(models.person);
+      models.person.load();
+      $.log(models.person);
+      
     };
   };
 

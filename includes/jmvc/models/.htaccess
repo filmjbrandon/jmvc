@@ -1,2 +1,5 @@
 RewriteEngine on
-RewriteRule (.*)\.js $1.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php/$1 [L] 

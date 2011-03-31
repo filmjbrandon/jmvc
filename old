@@ -41,3 +41,52 @@
       console.log(d);
     };
   };
+
+
+/*
+$.mvcModelRead('model_name',primary id,'file (url)');
+$.mvcModelRead('user',23,'m_user');
+$.mvcModelRead('user',23,'m_user',true);
+*/
+jQuery.mvcModelLoad = function(name,id,file,create) {
+  mvc.model[name] = new model(name,file);
+}
+
+/*
+$.mvcModelUpdate('model_name');
+$.mvcModelUpdate('user');
+*/
+jQuery.mvcModelSave = function() {
+}
+
+/*
+$.mvcModelDelete();
+$.mvcModelDelete();
+*/
+jQuery.mvcModelDelete = function() {
+}
+
+/*
+$.mvcModelExists('model_name');
+$.mvcModelExists('user');
+*/
+jQuery.mvcModelExists = function (name) {
+  return (mvc.model[name]) ? true : false;
+};
+
+/*
+convert a form to a model
+$.mvcForm2Model('form_id');
+$.mvcForm2Model('main_form');
+*/
+jQuery.fn.mvcForm2Model = function(name) {
+  var json = jQuery(this).mvcForm2Json();
+  
+  if (!mvc.model[name]) {
+    mvc.model[name] = new model(name);
+  }
+  mvc.model[name] = jQuery.extend(json,mvc.model[name]);
+  
+  return mvc.model[name];
+}
+
