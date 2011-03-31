@@ -60,7 +60,7 @@ mvc_pre_view with valid javascript code to run
 mvc_post_view with valid javascript code to run
 */
   submit = (!submit) ? false : true;
-  var rtnJson = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),'json',true);
+  var rtnJson = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),true);
   if (rtnJson.mvc_model_valid && submit) {
     jQuery(this).submit(); /* if returned false (no errors) then submit the form */
   }

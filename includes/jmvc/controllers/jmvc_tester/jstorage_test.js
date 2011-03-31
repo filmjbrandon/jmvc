@@ -1,4 +1,4 @@
-var controller_jmvc_tester_method_storage_test = new function() {
+var controller_jmvc_tester_method_jstorage_test = new function() {
 
   this.__construct = function() {
     $.log('controller_jmvc_tester_method_storage_test init');

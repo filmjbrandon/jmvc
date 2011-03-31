@@ -1,0 +1,43 @@
+  this.mvcView = new function() {
+    this.click = function() {
+      var d = $("#action6").mvcEvent("click");
+      console.log(d);
+    };
+  };
+
+  this.action7 = new function() {
+    this.click = function() {
+      var d = $("#action7").mvcEvent("lips");
+      console.log(d);
+    };
+  };
+
+  this.action8 = new function() {
+    this.click = function() {
+      var newfunc = function() { alert('new funciton') };
+      var d = $("#action8").mvcEvent("click",newfunc);
+      console.log(d);
+    };
+  };
+
+  this.action9 = new function() {
+    this.click = function() {
+      var newfunc = "some_other_function()";
+      var d = $("#action9").mvcEvent("click",newfunc);
+      console.log(d);
+    };
+  };
+
+  this.action10 = new function() {
+    this.click = function() {
+      var d = $("#action9").mvcEvent("click",{});
+      console.log(d);
+    };
+  };
+
+  this.action11 = new function() {
+    this.click = function() {
+      var d = $("#action9").mvcEvent("click");
+      console.log(d);
+    };
+  };

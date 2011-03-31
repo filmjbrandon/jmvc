@@ -3,6 +3,7 @@ $.mvcModelRead('model_name',primary id,'file (url)');
 $.mvcModelRead('user',23,'m_user');
 */
 jQuery.mvcModelRead = function(name,id,file) {
+  /* has this already been loaded and cached? */
   if (jQuery.mvcModelExists(name)) { 
     var file = (!file) ? mvc.model[name].model_file : file;
     if (!id) {
@@ -17,14 +18,12 @@ jQuery.mvcModelRead = function(name,id,file) {
       mvc.model[name] = jQuery.extend(jsonmodel,currentmodel);
     }
   } else {
-    /*
-    doesn't exists 
-    create it then read it
-    */
+    /* Not cached - tell backend to create it (if needed) then read it */
     var file = (!file) ? name : file;
     var newmodel = new model(name,file);
     var jsonmodel = jQuery.mvcAjax('models/' + file + 'model',{"mvc_model_mode":"create"});
     mvc.model[name] = jQuery.extend(jsonmodel,newmodel);
+    /* now let's read it */
     if (id) {
       var jsonmodel = jQuery.mvcAjax('models/' + mvc.model[name].model_file + 'model',{"id":id,"mvc_model_mode":"read"});
       var currentmodel = mvc.model[name];
@@ -49,8 +48,6 @@ jQuery.mvcModelUpdate = function(name) {
 /*
 $.mvcModelUpsert('primary_id_as_string','model_name');
 */
-
-
 
 /*
 $.mvcModelDelete('model_name',primary id,'file (url)');

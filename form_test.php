@@ -6,25 +6,8 @@ $tests[] = array('Form2Json','Convert Form to Json');
 $tests[] = array('FormValidate','Send Form to URL for Validate');
 $tests[] = array('FormAction','Change Form Action');
 $tests[] = array('fill_form','Fill the Form with Test Data');
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Title Here</title>
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
 
-    <script type="text/javascript" src="includes/js/jquery-1.5.min.js"></script>
-    <script type="text/javascript" src="includes/js/jquery.mvcboot.js"></script>
-
-    <script language="Javascript" type="text/javascript">
-    $(document).ready(function(){
-      $.mvc();
-    });
-    </script>
-  </head>
-  <body>
-<?php echo show($tests); ?>
+echo show($tests,false);
 
 <form id="formid" action="submit.php">
   

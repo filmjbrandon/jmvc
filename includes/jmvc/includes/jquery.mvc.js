@@ -63,7 +63,7 @@ json: extra variables sent to view ajax call
 update: true/false{default} update the DOM when id's or classes match
 */
 jQuery.mvcView = function (name, json, update) {
-  var rtnjson = jQuery.mvcAjax('views/' + name, json, 'json', update);
+  var rtnjson = jQuery.mvcAjax('views/' + name, json, update);
   jQuery.mvcController(name);
   return rtnjson;
 };
@@ -227,7 +227,7 @@ json addition json to send
 type json{default} or any valid jQuery post dataType
 update true/false{default} weither to send to the update function
 */
-jQuery.mvcAjax = function (name, json, type, update) {
+jQuery.mvcAjax = function (name, json, update, type) {
   /* NOTE: this is blocking ajax */
   json = (!json) ? {} : json;
   type = (!type) ? 'json' : type;
