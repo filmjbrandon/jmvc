@@ -5,7 +5,7 @@ $("#form_id").mvcFormHidden('primary',23);
 jQuery.fn.mvcFormHidden = function (name, value) {
   return this.each(function () {
     var unique = 'mvc_generated_element_id_' + name;
-    if ($('#' + unique).length > 0) {
+    if (jQuery('#' + unique).length > 0) {
       jQuery('#' + unique).attr('value', value);
     } else {
       jQuery('<input />').attr('type', 'hidden').attr('id', unique).attr('name', name).val(value).appendTo(this);
@@ -13,7 +13,7 @@ jQuery.fn.mvcFormHidden = function (name, value) {
   });
 };
 
-/* 
+/*
 basic
 $("#form_id").mvcForm2Json();
 advanced - add additional payload
@@ -59,12 +59,13 @@ other options include:
 mvc_pre_view with valid javascript code to run
 mvc_post_view with valid javascript code to run
 */
-  submit = (!submit) ? false : true;
-  var rtnJson = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),true);
+  submit = (!submit) ? mvc.validation_submit : submit;
+  var rtnJson = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),'json',true);
+
   if (rtnJson.mvc_model_valid && submit) {
     jQuery(this).submit(); /* if returned false (no errors) then submit the form */
   }
-  return rtnJson.mvc_model_valid;
+  return rtnJson;
 };
 
 /*

@@ -20,6 +20,12 @@ mvc.path = 'http://localhost/jmvc_tester/';
 /* name of the folder containing the mvc javascript files with trailing slash */
 mvc.application_folder = 'includes/jmvc/';
 
+/* prepend this to all ajax request urls */
+mvc.ajax_url = '';
+
+/* form submit on validation passed default value */
+mvc.validation_submit = false;
+
 /* reference to self */
 mvc.self = location.href;
 
@@ -27,7 +33,7 @@ mvc.self = location.href;
 mvc.segs = mvc.self.split('/');
 
 /* which segment is the controller + 1 is the method */
-mvc.shift = 3;
+mvc.shift = 4;
 
 var folder = (mvc.segs[mvc.shift] == '' || mvc.segs[mvc.shift] == undefined) ? 'index' : mvc.segs[mvc.shift];
 var file = (mvc.segs[mvc.shift+1] == '' || mvc.segs[mvc.shift+1] == undefined) ? 'index' : mvc.segs[mvc.shift+1];
@@ -94,7 +100,7 @@ jQuery.mvc = function (name,func) {
     
   /* load the main mvc file and start controller */
   jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.main + '.js',function() {
-    jQuery.mvcController(name.replace("-","_"),func);
+    jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
   });
   
 };

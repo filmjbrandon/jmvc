@@ -1,5 +1,0 @@
-body { font-size: 0.81em; font-family: "Lucida Grande", Verdana, Arial, sans-serif; }
-.button { margin-bottom: 4px; margin-top: 4px; font-size: 80%; line-height: 18px; height: 18px; padding: 8px; background-color: #dbe7d4; -webkit-border-radius:10px;}
-.button:hover {background-color: #83b5bf;}
-.column1 { float: left; width: 70%; }
-.column2 { float: left; width: 30%; }

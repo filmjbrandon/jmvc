@@ -1,47 +1,47 @@
 /*
-requires jquery 1.4.2+, jquery.json-2.2, jquery.cookie.js
+requires jquery 1.4.2+ and jquery.cookie.js
 Written by Don Myers 2009
 */
 jQuery.session_start = function() {
   /* setup if not alreay setup or push forward 1 year if it is */
-  if (!$.cookie("mvc_uuid")) {
-    $.cookie("mvc_uuid", (new Date().getTime()) + '-' + $.uid(), { expires: 365, path: '/' });
+  if (!jQuery.cookie("mvc_uuid")) {
+    jQuery.cookie("mvc_uuid", (new Date().getTime()) + '-' + jQuery.uid(), { expires: 365, path: '/' });
   } else {
-    $.cookie("mvc_uuid", $.cookie("mvc_uuid"), { expires: 365, path: '/' });
+    jQuery.cookie("mvc_uuid", jQuery.cookie("mvc_uuid"), { expires: 365, path: '/' });
   }
-  
+
   /* set the browser session */
-  if (!$.cookie("mvc_sessionid")) {
-    $.cookie("mvc_sessionid", $.uid(), { path: '/' });
+  if (!jQuery.cookie("mvc_sessionid")) {
+    jQuery.cookie("mvc_sessionid", jQuery.uid(), { path: '/' });
   }
-  
+
   /* let's read and cache our session data */
-  var jsontxt = $.cookie("mvc_session");
+  var jsontxt = jQuery.cookie("mvc_session");
   if (!jsontxt) {
     window.mvc_session = {};
   } else {
-    window.mvc_session = $.secureEvalJSON(jsontxt);
+    window.mvc_session = jQuery.secureEvalJSON(jsontxt);
   }
 };
 
 jQuery.session_uuid = function() {
-  return $.cookie("mvc_uuid");
+  return jQuery.cookie("mvc_uuid");
 };
 
 jQuery.session_id = function() {
-  return $.cookie("mvc_sessionid");
+  return jQuery.cookie("mvc_sessionid");
 };
 
 jQuery.session_regenerate_id = function(delete_old_session) {
   if (delete_old_session) {
-    $.cookie("mvc_session", null, { path: '/' });
+    jQuery.cookie("mvc_session", null, { path: '/' });
   }
-  $.cookie("mvc_sessionid", $.uid(),{ path: '/' });
+  jQuery.cookie("mvc_sessionid", jQuery.uid(),{ path: '/' });
 };
 
 jQuery.session_destroy = function() {
-  $.cookie("mvc_sessionid", null,{ path: '/' });
-  $.cookie("mvc_session", null,{ path: '/' });
+  jQuery.cookie("mvc_sessionid", null,{ path: '/' });
+  jQuery.cookie("mvc_session", null,{ path: '/' });
 };
 
 jQuery.session = function(name, value) {
@@ -52,7 +52,7 @@ jQuery.session = function(name, value) {
     return window.mvc_session[name];
   } else {
     window.mvc_session[name] = value;
-    $.cookie("mvc_session",$.toJSON(window.mvc_session),{ path: '/' });
+    jQuery.cookie("mvc_session",jQuery.toJSON(window.mvc_session),{ path: '/' });
   }
 };
 
