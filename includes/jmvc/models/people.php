@@ -10,7 +10,7 @@ class jmvc_server_model {
   var $dbcolumns = array('id','name','age');
   var $primary_name = 'id';
 
-  var $model_used_columns = array();
+  var $model_columns = array();
 
   var $primary_id;
   var $dbcolumns_empty;
@@ -29,16 +29,11 @@ class jmvc_server_model {
     foreach ((array)$this->POST['record'] as $key => $value) {
       if ($key{0} != '_') {
         $this->record[$key] = $value;
-        $this->model_used_columns[] = $key;
+        $this->model_columns[] = $key;
       }
     }
 
-    $this->record['_count'] = 0;
-    $this->record['_records'] = array();
-    $this->record['_row_affected'] = 0;
-    $this->record['_model_primary'] = $this->primary_name;
-
-    $this->_error();
+    $this->_error(); /* setup no errors */
 
     /* setup the where */
     if (!empty($this->POST['_string'])) {
@@ -60,6 +55,7 @@ class jmvc_server_model {
     $this->record['_row_affected'] = mysql_affected_rows();
     $this->record['_count'] = count($this->records);
     $this->record['_records'] = $this->records;
+    $this->record['_model_primary'] = $this->primary_name;
 
     if (headers_sent()) die();
     header('Content-type: text/json');
@@ -82,14 +78,14 @@ class jmvc_server_model {
   }
 
   function action_save() {
-    foreach ($this->model_used_columns as $key) {
+    foreach ($this->model_columns as $key) {
       $insertfields .= '`'.$key.'`, ';
       $insertvalues .= "'".mysql_real_escape_string($this->record[$key])."', ";
       $updatesql .= "`".$key."`='".mysql_real_escape_string($this->record[$key])."', ";
     }
 
-    if (empty($this->where)) $sql = 'insert into '.$this->dbtable.' ('.rtrim($insertfields,', ').') values ('.rtrim($insertvalues,', ').')';
-    else $sql = 'update '.$this->dbtable.' set '.rtrim($updatesql,', ').' where '.$this->where;
+    if (empty($this->where)) $sql = "insert into `".$this->dbtable."` (".rtrim($insertfields,', ').") values (".rtrim($insertvalues,", ").")";
+    else $sql = 'update `'.$this->dbtable."` set ".rtrim($updatesql,", ")." where ".$this->where;
 
     $dbc = mysql_query($sql);
 
@@ -112,7 +108,7 @@ class jmvc_server_model {
 
   function _error($error_number=0) {
     $yeserror = false;
-    
+
     /* custom errors */
     $errors[0] = 'No Error';
     $errors[1] = 'No Records Founds';
@@ -129,7 +125,7 @@ class jmvc_server_model {
 
     $this->record['_error'] = $error_text;
     $this->record['_error_number'] = $error_number;
-    
+
     return $yeserror;
   }
 
