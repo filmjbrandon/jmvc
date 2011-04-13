@@ -5,6 +5,7 @@ $db_link_local = @mysql_connect('localhost','root','root') or die('could not con
 $dbtable = 'jmvc';
 $dbcolumns = array('id','name','age');
 $dbcolumns_empty = array_fill_keys($dbcolumns,'');
+$model_used_columns = array();
 
 $primary_name = 'id';
 $primary_id = $_POST['record'][$primary_name];
@@ -30,13 +31,13 @@ if (!empty($string)) {
 $action = $_POST['mvc_model_action'];
 switch ($action) {
   case 'load':
-    if (!empty($where)) $record = get($where);
+    if (!empty($where)) $record = load($where);
   break;
   case 'save':
-    $record = upsert($record,$where);
+    $record = save($record,$where);
   break;
   case 'remove':
-    $record = delete($where);
+    $record = remove($where);
   break;
 }
 
@@ -44,7 +45,7 @@ send($record); /* return the db record(s) */
 /* end */
 
 /* functions */
-function get($where) {
+function load($where) {
   global $dbcolumns,$dbcolumns_empty,$dbtable;
 
   $record = makerecord();
@@ -66,23 +67,23 @@ function get($where) {
   return $record;
 }
 
-function upsert($record,$where) {
-  global $dbcolumns,$dbtable,$primary_name;
+function save($record,$where) {
+  global $dbcolumns,$dbtable,$primary_name,$model_used_columns;
   
-  foreach ($dbcolumns as $key) {
+  foreach ($model_used_columns as $key) {
     $insertfields .= '`'.$key.'`, ';
     $insertvalues .= "'".mysql_real_escape_string($record[$key])."', ";
-    $updatesql .= "`".$key."`='".mysql_real_escape_string($record[$key])."', "
+    $updatesql .= "`".$key."`='".mysql_real_escape_string($record[$key])."', ";
   }
 
   if (empty($where)) $sql = 'insert into '.$dbtable.' ('.rtrim($insertfields,', ').') values ('.rtrim($insertvalues,', ').')';
   else $sql = 'update '.$dbtable.' set '.rtrim($updatesql,', ').' where '.$where;
-  
+
   $dbc = mysql_query($sql);
   
   if (mysql_errno() > 0) {
     $record = makerecord(); /* error empty record */
-    fill_in_error($record,mysql_errno($dbc),mysql_error($dbc));
+    fill_in_error($record,mysql_errno(),mysql_error());
   } else {
     if (empty($where)) $record[$primary_name] = mysql_insert_id();
     $record['_row_affected'] = mysql_affected_rows();
@@ -91,7 +92,7 @@ function upsert($record,$where) {
   return $record;
 }
 
-function delete($where) {
+function remove($where) {
   global $dbtable;
   
   $record = makerecord(false); /* do not merge sent in */
@@ -126,11 +127,17 @@ function fill_in_error(&$record,$error_number=0,$error_text='') {
 }
 
 function makerecord($merge=true) {
-  global $dbcolumns_empty,$primary_name;
+  global $dbcolumns_empty,$primary_name,$model_used_columns;
 
-  if ($merge) $record = array_diff_key($dbcolumns_empty,$_POST['record']) + array_intersect_key($_POST['record'],$dbcolumns_empty);
-  else $record = $dbcolumns_empty;
-
+  if ($merge) {
+    foreach ($_POST['record'] as $key => $value) {
+      if ($key{0} != '_') {
+        $record[$key] = $value;
+        $model_used_columns[] = $key;
+      }
+    }
+  }
+  
   $record['_count'] = 0;
   $record['_records'] = array();
   $record['_row_affected'] = 0;

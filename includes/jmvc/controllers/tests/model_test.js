@@ -45,6 +45,15 @@ var controller_tests_method_model_test = new function() {
     };
   };
 
+  this.update_model2 = new function() {
+    this.click = function() {
+      models.person.name = 'Luke';
+      models.person._save('Name = Andrew');
+      $.log(models.person.id,models.person.name,models.person.age);
+    };
+  };
+
+
   this.delete_model = new function() {
     this.click = function() {
       models.person._remove();
