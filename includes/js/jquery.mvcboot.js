@@ -24,7 +24,10 @@ mvc.application_folder = 'includes/jmvc/';
 mvc.ajax_url = '';
 
 /* form submit on validation passed default value */
-mvc.validation_submit = false;
+mvc.validation_submit = true;
+
+/* location of the models - absolute path */
+mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 
 /* reference to self */
 mvc.self = location.href;

@@ -1,3 +1,4 @@
+
 var controller_tests_method_jstorage_test = new function() {
 
   this.__construct = function() {
@@ -25,14 +26,16 @@ var controller_tests_method_jstorage_test = new function() {
   this.get_seta = new function() {
     this.click = function() {
       var z = $.jStorage.get('seta');
-      $.log(z);
+      output.output = z;
+      $.mvcUpdate(output);
     };
   };
 
   this.get_default = new function() {
     this.click = function() {
       var z = $.jStorage.get('setd','Tyson');
-      $.log(z);
+      output.output = z;
+      $.mvcUpdate(output);
     };
   };
 
@@ -51,14 +54,16 @@ var controller_tests_method_jstorage_test = new function() {
   this.storageobj = new function() {
     this.click = function() {
       var z = $.jStorage.storageObj();
-      $.log(z);
+      output.output = z;
+      $.mvcUpdate(output);
     };
   };
 
   this.storagesize = new function() {
     this.click = function() {
       var z = $.jStorage.storageSize();
-      $.log(z);
+      output.output = z;
+      $.mvcUpdate(output);
     };
   };
 
@@ -66,13 +71,16 @@ var controller_tests_method_jstorage_test = new function() {
     this.click = function() {
       var ary = $.jStorage.index('seta');
       $.log(ary);
+      output.output = ary;
+      $.mvcUpdate(output);
     };
   };
 
   this.storageavailable = new function() {
     this.click = function() {
       var z = $.jStorage.storageAvailable();
-      $.log(z);
+      output.output = z;
+      $.mvcUpdate(output);
     };
   };
 

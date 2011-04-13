@@ -57,8 +57,10 @@ var controller_tests_method_form_test = new function() {
       output.text_input = 'This is a test';
       output.checkbox_input = true;
       output.radio_input = 1;
-      output.select_input = 'two';
+      output.select_input = 'third';
       output.textarea_input = 'This is a test';
+      output.output = 'Put this in the output element';
+      output.bogus = 'Put this in the bogus elelement';
       $.mvcUpdate(output);
     };
   };

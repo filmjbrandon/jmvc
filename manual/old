@@ -90,3 +90,40 @@ jQuery.fn.mvcForm2Model = function(name) {
   return mvc.model[name];
 }
 
+models = {};
+
+function model(name,file) {
+  this._model_name = name;
+  this._model_filename = (!file) ? name : file;
+  this._model_primary = 'undefined';
+};
+
+model.prototype._load = function() {
+  //var extra = {'mvc_arg1':arg1,'mvc_arg2':arg2};
+  this._ajax('load',extra);
+};
+
+model.prototype._save = function() {
+  this._ajax('save');
+}
+
+model.prototype._remove = function() {
+  this._dajax('remove');
+}
+
+model.prototype._ajax = function(mode,extra) {
+  extra = (!extra) ? {} : extra;
+  extra.mvc_model_action = mode;
+  extra.record = {};
+  for (var attr in this) {
+    if (this.hasOwnProperty(attr)) {
+      extra.record[attr] = this[attr];
+    }
+  }
+  var serverjson = jQuery.mvcAjax(mvc.model_url + this._model_filename + '.js',extra);
+  jQuery.extend(this,serverjson);
+}
+
+model.prototype._exists = function(name) {
+  return models[name];
+}

@@ -12,7 +12,7 @@ $tests[] = array('fill_form','Fill the Form with Test Data');
 
 echo show($tests,false);
 ?>
-    <form id="formid" action="submit.php">
+    <form id="formid" action="submit.php" method="post">
       <p>Name: <input type="text" name="text_input"></p>
       <p>Red: <input type="checkbox" value="red" name="checkbox_input1"></p>
       <p>Green: <input type="checkbox" value="green" name="checkbox_input2"></p>

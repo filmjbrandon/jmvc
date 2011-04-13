@@ -102,7 +102,6 @@ jQuery.mvcUpdate = function (json) {
         if (jQuery('[name=' + property + ']').is('select')) {
           jQuery('select[name=' + property + ']').val(value);
         }
-
       }
 
     }

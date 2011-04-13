@@ -14,7 +14,7 @@ function show($tests,$footer=true) {
   </script>
   </head>
   <body>
-  <h2>The American College Form Handler 3 '.basename($_SERVER['PHP_SELF']).' Tester</h2>';
+  <p>The American College Form Handler 3 '.basename($_SERVER['PHP_SELF']).' Tester</p>';
   foreach ($tests as $test) {
     $data = (isset($test[2])) ? ' data-mvc=\''.json_encode($test[2]).'\'' : '';
     echo '<div class="button" id="'.$test[0].$data.'">';
