@@ -38,7 +38,7 @@ class jmvc_server_model {
     $this->record['_row_affected'] = 0;
     $this->record['_model_primary'] = $this->primary_name;
 
-    $this->_fill_in_error();
+    $this->_error();
 
     /* setup the where */
     if (!empty($this->POST['_string'])) {
@@ -67,13 +67,12 @@ class jmvc_server_model {
     die(json_encode($this->record));
   }
 
+  /* action load record / records */
   function action_load() {
     if (!empty($this->where)) {
       $dbc = mysql_query("select ".implode($this->dbcolumns,',')." from ".$this->dbtable." where ".$this->where);
 
-      if (mysql_errno() > 0) {
-        $this->_fill_in_error(-1);
-      } else {
+      if (!$this->_error()) {
         if (mysql_num_rows($dbc) > 0) {
           while ($dbr = mysql_fetch_assoc($dbc)) $this->records[] = $dbr;
           $this->record = array_merge($this->dbcolumns_empty,$this->records[0]);
@@ -94,9 +93,7 @@ class jmvc_server_model {
 
     $dbc = mysql_query($sql);
 
-    if (mysql_errno() > 0) {
-      $this->_fill_in_error(-1);
-    } else {
+    if (!$this->_error()) {
       if (empty($this->where)) $this->record[$this->primary_name] = mysql_insert_id();
     }
   }
@@ -104,33 +101,36 @@ class jmvc_server_model {
   function action_remove() {
     if (!empty($this->where)) {
       $dbc = mysql_query("delete from ".$this->dbtable." where ".$this->where);
-      if (mysql_errno() > 0) {
-        $this->_fill_in_error(-1);
-      } else {
+      if (!$this->_error()) {
         $this->record[$this->primary_name] = '';
         $this->record['_string'] = '';
       }
     } else {
-      $this->_fill_in_error(2);
+      $this->_error(2);
     }
   }
 
-  function _fill_in_error($error_number=0,$error_text='') {
+  function _error($error_number=0) {
+    $yeserror = false;
+    
     /* custom errors */
     $errors[0] = 'No Error';
     $errors[1] = 'No Records Founds';
     $errors[2] = 'No Where Clause Given';
 
-    $error_text = ($error_text == '') ? $error_text = $errors[$error_number] : $error_text;
+    $error_text = $errors[$error_number];
 
-    /* if it's -1 then get the mysql error */
-    if ($error_number == -1) {
+    /* if there is a mysql_errno then override all */
+    if (mysql_errno() > 0) {
       $error_number = mysql_errno();
       $error_text  = mysql_error();
+      $yeserror = true;
     }
 
     $this->record['_error'] = $error_text;
     $this->record['_error_number'] = $error_number;
+    
+    return $yeserror;
   }
 
 }
