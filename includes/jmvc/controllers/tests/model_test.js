@@ -9,21 +9,21 @@ var controller_tests_method_model_test = new function() {
   this.read_model = new function() {
     this.click = function() {
       models.person._load('name = "don"');
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
   this.read_model2 = new function() {
     this.click = function() {
       models.person._load(123);
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
   this.read_model3 = new function() {
     this.click = function() {
       models.person._load('name like %Laurie%');
-      $.log(models.person);
+      show(models.person);
     };
   };
 
@@ -33,7 +33,7 @@ var controller_tests_method_model_test = new function() {
       models.person.name = 'Tyson';
       models.person.age = 47;
       models.person._save();
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
@@ -41,23 +41,32 @@ var controller_tests_method_model_test = new function() {
     this.click = function() {
       models.person.name = 'Andrew';
       models.person._save();
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
   this.update_model2 = new function() {
     this.click = function() {
+      models.person = new model('people');
       models.person.name = 'Luke';
       models.person._save('Name = Andrew');
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
+  this.update_model3 = new function() {
+    this.click = function() {
+      models.person = new model('people');
+      models.person.name = 'Andrew';
+      models.person._save('Name = Luke');
+      show(models.person);
+    };
+  };
 
   this.delete_model = new function() {
     this.click = function() {
       models.person._remove();
-      $.log(models.person.id,models.person.name,models.person.age);
+      show(models.person);
     };
   };
 
@@ -74,3 +83,8 @@ var controller_tests_method_model_test = new function() {
   };
 
 }; /* close class */
+
+function show(m) {
+  $.log('id '+m.id,'name '+m.name,'age '+m.age,'error '+m._error);
+  $.log(m);
+}
