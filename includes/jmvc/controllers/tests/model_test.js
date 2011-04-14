@@ -72,13 +72,14 @@ var controller_tests_method_model_test = new function() {
 
   this.model_exists = new function() {
     this.click = function() {
-      $.log(models._exists('person'));
+      $.log(mvc.modelExists('person'));
     };
   };
 
   this.form2model = new function() {
     this.click = function() {
-      $.log('form2model.click action');
+      $("#formid").mvcForm2Model('myform');
+      $.log(models.myform);
     };
   };
 

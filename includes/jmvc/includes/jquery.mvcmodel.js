@@ -1,8 +1,33 @@
-models = {};
+models = {}; /* global model storage */
 
-models._exists = function(name) {
-  return (!this[name]) ? false : true;
+mvc.modelExists = function(name) {
+  return (!models[name]) ? false : true;
 }
+
+jQuery.fn.mvcForm2Model = function(name,json) {
+  models[name] = new model(name);
+  
+  json = (!json) ? {} : json;
+
+  /* convert form to json object */
+  jQuery.each(jQuery(this).serializeArray(), function () {
+    if (json[this.name]) {
+      if (!json[this.name].push) {
+        json[this.name] = [json[this.name]];
+      }
+      json[this.name].push(this.value || '');
+    } else {
+      json[this.name] = this.value || '';
+    }
+  });
+
+  json.mvc_post_selector = this.selector;
+  json.mvc_timestamp = Number(new Date());
+  json.mvc_url = mvc.self;
+  json.mvc_application_folder = mvc.application_folder;
+
+  jQuery.extend(models[name],json);
+};
 
 function model(name,file) {
   this._model_name = name;
@@ -39,3 +64,4 @@ model.prototype.__ajax = function(action,extra) {
   var serverjson = jQuery.mvcAjax(mvc.model_url + this._model_filename + '.js',extra);
   jQuery.extend(this,serverjson);
 }
+

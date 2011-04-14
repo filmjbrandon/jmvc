@@ -51,7 +51,10 @@ optional
 data = json object
 */
 jQuery.fn.mvcAction = function(event,func,data) {
-  jQuery(this).mvcData(data).mvcEvent(event,func);
+  if (data) {
+    jQuery(this).mvcData(data);
+  }
+  jQuery(this).mvcEvent(event,func);
 };
 
 /*
@@ -246,10 +249,10 @@ jQuery.mvcAjax = function (posturl, json, type, update) {
 
   var rtnjson = {};
   jQuery.ajax({
-  cache: false,
+    cache: false,
     type: 'POST',
     async: false,
-    timeout: 10,
+    timeout: mvc.blocking_wait,
     url: mvc.ajax_url + posturl,
     dataType: type,
     data: json,

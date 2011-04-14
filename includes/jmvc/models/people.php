@@ -27,7 +27,7 @@ class jmvc_server_model {
     $this->record = array();
 
     foreach ((array)$this->POST['record'] as $key => $value) {
-      if ($key{0} != '_') {
+      if (in_array($key,$this->dbcolumns)) {
         $this->record[$key] = $value;
         $this->model_columns[] = $key;
       }
