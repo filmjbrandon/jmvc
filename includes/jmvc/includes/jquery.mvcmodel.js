@@ -4,29 +4,10 @@ mvc.modelExists = function(name) {
   return (!models[name]) ? false : true;
 }
 
+/* jquery.mvcform.js needed to use this funciton */
 jQuery.fn.mvcForm2Model = function(name,json) {
   models[name] = new model(name);
-  
-  json = (!json) ? {} : json;
-
-  /* convert form to json object */
-  jQuery.each(jQuery(this).serializeArray(), function () {
-    if (json[this.name]) {
-      if (!json[this.name].push) {
-        json[this.name] = [json[this.name]];
-      }
-      json[this.name].push(this.value || '');
-    } else {
-      json[this.name] = this.value || '';
-    }
-  });
-
-  json.mvc_post_selector = this.selector;
-  json.mvc_timestamp = Number(new Date());
-  json.mvc_url = mvc.self;
-  json.mvc_application_folder = mvc.application_folder;
-
-  jQuery.extend(models[name],json);
+  jQuery.extend(models[name],$(this).mvcForm2Json(json));
 };
 
 function model(name,file) {
