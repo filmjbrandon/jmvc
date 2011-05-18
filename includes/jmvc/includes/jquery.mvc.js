@@ -13,7 +13,7 @@ $.mvcController(func);
 
 $.mvcController(name,func);
   name = name of controller nameController.js
-  func = string function (eval) or f = function() { alert('welcome'); };
+  func = string function (eval) or var f = function() { alert('welcome'); };
 
 */
 jQuery.mvcController = function (name,func) {
