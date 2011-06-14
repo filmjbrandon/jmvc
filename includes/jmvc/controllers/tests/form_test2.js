@@ -16,7 +16,6 @@ var controller_tests_method_form_test2 = new function() {
     };
   };
 
-
   this.Form2Json = new function() {
     this.click = function() {
       var x = $("#formid").mvcForm2Json({'extra':'abc123'});
@@ -26,7 +25,7 @@ var controller_tests_method_form_test2 = new function() {
 
   this.FormValidateFail = new function() {
     this.click = function() {
-      var rtnJson = $("#formid").mvcFormValidate();
+      var rtnJson = $("#formid").mvcFormValidate(null,null);
       $.log(rtnJson);
     };
   };

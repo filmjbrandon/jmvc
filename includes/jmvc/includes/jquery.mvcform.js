@@ -43,6 +43,8 @@ jQuery.fn.mvcForm2Json = function(json) {
 };
 
 /*
+simple - send form to url from form's action attrubute + validation_url setting ie action="submit" url = submit_validate
+$("#form_id").mvcFormValidate();
 basic - send the form id as json to given url
 $("#form_id").mvcFormValidate('url');
 advanced - send the form id as json to given url submit the form on true (if mvc_model_valid = true)

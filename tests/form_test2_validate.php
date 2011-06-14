@@ -1,5 +1,6 @@
 <?php
 $output['mvc_model_valid'] = false;
+$output['input'] = print_r($_POST,true);
 
 $json = json_encode($output);
 
