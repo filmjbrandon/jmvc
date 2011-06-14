@@ -15,21 +15,16 @@ $url = $argv[1];
 
 echo 'Generating Controller For: '.$url.$n;
 
-/* figure out the Controller & Method */
-$controller_start = (isset($argv[2])) ? $argv[2] : 1;
-
 $parts = explode('/',$url);
+$parts_count = count($parts);
 
-array_shift($parts);
-array_shift($parts);
+display('URL Parts',$parts);
 
-print_r($parts);
-
-$controller = $parts[$controller_start];
-$method = $parts[$controller_start+1];
+$controller = $parts[$parts_count-2];
+$method = $parts[$parts_count-1];
 
 echo 'Controller: '.$controller.$n;
-echo 'Method: '.$method.$n;
+echo 'Method: '.$method.$n.$n;
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
@@ -46,8 +41,6 @@ foreach ($test as $name) {
   if (!empty($shark)) $names[] = $shark;
 }
 
-print_r($names);
-
 $output  = 'var controller_'.$controller.'_method_'.$method.' = new function() {'.$n.$n;
 $output .= '  this.__construct = function() {'.$n;
 $output .= '    $.log(\'controller_'.$controller.'_method_'.$method.' init\');'.$n;
@@ -55,6 +48,8 @@ $output .= '  }'.$n.$n;
 
 foreach ($names as $id) {
   $is_valid = (!preg_match('#^[a-zA-Z_$][0-9a-zA-Z_$]*$#', $id)) ? false : true;
+
+  echo '  valid id '.$id.$n;
   
   if ($is_valid) {
     $output .= '  this.'.$id.' = new function() {'.$n;
@@ -63,12 +58,24 @@ foreach ($names as $id) {
     $output .= '    };'.$n;
     $output .= '  };'.$n.$n;
   } else {
-    echo $id.' is a invalid javascript variable name'.$n;
+    echo 'invalid id '.$id.$n;
   }
 }
 
 $output .= '}; /* close class */'.$n;
 
-file_put_contents($dir.$method.'.js',$output);
+@mkdir($dir.'controllers');
+@mkdir($dir.'controllers/'.$controller);
+$file = $dir.'controllers/'.$controller.'/'.$method.'.js';
+echo $n.$file.$n;
+file_put_contents($file,$output);
 
 echo 'Finished'.$n;
+
+function display($header,$ary) {
+  echo $header.chr(10);
+  foreach ((array)$ary as $value) {
+    echo $value.chr(10);
+  }
+  echo chr(10);
+}
