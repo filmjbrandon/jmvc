@@ -28,6 +28,7 @@ echo show($tests,false);
       </select>
       </p>
       <p>Textarea: <textarea name="textarea_input"></textarea></p>
+      <button id="btnsubmit" type="submit">Submit</button>
     </form>
 
   </body>

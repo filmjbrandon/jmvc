@@ -2,6 +2,7 @@ var controller_tests_method_form_test2 = new function() {
 
   this.__construct = function() {
     $.log('controller_jmvc_tester_method_form_test init');
+    $("#formid").mvcUnbindSubmit();
   }
 
   this.FormHidden = new function() {

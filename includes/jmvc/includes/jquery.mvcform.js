@@ -85,3 +85,13 @@ jQuery.fn.mvcFormAction = function (url) {
     jQuery(this).attr('action', url);
   });
 };
+
+/*
+wrapper to unbind a forms submit action
+$("#formid").mvcUnbindSubmit();
+*/
+jQuery.fn.mvcUnbindSubmit = function () {
+  jQuery(this).submit(function() {
+    return false;
+  });
+}

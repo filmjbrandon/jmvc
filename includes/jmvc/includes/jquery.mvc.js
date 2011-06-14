@@ -22,6 +22,7 @@ jQuery.mvcController = function (name,func) {
   var clas = segs[0];
   var meth = segs[1];
   var complete_name = mvc.controller_named + '_' + clas + '_' + mvc.method_named + '_'  + meth; /* controller_index_method_index */
+  jQuery.log(complete_name + '.' + mvc.constructor_named + '()');
   jQuery.log(mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
   jQuery.getScript(mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js', function () {
     /* fire off construct */
