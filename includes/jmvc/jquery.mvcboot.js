@@ -26,6 +26,9 @@ mvc.ajax_url = '';
 /* form submit on validation passed default value */
 mvc.validation_submit = true;
 
+/* appened to validation action url if no URL provied */
+mvc.validation_url = '_validate';
+
 /* location of the models - absolute path */
 mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 

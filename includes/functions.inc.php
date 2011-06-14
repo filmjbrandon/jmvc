@@ -4,14 +4,14 @@ function show($tests,$footer=true) {
   echo '<!DOCTYPE html>
   <html>
   <head>
-  <script type="text/javascript" src="../includes/js/jquery-1.5.2.min.js"></script>
-  <script type="text/javascript" src="../includes/js/jquery.mvcboot.js"></script>
-  <link rel="stylesheet" media="screen" type="text/css" href="../includes/style.css"/>
-  <script language="Javascript" type="text/javascript">
-    $(document).ready(function(){
-      $.mvc();
-    });
-  </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="../includes/jmvc/jquery.mvcboot.js"></script>
+    <link rel="stylesheet" media="screen" type="text/css" href="../includes/style.css"/>
+    <script language="Javascript" type="text/javascript">
+      $(document).ready(function(){
+        $.mvc();
+      });
+    </script>
   </head>
   <body>
   <p>The American College Form Handler 3 '.basename($_SERVER['PHP_SELF']).' Tester</p>';
@@ -26,6 +26,10 @@ function show($tests,$footer=true) {
   echo '<div id="output"></div>';
   echo '<div id="bogus"></div>';
   echo '<div><a href="../index.php">Home</a></div>';
+  
+  if (isset($_POST)) {
+    echo '<pre>'.print_r($_POST,true).'</pre>';
+  }
   
   if ($footer) echo '</body></html>';
 }

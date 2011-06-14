@@ -59,7 +59,9 @@ other options include:
 mvc_pre_view with valid javascript code to run
 mvc_post_view with valid javascript code to run
 */
-  submit = (!submit) ? false : true;
+  submit = (!submit) ? mvc.validation_submit : submit;
+  url = (!url) ? jQuery(this).attr('action') + mvc.validation_url : url;
+
   var rtnJson = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),'json',true);
 
   if (rtnJson !== null) {
@@ -71,7 +73,6 @@ mvc_post_view with valid javascript code to run
     return false;
   }
 };
-
 
 /*
 basic - change the url of the form action
