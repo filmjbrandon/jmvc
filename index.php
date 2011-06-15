@@ -5,13 +5,10 @@
 </head>
 <body>
 <?php
-$no = array('index','functions.inc','create-controller-for-url');
-
 $files = glob('tests/*.php');
 foreach ($files as $file) {
   $bn = basename($file,'.php');
-  if (!in_array($bn,$no))
-    echo '<p><a href="tests/'.$bn.'">'.$bn.'</a></p>';
+  echo '<p><a href="tests/'.$bn.'">'.$bn.'</a></p>';
 }
 ?>
 </body>
