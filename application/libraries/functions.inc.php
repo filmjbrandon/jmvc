@@ -58,11 +58,6 @@ function start_html() {
     
     a:hover{ text-decoration: underline; }
     </style>
-    <script language="Javascript" type="text/javascript">
-      $(document).ready(function(){
-        $.mvc();
-      });
-    </script>
   </head>
   <body>';
 }

@@ -3,7 +3,7 @@
 /* no view, no models, lousy error handling, etc... */
 
 /* basic config */
-$server_url = 'http://'.$_SERVER['SERVER_ADDR']; /* NO Trailing Slash */
+$server_url = 'http://localhost'; /* NO Trailing Slash */
 $application_path = '/jmvc'; /* NO Trailing Slash */
 
 /* done */

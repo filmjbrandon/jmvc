@@ -1,18 +1,21 @@
 /*
 Requires jQuery 1.4.3+
 
-$.mvcController(name);
+$.mvcController('controller/method');
   load controller based on controller/method
 
-$.mvcController(name,func);
+$.mvcController('controller/method',func);
   load controller based on controller/method
   run function or string when finished
+
+$.mvcController(func);
+  load default and run function or string when finished
 
 */
 jQuery.mvcController = function(name,func) {
   var segs = name.split('/');
-  var clas = segs[0];
-  var meth = segs[1];
+  var clas = segs[0] || 'index';
+  var meth = segs[1] || 'index';
   var complete_name = mvc.controller_named + clas + mvc.method_named + meth; /* controller_index_method_index */
   jQuery.log(name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
   jQuery.getScript(mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js', function () {
@@ -37,6 +40,8 @@ jQuery.mvcController = function(name,func) {
 };
 
 /*
+Attach event and data in one call
+this is equivalent to calling data and event seperately
 event = click,mouseover,change,keyup
 func = indexController.action1.click() or func = function() { alert('welcome'); };
 optional
@@ -55,13 +60,15 @@ required
 name: name of the view file either absolute or relative /folder/file or folder/folder/file or file
 optional
 json: extra variables sent to view ajax call
-update: true/false{default} update the DOM when id's or classes match
+update: true/false update the DOM when id's or classes match
 this will also try to load a controller for your new view
 
 -- I like what jQuery is adding when it comes to a templating class not exactly sure how that fits thou...
 */
 jQuery.mvcView = function (name, json, update) {
-  var rtnjson = jQuery.mvcAjax('views/' + name, json, 'json', update);
+  var view_file = mvc.mvcpath + 'views/' + name + '.js';
+  $.log('Try to Load View ' + view_file);
+  var rtnjson = jQuery.mvcAjax(view_file, json, 'json', update);
   jQuery.mvcController(name);
   return rtnjson;
 };
@@ -121,48 +128,48 @@ $("#selector").mvcData({}); (clears it out)
 $("#selector").mvcData("name","value");
 */
 jQuery.fn.mvcData = function (name, value) {
-    /* GET return Object if both empty */
-    if (!name && !value) {
-      return jQuery(this).data('mvc');
+  /* GETTER - return Object if both empty */
+  if (!name && !value) {
+    return jQuery(this).data('mvc');
+  }
+  /* SETTER - if name is a object */
+  if (typeof(name) == 'object') {
+    jQuery(this).data('mvc',name);
+    return true;
+  }
+  /* GETTER - if value is empty then they are asking for a property by name */
+  if (!value) {
+    var rtn;
+    var temp = jQuery(this).data('mvc');
+    if (temp) {
+      rtn = temp[name];
     }
-    /* SET if name is a object */
-    if (typeof(name) == 'object') {
-      jQuery(this).data('mvc',name);
+    return rtn;
+  }
+  /* SETTER - if name & value set */
+  if (name && value) {
+    var temp = jQuery(this).data('mvc');
+    if (temp) {
+      temp[name] = value;
+      jQuery(this).data('mvc',temp);
       return true;
     }
-    /* GET if value is empty then they are asking for a property by name */
-    if (!value) {
-      var rtn;
-      var temp = jQuery(this).data('mvc');
-      if (temp) {
-        rtn = temp[name];
-      }
-      return rtn;
-    }
-    if (name && value) {
-      /* SET if name & value set */
-      var temp = jQuery(this).data('mvc');
-      if (temp) {
-        temp[name] = value;
-        jQuery(this).data('mvc',temp);
-        return true;
-      }
-      return false;
-    }
+    return false;
+  }
 };
 
 /*
 Generic Event Set/Get
 */
 jQuery.fn.mvcEvent = function (event, func) {
+  /* SETTER - event = object & function empty - clear all */
   if (typeof(event) == 'object' && !func) {
-    /* SET clear all */
     jQuery(this).die().css('cursor', '');
     return true;
   }
 
+  /* GETTER - event & func empty - return all events */
   if (!event && !func) {
-    /* GET return all events */
     var id = this.selector;
     var events = Array();
 
@@ -175,12 +182,11 @@ jQuery.fn.mvcEvent = function (event, func) {
         }
       }
     });
-
     return events;
   }
 
+  /* GETTER - event = string & function empty - does event exist */
   if (event && !func) {
-    /* GET does event exist */
     var id = this.selector;
     var events = Array();
     jQuery.each(jQuery(document).data('events').live, function (name,value) {
@@ -195,14 +201,14 @@ jQuery.fn.mvcEvent = function (event, func) {
     return (events.length !== 0);
   }
 
+  /* SETTER - event = string & function = empty object - clear function */
   if (event && typeof(func) == 'object') {
-    /* SET clear function */
     jQuery(this).die(event);
     return true;
   }
 
+  /* SETTER - event = object & func = object - event and function */
   if (event && func) {
-    /* SET event and function */
     jQuery(this).live(event,function () {
       mvc.event = jQuery(this);
       var dd = jQuery(this).data('mvcdata');
@@ -211,7 +217,6 @@ jQuery.fn.mvcEvent = function (event, func) {
     }).css('cursor', mvc.default_cursor);
     return true;
   }
-
 }
 
 /*
@@ -222,7 +227,7 @@ name = url of the file either /absolute/file.js or folder/file (based off of mvc
 optional
 json addition json to send
 type json{default} or any valid jQuery post dataType
-update true/false{default} weither to send to the update function
+update true/false{default} send to the update function
 */
 jQuery.mvcAjax = function(posturl, json, type, update) {
   /* NOTE: this is blocking ajax */
@@ -238,6 +243,7 @@ jQuery.mvcAjax = function(posturl, json, type, update) {
     json.mvc_uuid = jQuery.session_uid();
     json.mvc_session_id = jQuery.session_id();
   }
+  
   if (jQuery.cookie) {
     json.cookie = jQuery.cookie();
   }
@@ -255,7 +261,7 @@ jQuery.mvcAjax = function(posturl, json, type, update) {
       rtnjson = ajaxjson;
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      jQuery.log(jqXHR,textStatus,errorThrown);
+      jQuery.log('mvcAjax Error (4)',jqXHR,textStatus,errorThrown);
     }
   });
 
@@ -269,7 +275,7 @@ jQuery.mvcAjax = function(posturl, json, type, update) {
 };
 
 /*
-execute code
+execute code 
 function or string
 */
 jQuery.exec = function(code) {
@@ -292,7 +298,7 @@ jQuery.redirect = function(url) {
 
 /* does a element exist in the DOM?
 another simple wrapper function
-if ($("#selector).exists) {
+if ($("#selector).exists()) {
   do something
 }
 */
@@ -300,9 +306,9 @@ jQuery.fn.exists = function() {
   return jQuery(this).length > 0;
 };
 
-/* create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON(); */
+/* create a wrapper for $.postJSON(); - uses post instead of get same parameters as in $.getJSON(); */
 jQuery.extend({
-  postJSON: function( url, data, callback) {
+  postJSON: function(url, data, callback) {
     return jQuery.post(url, data, callback, 'json');
   }
 });
