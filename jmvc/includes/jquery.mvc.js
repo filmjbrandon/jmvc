@@ -9,7 +9,7 @@ $.mvcController(name,func);
   run function or string when finished
 
 */
-jQuery.mvcController = function (name,func) {
+jQuery.mvcController = function(name,func) {
   var segs = name.split('/');
   var clas = segs[0];
   var meth = segs[1];
@@ -224,10 +224,10 @@ json addition json to send
 type json{default} or any valid jQuery post dataType
 update true/false{default} weither to send to the update function
 */
-jQuery.mvcAjax = function (posturl, json, type, update) {
+jQuery.mvcAjax = function(posturl, json, type, update) {
   /* NOTE: this is blocking ajax */
-  json = (!json) ? {} : json;
-  type = (!type) ? 'json' : type;
+  json = json || {};
+  type = type || 'json';
 
   json.mvc_posturl = posturl;
   json.mvc_type = type;
@@ -272,7 +272,7 @@ jQuery.mvcAjax = function (posturl, json, type, update) {
 execute code
 function or string
 */
-jQuery.exec = function (code) {
+jQuery.exec = function(code) {
   if (code !== '' || code !== undefined) {
     var func = (typeof(code) === 'function') ? code : new Function(code);
     try {
@@ -286,13 +286,9 @@ jQuery.exec = function (code) {
 /*
 client based redirect
 */
-jQuery.redirect = function (url) {
+jQuery.redirect = function(url) {
   window.location.replace(url);
 };
-
-/* simple wrapper to make the syntax "look" cleaner */
-/* var mine = Json; "looks" cleaner then var mine = {}; */
-var data = Json = {};
 
 /* does a element exist in the DOM?
 another simple wrapper function
@@ -310,3 +306,4 @@ jQuery.extend({
     return jQuery.post(url, data, callback, 'json');
   }
 });
+

@@ -2,7 +2,7 @@
  * jQuery MVC Framkework for Client Side Interaction
  *
  * @package jQueryMVC
- * @license Creative Commons Attribution License http://creativecommons.org/licenses/by/2.0/uk/
+ * @license Creative Commons Attribution License http://creativecommons.org/licenses/by/3.0/legalcode
  * @link
  * @version 0.0.4
  * @author Don Myers donmyers@mac.com
@@ -20,6 +20,11 @@ mvc.domain = 'http://localhost'; /* NO trailing slash */
 /* Folder (if any) */
 mvc.folder = '/jmvc'; /* NO trailing slash */
 
+/* ** That should be all you need to config JMVC! ** */
+
+/* auto load everything including starting the router */
+mvc.auto_load = true;
+
 /* complete path */
 mvc.path = mvc.domain + mvc.folder + '/'; 
 
@@ -32,7 +37,7 @@ mvc.ajax_url = '';
 /* form submit on validation passed default value */
 mvc.validation_submit = true;
 
-/* appened to validation action url if no URL provied */
+/* append to validation action url if no URL provied */
 mvc.validation_url = '_validate';
 
 /* location of the models - absolute path */
@@ -74,7 +79,7 @@ mvc.mvcpath = mvc.path + mvc.application_folder;
 mvc.debug = true;
 
 /* auto update views on ajax */
-mvc.auto_update_view = true;
+mvc.auto_update_view = false;
 
 /* we uses a few blocking ajax calls how long should we wait? */
 mvc.blocking_wait = 3000;
@@ -87,10 +92,7 @@ mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
 mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.cookie','jquery.json-2.2','jquery.session','jstorage'); /*  */
-
-/* setup some globalish mvc variables */
-/* holds all the models */
-mvc.model = Array();
+//mvc.auto_include = Array();
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/
 mvc.event = null;
@@ -100,6 +102,11 @@ mvc.data = null;
 
 /* ajax returned responds */
 mvc.ajax_responds = null;
+
+/* a frw other holders */
+mvc.data = {};
+mvc.json = {};
+mvc.global = {};
 
 /* the router */
 jQuery.mvc = function (name,func) {
@@ -143,3 +150,8 @@ jQuery.log = function () {
     }
   }
 };
+
+/* start jmvc */
+$().ready(function(){
+  if (mvc.auto_load) { $.mvc(); }
+});

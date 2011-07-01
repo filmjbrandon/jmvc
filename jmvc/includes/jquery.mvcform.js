@@ -20,7 +20,7 @@ advanced - add additional payload
 $("#form_id").mvcForm2Json({'extra':'abc123'});
 */
 jQuery.fn.mvcForm2Json = function(json) {
-  json = (!json) ? {} : json;
+  json = json || {};
 
   /* convert form to json object */
   jQuery.each(jQuery(this).serializeArray(), function () {
@@ -77,9 +77,9 @@ other options include:
 mvc_pre_view with valid javascript code to run
 mvc_post_view with valid javascript code to run
 */
-  submit = (!submit) ? mvc.validation_submit : submit;
-  url = (!url) ? jQuery(this).attr('action') + mvc.validation_url : url;
-  update_view = (!update_view) ? mvc.auto_update_view : update_view;
+  submit = submit || mvc.validation_submit;
+  url = url || jQuery(this).attr('action') + mvc.validation_url;
+  update_view = update_view || mvc.auto_update_view;
 
   mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),'json',true);
   
