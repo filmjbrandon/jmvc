@@ -1,4 +1,4 @@
- /* global mvc model storage */
+/* global mvc model storage */
 mvc.model = {};
 
 mvcModel = function(file) {
@@ -25,7 +25,7 @@ mvcModel.prototype._sync = function(action,extra) {
   post.filename = this._filename;
   post.action = action.toLowerCase();
   
-  post.record = jQuery.mvcModelCopy(this);
+  post.record = jQuery.mvcCopy(this,'_');
   
   post.extra = extra || {};
 
@@ -63,19 +63,6 @@ mvcModel.prototype._seek = function(index) {
 jQuery.fn.mvcForm2Model = function(file,json) {
   var tempmodel = new mvcModel(file);
   return jQuery.extend(tempmodel,jQuery(this).mvcForm2Json(json));
-};
-
-/* copy to and from object */
-jQuery.mvcModelCopy = function(obj) {
-  var final = {};
-  for (var attr in obj) {
-    if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
-      if (attr.substr(0,1) != '_') {
-        final[attr] = obj[attr];
-      }
-    }
-  }
-  return final;
 };
 
 jQuery.mvcModelId = function () {

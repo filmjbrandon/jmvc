@@ -19,26 +19,26 @@ $("#form_id").mvcForm2Json();
 advanced - add additional payload
 $("#form_id").mvcForm2Json({'extra':'abc123'});
 */
-jQuery.fn.mvcForm2Json = function(json) {
-  json = json || {};
+jQuery.fn.mvcForm2Obj = function(obj) {
+  obj = obj || {};
 
   /* convert form to json object */
   jQuery.each(jQuery(this).serializeArray(), function () {
-    if (json[this.name]) {
+    if (obj[this.name]) {
       if (!json[this.name].push) {
-        json[this.name] = [json[this.name]];
+        obj[this.name] = [obj[this.name]];
       }
-      json[this.name].push(this.value || '');
+      obj[this.name].push(this.value || '');
     } else {
-      json[this.name] = this.value || '';
+      obj[this.name] = this.value || '';
     }
   });
-  json.mvc_post_selector = this.selector;
-  json.mvc_timestamp = Number(new Date());
-  json.mvc_url = mvc.self;
-  json.mvc_application_folder = mvc.application_folder;
+  obj.mvc_post_selector = this.selector;
+  obj.mvc_timestamp = Number(new Date());
+  obj.mvc_url = mvc.self;
+  obj.mvc_application_folder = mvc.application_folder;
 
-  return json;
+  return jQuery.mvcCopy(obj);
 };
 
 /* 

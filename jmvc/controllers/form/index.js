@@ -21,7 +21,7 @@ var controller_form_method_index = new function() {
 
   this.Form2Json = new function() {
     this.click = function() {
-      var json = $('#formid').mvcForm2Json({'extra':'abc123'});
+      var json = $('#formid').mvcForm2Obj({'extra':'abc123'});
       $.log(json);
       $('#output').append('<p>Check your console output</p>');
     };

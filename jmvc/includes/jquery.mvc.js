@@ -307,3 +307,17 @@ jQuery.extend({
   }
 });
 
+/* Copy */
+jQuery.mvcCopy = function(obj,strip_extra) {
+  var final = {};
+  strip_extra = strip_extra || '';
+  for (var attr in obj) {
+    if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
+      if (attr.substr(0,1) != strip_extra) {
+        final[attr] = obj[attr];
+      }
+    }
+  }
+  return final;
+};
+
