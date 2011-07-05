@@ -1,25 +1,111 @@
 <?php
 /*
-this is a really basic serverside model handler 
-Of course since javascript can't talk directly to your servers database
-additional server-side code is needed
-*/
-require('jmvc_server_model.class.php');
+Input (JSON) *Will Have
 
-if ($_POST['mvc_model_action'] == 'jump') {
-  $people = new jmvc_server_model('people',array('id','name','age'));
-  $people->fill_record();
-  $people->record['name'] = 'jump';
-  $people->record['age'] = 'jump';
-  $people->send();
+Array
+
+[*filename] => notes
+[*action] => load
+[*record] => Array
+  (
+      [id] => 17
+  )
+[*extra] => Array
+  (
+  )
+[*mvc_posturl] => http://localhost/overflow_auto/jmvc/models/notes.js
+[*mvc_type] => json
+[*mvc_timestamp] => 1309364807177
+
+
+
+Output (JSON) *MUST Return
+
+[*error] => No Error
+[*error_no] => 0
+[*row_affected] => 1
+[*record] => Array
+  (
+    [id] => 17
+    [title] => womenfolk
+
+    [tags] => palmature
+
+    [note] => galvanograph
+unsanguineous
+standard
+  )
+[*records] => Array
+  (
+    [0] => Array
+      (
+        [id] => 17
+        [title] => womenfolk
+        [tags] => palmature
+        [note] => galvanograph
+unsanguineous
+standard
+      )
+  )
+*/
+
+logger(print_r($_POST,true),'input');
+
+/* dummy */
+$action = $_POST['action'];
+
+$json = array();
+
+switch ($action) {
+  case 'load': /* load based on primary id or all if none */
+    $json['error'] = 'No Error';
+    $json['error_no'] = 0;
+    $json['row_affected'] = 1;
+    $json['record'] = array('id' => 17,'title' => 'womenfolk','tags' => 'palmature','note' => 'galvanograph'.chr(10).'unsanguineous'.chr(10).'standard');
+    $json['records'][0] = $json['record'];
+  break;
+
+  case 'load_all': /* custom _sync action */
+    $json['error'] = 'No Error';
+    $json['error_no'] = 0;
+    $json['row_affected'] = 2;
+    $json['record'] = array('id' => 17,'title' => 'womenfolk','tags' => 'palmature','note' => 'galvanograph'.chr(10).'unsanguineous'.chr(10).'standard');
+    $json['records'][0] = $json['record'];
+    $json['records'][1] = array('id' => 18,'title' => 'person','tags' => 'dancing','note' => 'test'.chr(10).'test1'.chr(10).'test2');
+  break;
+
+  case 'save': /* handles insert & update */
+    $json['error'] = 'No Error';
+    $json['error_no'] = 0;
+    $json['row_affected'] = 1;
+    /* return full record */
+    $json['record'] = array('id' => 17,'title' => 'womenfolk','tags' => 'palmature','note' => 'galvanograph'.chr(10).'unsanguineous'.chr(10).'standard');
+    $json['records'][0] = $json['record'];
+  break;
+
+  case 'remove': /* remove based on primary id */
+    $json['error'] = 'No Error';
+    $json['error_no'] = 0;
+    $json['row_affected'] = 1;
+    /* return empty record */
+    $json['record'] = array('id' => '','title' => '','tags' => '','note' => '');
+    $json['records'][0] = $json['record'];
+  break;
+  
+  case 'error': /* custom _sync action */
+    $json['error'] = 'Big Bad Error';
+    $json['error_no'] = 333;
+    $json['row_affected'] = 0;
+  break;
 }
 
-/* connect to your db however you like */
-$db_link_local = @mysql_connect('localhost','root','root') or die('could not connect - local'.chr(10));
-@mysql_select_db('jmvc') or die('could not select database - local'.chr(10));
+header('Content-type: text/json');
+logger(print_r($json,true),'output');
+die(json_encode($json));
 
-/* table name, columns, primary id */
-$people = new jmvc_server_model('people',array('id','name','age'));
-
-/* this used $_POST if no variable passed */
-$people->process();
+function logger($v,$name) {
+  if ($log_handle = fopen($name.'.log','a')) {
+    fwrite($log_handle,$v.chr(10));
+    fclose($log_handle);
+  }
+}

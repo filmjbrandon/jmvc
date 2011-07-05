@@ -15,9 +15,9 @@ jQuery.fn.mvcFormHidden = function (name, value) {
 
 /*
 basic
-$("#form_id").mvcForm2Json();
+$("#form_id").mvcForm2Obj();
 advanced - add additional payload
-$("#form_id").mvcForm2Json({'extra':'abc123'});
+$("#form_id").mvcForm2Obj({'extra':'abc123'});
 */
 jQuery.fn.mvcForm2Obj = function(obj) {
   obj = obj || {};
@@ -38,7 +38,7 @@ jQuery.fn.mvcForm2Obj = function(obj) {
   obj.mvc_url = mvc.self;
   obj.mvc_application_folder = mvc.application_folder;
 
-  return jQuery.mvcCopy(obj);
+  return obj;
 };
 
 /* 
@@ -81,7 +81,7 @@ mvc_post_view with valid javascript code to run
   url = url || jQuery(this).attr('action') + mvc.validation_url;
   update_view = update_view || mvc.auto_update_view;
 
-  mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Json(json),'json',true);
+  mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Obj(json),'json',true);
   
   if (mvc.ajax_responds !== null) {
     if (mvc.ajax_responds.mvc_model_valid === true && submit === true) {

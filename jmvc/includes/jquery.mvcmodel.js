@@ -2,6 +2,7 @@
 mvc.model = {};
 
 mvcModel = function(file) {
+  /* these things maintain state */
   this._filename = file;
   this._records = {};
   this._index = 0;
@@ -11,14 +12,15 @@ mvcModel = function(file) {
   this._internal_id = jQuery.mvcModelId();
 };
 
-mvcModel.prototype._sync_where = function(action,where) {
+mvcModel.prototype._sync = function(action,where) {
   var extra = {};
   extra.where = where;
   this._sync(action,extra);
 }
 
-mvcModel.prototype._sync = function(action,extra) {
+mvcModel.prototype._sync = function(action) {
   /* actions include load, save, delete */
+  /* the server model handler could have more ie. load_sort_by_name */
   /* build our post */
   var post = {};
 
@@ -26,8 +28,10 @@ mvcModel.prototype._sync = function(action,extra) {
   post.action = action.toLowerCase();
   
   post.record = jQuery.mvcCopy(this,'_');
-  
-  post.extra = extra || {};
+  post.extra = {};
+  for (var idx = 1; idx < arguments.length; idx++) {
+    post.extra[arguments[idx]] = arguments[++idx];
+  }
 
   /* send it out via blocking ajax */
   var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post);
@@ -62,7 +66,7 @@ mvcModel.prototype._seek = function(index) {
 /* jquery.mvcform.js needed to use this funciton */
 jQuery.fn.mvcForm2Model = function(file,json) {
   var tempmodel = new mvcModel(file);
-  return jQuery.extend(tempmodel,jQuery(this).mvcForm2Json(json));
+  return jQuery.extend(tempmodel,jQuery(this).mvcForm2Obj(json));
 };
 
 jQuery.mvcModelId = function () {
@@ -71,3 +75,18 @@ jQuery.mvcModelId = function () {
   var rnd = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
   return s + rnd;
 }
+
+/* Copy */
+jQuery.mvcCopy = function(obj,strip_extra) {
+  var final = {};
+  strip_extra = strip_extra || '';
+  for (var attr in obj) {
+    if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
+      if (attr.substr(0,1) != strip_extra) {
+        final[attr] = obj[attr];
+      }
+    }
+  }
+  return final;
+};
+

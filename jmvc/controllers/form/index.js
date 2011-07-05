@@ -53,6 +53,7 @@ var controller_form_method_index = new function() {
   this.fill_form = new function() {
     this.click = function() {
       /* data is already declared by mvc */
+      var data = {};
       data.text_input = 'This is a test';
       data.checkbox_input = true;
       data.radio_input = 1;

@@ -103,8 +103,8 @@ mvc.data = null;
 /* ajax returned responds */
 mvc.ajax_responds = null;
 
-/* a frw other holders */
-mvc.data = {};
+/* a few other holders */
+mvc.output = {};
 mvc.json = {};
 mvc.global = {};
 

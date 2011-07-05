@@ -19,7 +19,7 @@ var controller_tests_method_form_test2 = new function() {
 
   this.Form2Json = new function() {
     this.click = function() {
-      var x = $("#formid").mvcForm2Json({'extra':'abc123'});
+      var x = $("#formid").mvcForm2Obj({'extra':'abc123'});
       $.log(x);
     };
   };
