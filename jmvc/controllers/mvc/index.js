@@ -174,7 +174,6 @@ var controller_mvc_method_index = new function() {
       } else {
         $("#output").append(' also not_really_here id doesn\'t exist');
       }
-
         
     };
   };

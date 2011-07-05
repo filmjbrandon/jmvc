@@ -91,7 +91,7 @@ mvc.default_cursor = 'pointer';
 mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
-mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.cookie','jquery.json-2.2','jquery.session','jstorage'); /*  */
+mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
 //mvc.auto_include = Array();
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/

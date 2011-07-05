@@ -8,6 +8,7 @@ mvcModel = function(file) {
   this._rows_affected = 0;
   this._error = '';
   this._error_no = 0;
+  this._internal_id = jQuery.mvcModelId();
 };
 
 mvcModel.prototype._sync_where = function(action,where) {
@@ -61,7 +62,7 @@ mvcModel.prototype._seek = function(index) {
 /* jquery.mvcform.js needed to use this funciton */
 jQuery.fn.mvcForm2Model = function(file,json) {
   var tempmodel = new mvcModel(file);
-  return jQuery.extend(tempmodel,$(this).mvcForm2Json(json));
+  return jQuery.extend(tempmodel,jQuery(this).mvcForm2Json(json));
 };
 
 /* copy to and from object */
@@ -76,3 +77,10 @@ jQuery.mvcModelCopy = function(obj) {
   }
   return final;
 };
+
+jQuery.mvcModelId = function () {
+  var now = new Date().getTime() / 1000;
+  var s = parseInt(now, 10);
+  var rnd = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+  return s + rnd;
+}
