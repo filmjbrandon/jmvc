@@ -44,7 +44,7 @@ mvc.validation_url = '_validate';
 mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 
 /* auto generated prefix */
-mvc.auto_gen = 'mvc_gen_';
+mvc.auto_gen = '';
 
 /* reference to self */
 mvc.self = location.href;

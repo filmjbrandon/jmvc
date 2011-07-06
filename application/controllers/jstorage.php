@@ -6,8 +6,8 @@ class jstorage_controller {
   function index() {
     start_html();
 
-    echo '<p>I also include jstorage by Andris Reinman (license in source)</p>';
-    echo '<p>which does the same type of thing as my session</p>';
+    $extra = '<p>jstorage by Andris Reinman (license in source)</p>';
+    show_header($extra);
 
     $tests[] = array('seta','Set Value A');
     $tests[] = array('setb','Set Value B');
@@ -22,7 +22,12 @@ class jstorage_controller {
     $tests[] = array('storageavailable','Is Storage Available');
     $tests[] = array('reinit','Reloads the data from browser storage');
     
-    echo show($tests);
+    show_left_block($tests,$form);
+    show_right_block();
+    
+    show_footer();
+
+    end_html();
 
     end_html();
   }

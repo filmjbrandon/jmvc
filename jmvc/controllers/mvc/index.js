@@ -6,47 +6,56 @@ var controller_mvc_method_index = new function() {
 
   this.mvcClick = new function() {
     this.click = function() {
-      alert('Click!');
+      writeDebug('Click!');
     };
   };
 
   this.mvcController1 = new function() {
     this.click = function() {
       /* load controller by name */
-      $.mvc('mycontroller');
+      var x = $.mvc('mycontroller');
+      writeDebug(x);
     };
   };
 
   this.mvcController2 = new function() {
     this.click = function() {
       /* load controller by name then run function */
-      $.mvc('mycontroller',function() { alert('Hello World'); });
+      var x = $.mvc('mycontroller',function() { writeDebug("click"); });
+      writeDebug(x);
     };
   };
 
   this.mvcController3 = new function() {
     this.click = function() {
       /* load default controller then run function */
-      $.mvc(function() { alert('Hello World'); });
+      var x = $.mvc(function() { writeDebug("click"); });
+      writeDebug(x);
     };
   };
 
   this.change_event1 = new function() {
     this.click = function() {
-      $("#change_event3").mvcAction('click',function() { alert('click'); });
+      var x = $("#change_event3").mvcAction('click',function() { writeDebug("click"); });
+      writeDebug(x);
     };
   };
 
   this.change_event2 = new function() {
     this.click = function() {
-      $("#change_event3").mvcAction('click',function() { alert('click magic = ' + $(mvc.event).mvcData('magic')); },{'magic':123});
+      var x = $("#change_event3").mvcAction('click',function() {
+          writeDebug('click magic = ' + $(mvc.event).mvcData('magic'));
+        },{'magic':123});
+      writeDebug(x);
     };
   };
 
   this.mvcView = new function() {
     this.click = function() {
       /* load view with auto update */
-      $.mvcView('view_name',{},true);
+      var x = $.mvcView('view_name',{},true);
+      writeDebug(x);
+      
     };
   };
 

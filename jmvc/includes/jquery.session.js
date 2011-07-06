@@ -39,6 +39,7 @@ jQuery.session_regenerate_id = function(delete_old_session) {
     jQuery.cookie("mvc_session", null, { path: '/' });
   }
   jQuery.cookie("mvc_sessionid", jQuery.uid(),{ path: '/' });
+  return true;
 };
 
 jQuery.session_destroy = function() {

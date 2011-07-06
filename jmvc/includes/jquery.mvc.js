@@ -33,7 +33,7 @@ jQuery.mvcController = function(name,func) {
     }
     /* fire off any when complete code sent in */
     jQuery.exec(func);
-});
+  });
 };
 
 /*

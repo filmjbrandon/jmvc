@@ -6,13 +6,8 @@ class session_controller {
   function index() {
     start_html();
 
-    echo '<p>My Original session handler modeled after PHP sessions</p>';
-    echo '<p>Written by Don Myers</p>';
-    echo '<p>I also found jstorage by Andris Reinman (see demo and license)</p>';
-    echo '<p>which does the same types of things</p>';
-    echo '<p>Like PHP always start the session</p>';
-    echo '<p>In this case I put that in the pages jmvc construct</p>';
-    
+    show_header();
+
     $tests[] = array('session_start','Session Start');
     $tests[] = array('session_uuid','Session uuid');
     $tests[] = array('session_id','Session id');
@@ -25,7 +20,10 @@ class session_controller {
     $tests[] = array('session_destroy','Session Destroy');
     $tests[] = array('uid','uid');
     
-    echo show($tests);
+    show_left_block($tests);
+    show_right_block();
+    
+    show_footer();
 
     end_html();
   }

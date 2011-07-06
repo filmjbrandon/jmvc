@@ -6,12 +6,19 @@ class cookie_controller {
   function index() {
     start_html();
 
+    show_header();
+
     $tests[] = array('writecookie','Write to Cookie');
     $tests[] = array('readcookie','Read from Cookie');
     $tests[] = array('deletecookie','Delete Cookie');
     $tests[] = array('writelongterm','Write Long Term Cookie');
     
-    echo show($tests);
+    show_left_block($tests);
+    show_right_block();
+    
+    show_footer();
+
+    end_html();
 
     end_html();
   }

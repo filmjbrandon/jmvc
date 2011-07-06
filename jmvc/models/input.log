@@ -26,3 +26,23 @@ Array
 
 )
 
+Array
+(
+    [filename] => people
+    [action] => load
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1309901865106
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [action] => load
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1309909706621
+    [cookie] => null
+)
+

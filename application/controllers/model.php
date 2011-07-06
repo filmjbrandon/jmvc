@@ -6,6 +6,8 @@ class model_controller {
   function index() {
     start_html();
 
+    show_header();
+
     $tests[] = array('read_model','Read Model');
     $tests[] = array('read_model2','Read Model with id');
     $tests[] = array('read_model3','Read All with Name Contains Luke');
@@ -19,10 +21,8 @@ class model_controller {
     $tests[] = array('displaymodel','Display What\'s in the current model');
     $tests[] = array('dosomeotheraction','Send jump Action (make all values "jump")');
     $tests[] = array('read_models','Read All with Name Contains Luke and make a list');
-    
-    echo show($tests,false);
-    
-    echo '<form id="formid" action="model" method="post">
+        
+    $form = '<form id="formid" action="model" method="post">
           <p>Name: <input type="text" name="text_input"></p>
           <p><input type="checkbox" value="red" name="checkbox_input1"> Red</p>
           <p><input type="checkbox" value="green" name="checkbox_input2"> Green</p>
@@ -40,7 +40,14 @@ class model_controller {
           <p>Textarea: <textarea name="textarea_input"></textarea></p>
           <p><input type="submit"></p>
         </form>';
+
+    show_left_block($tests,$form);
+    show_right_block();
     
+    show_footer();
+
+    end_html();
+
     end_html();
   }
 }

@@ -6,17 +6,17 @@ class form_controller {
   function index() {
     start_html();
 
-    $tests[] = array('FormHidden','Add Form Hidden');
-    $tests[] = array('FormChangeHidden','Form Change Hidden');
-    $tests[] = array('Form2Json','Convert Form to Json');
+    show_header();
+
+    $tests[] = array('FormHidden','Add Hidden Form Element');
+    $tests[] = array('FormChangeHidden','Change Form Hidden Form Element');
+    $tests[] = array('Form2Json','Convert Form to Object (JSON)');
     $tests[] = array('FormValidate','Validate Form Default Options Random Output');
-    $tests[] = array('FormValidateExtra','Validate Form Misc Options Random Output');
+    $tests[] = array('FormValidateExtra','Validate Form Extra Options Random Output');
     $tests[] = array('FormAction','Change Form Action');
     $tests[] = array('fill_form','Fill the Form with Test Data');
-    
-    echo show($tests);
 
-    echo '<form id="formid" action="form" method="post">
+    $form = '<form class="formblock" id="formid" action="form" method="post">
       <p>Name: <input type="text" name="text_input"></p>
       <p><input type="checkbox" value="red" name="checkbox_input1"> Red</p>
       <p><input type="checkbox" value="green" name="checkbox_input2"> Blue</p>
@@ -34,8 +34,15 @@ class form_controller {
       <p>Textarea: <textarea name="textarea_input"></textarea></p>
       <p><input type="submit"></p>
     </form>';
+
+    
+    show_left_block($tests,$form);
+    show_right_block();
+    
+    show_footer();
     
     end_html();
   }
 }
+
 

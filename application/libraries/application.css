@@ -1,0 +1,74 @@
+p {
+  padding:0;
+  margin:0;
+  font-size: 12px;
+  font-family:"Lucida Grande",Verdana,Arial,sans-serif
+}
+
+#left_block, #right_block {
+	float: left;
+	width: 50%;
+}
+
+#outputblock {line-height: 11px; font-size: 11px; font-family: monospace; padding: 4px; background-color: #d8cab7;}
+#posted {background-color: #bddab6; padding: 4px; margin-bottom: 1px; margin-top: 1px;}
+
+#output {
+  margin-bottom: 1px;
+  margin-top: 1px;
+  line-height: 11px;
+  font-size: 11px;
+  padding: 4px;
+  background:#d2cfa4;
+}
+
+.button {
+  padding: 4px;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  height: 12px;
+  line-height: 12px;
+  font-size:11px;
+  background-color: #c6d7e0;
+}
+
+.button:hover {
+  background-color:#f0f5f7
+}
+
+a {
+  color: #454545;
+  line-height: 14px;
+  font-size: 14px;
+  text-decoration:none;
+}
+
+.link {
+  line-height: 14px;
+  font-size: 14px;
+  padding-left:22px;
+  background-repeat:no-repeat;
+  text-decoration:none;
+  font-weight:700;
+  color:#495d75;
+  background-image: url(link.png);
+}
+
+a:hover {
+  text-decoration:underline
+}
+
+.heading {
+	padding: 4px;
+	line-height: 12px;
+	font-size: 12px;
+	height: 13px;
+	color: #f8f8f8;
+	background-color: #3b3b3b;
+}
+
+.formblock {
+	clear: both;
+	background-color: #d7b8b9;
+}
+

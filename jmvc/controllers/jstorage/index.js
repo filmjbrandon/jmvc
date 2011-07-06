@@ -6,91 +6,85 @@ var controller_jstorage_method_index = new function() {
 
   this.seta = new function() {
     this.click = function() {
-      $.jStorage.set('seta',123);
-      $('#output').append('<p>Set Persistant Storage Key seta to 123</p>');
+      var x = $.jStorage.set('seta',123);
+      writeDebug(x);
     };
   };
 
   this.setb = new function() {
     this.click = function() {
-      $.jStorage.set('setb','Donald');
-      $('#output').append('<p>Set Persistant Storage Key setb to Donald</p>');
+      var x = $.jStorage.set('setb','Donald');
+      writeDebug(x);
     };
   };
 
   this.setc = new function() {
     this.click = function() {
-      $.jStorage.set('setc',true);
-      $('#output').append('<p>Set Persistant Storage Key setc to true</p>');
+      var x = $.jStorage.set('setc',true);
+      writeDebug(x);
     };
   };
 
   this.get_seta = new function() {
     this.click = function() {
-      var seta = $.jStorage.get('seta');
-      data.bogus = seta;
-      $.mvcUpdate(data);
-      $('#output').append('<p>Get Key named seta and display</p>');
+      var x = $.jStorage.get('seta');
+      writeDebug(x);
     };
   };
 
   this.get_default = new function() {
     this.click = function() {
-      var setd = $.jStorage.get('setd','Tyson');
-      data.bogus = setd;
-      $.mvcUpdate(data);
-      $('#output').append('<p>Get Key named setd (empty) and display with Tyson default</p>');
+      var x = $.jStorage.get('setd','Tyson');
+      writeDebug(x);
     };
   };
 
   this.deletekey = new function() {
     this.click = function() {
-      $.jStorage.deleteKey('seta');
-      $('#output').append('<p>Deleted Key seta</p>');
+      var x = $.jStorage.deleteKey('seta');
+      writeDebug(x);
     };
   };
 
   this.flush = new function() {
     this.click = function() {
-      $.jStorage.flush();
-      $('#output').append('<p>Flushed Everything</p>');
+      var x = $.jStorage.flush();
+      writeDebug(x);
     };
   };
 
   this.storageobj = new function() {
     this.click = function() {
       var all = $.jStorage.storageObj();
-      $.log(all.seta);
-      $('#output').append('<p>Got all Keys as Read Only Object</p>');
-      $('#output').append('<p>seta ' + all.seta + ' setb ' + all.setb + ' setc ' + all.setc + '</p>');
+      writeDebug(all);
     };
   };
 
   this.storagesize = new function() {
     this.click = function() {
       var size = $.jStorage.storageSize();
-      $('#output').append('<p>Display size ' + size + 'b</p>');
+      writeDebug(size);
     };
   };
 
   this.index = new function() {
     this.click = function() {
       var ary = $.jStorage.index('seta');
-      $('#output').append('<p>Keys: ' + ary + '</p>');
+      writeDebug(ary);
     };
   };
 
   this.storageavailable = new function() {
     this.click = function() {
       var bol = $.jStorage.storageAvailable();
-      $('#output').append('<p>Is jStorage Supported ' + bol + '</p>');
+      writeDebug(bol);
     };
   };
 
   this.reinit = new function() {
     this.click = function() {
-      $.jStorage.reInit();
-      $('#output').append('<p>Reloaded from Storage</p>');
+      var x = $.jStorage.reInit();
+      writeDebug(x);
     };
   };
 

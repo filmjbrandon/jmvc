@@ -6,6 +6,8 @@ class mvc_controller {
   function index() {
     start_html();
     
+    show_header();
+
     $tests[] = array('mvcClick','Auto Attach Simple Click');
 
     $tests[] = array('mvcController1','Load Controller by Name');
@@ -41,10 +43,13 @@ class mvc_controller {
     
     $tests[] = array('exists','does a element exists by id');
     
-    echo show($tests);
+    show_left_block($tests);
+    show_right_block();
     
-    echo '<div id="data_element" data-mvc=\'{"name":"Donald Myers","age":21}\'>Element with Data</div>';
-    
+    show_footer();
+
+    end_html();
+
     end_html();
   }
 }
