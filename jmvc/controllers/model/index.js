@@ -16,7 +16,7 @@ var controller_model_method_index = new function() {
     this.click = function() {
       mvc.model.person = new mvcModel('people'); /* people is the backend model file */
       mvc.model.person.id = 123;
-      mvc.model.person._sync_where('load');
+      mvc.model.person._sync('load','where','monkey','> 1');
       $("#output").append('<pre>' + obj2string(mvc.model.person) + '</pre>');
     };
   };

@@ -12,39 +12,31 @@ mvcModel = function(file) {
   this._internal_id = jQuery.mvcModelId();
 };
 
-mvcModel.prototype._sync = function(action,where) {
-  var extra = {};
-  extra.where = where;
-  this._sync(action,extra);
-}
+mvcModel.prototype._sync = function() {
+  /* build payload (all args) */
+  var payload = [];
+  for (var idx = 0; idx < arguments.length; idx++) {
+    payload[idx] = arguments[idx];
+  }
 
-mvcModel.prototype._sync = function(action) {
-  /* actions include load, save, delete */
-  /* the server model handler could have more ie. load_sort_by_name */
   /* build our post */
   var post = {};
 
   post.filename = this._filename;
-  post.action = action.toLowerCase();
+  post.record = mvcModelCopy(this,'_'); /* copy this without anything with underscore */
+  post.payload = payload;
   
-  post.record = jQuery.mvcCopy(this,'_');
-  post.extra = {};
-  for (var idx = 1; idx < arguments.length; idx++) {
-    post.extra[arguments[idx]] = arguments[++idx];
-  }
-
   /* send it out via blocking ajax */
-  var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post);
+  var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post) || {};
 
   this._index = 0;
   this._rows_affected = json.row_affected;
   this._error = json.error;
   this._error_no = json.error_no;
-  this._records = json.records;
+  this._records = json.records; /* array of records - even if only 1 returned */
   this._sql = json.sql; /* usually empty unless debugging - this is controlled server side! */
 
   jQuery.extend(this,json.record); /* merge the record values back over this object */
-  
 };
 
 mvcModel.prototype._fetch = function() {
@@ -77,7 +69,7 @@ jQuery.mvcModelId = function () {
 }
 
 /* Copy */
-jQuery.mvcCopy = function(obj,strip_extra) {
+mvcModelCopy = function(obj,strip_extra) {
   var final = {};
   strip_extra = strip_extra || '';
   for (var attr in obj) {
@@ -89,4 +81,3 @@ jQuery.mvcCopy = function(obj,strip_extra) {
   }
   return final;
 };
-

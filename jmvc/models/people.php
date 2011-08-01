@@ -1,22 +1,20 @@
 <?php
 /*
-Input (JSON) *Will Have
+Input (JSON) *Will Always Have
 
 Array
 
 [*filename] => notes
-[*action] => load
 [*record] => Array
   (
       [id] => 17
   )
-[*extra] => Array
+[*payload] => Array
   (
   )
 [*mvc_posturl] => http://localhost/overflow_auto/jmvc/models/notes.js
 [*mvc_type] => json
 [*mvc_timestamp] => 1309364807177
-
 
 
 Output (JSON) *MUST Return
@@ -28,9 +26,7 @@ Output (JSON) *MUST Return
   (
     [id] => 17
     [title] => womenfolk
-
     [tags] => palmature
-
     [note] => galvanograph
 unsanguineous
 standard
@@ -47,12 +43,13 @@ unsanguineous
 standard
       )
   )
+[sql] => ""
 */
 
 logger(print_r($_POST,true),'input');
 
 /* dummy */
-$action = $_POST['action'];
+$action = $_POST['payload'][0];
 
 $json = array();
 
