@@ -56,6 +56,7 @@ mvcModel.prototype._seek = function(index) {
 };
 
 /* jquery.mvcform.js needed to use this funciton */
+/* to make this super safe either do ajax to server or uuid */
 jQuery.fn.mvcForm2Model = function(file,json) {
   var tempmodel = new mvcModel(file);
   return jQuery.extend(tempmodel,jQuery(this).mvcForm2Obj(json));
