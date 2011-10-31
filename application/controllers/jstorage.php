@@ -28,8 +28,6 @@ class jstorage_controller {
     show_footer();
 
     end_html();
-
-    end_html();
   }
 
 }

@@ -49,7 +49,5 @@ class mvc_controller {
     show_footer();
 
     end_html();
-
-    end_html();
   }
 }

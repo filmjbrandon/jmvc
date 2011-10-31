@@ -1,5 +1,5 @@
 <?php
-class model_controller {
+class rests_controller {
 
   function __construct() {}
   
@@ -8,19 +8,13 @@ class model_controller {
 
     show_header();
 
-    $tests[] = array('read_model','Read Model');
-    $tests[] = array('read_model2','Read Model with id');
-    $tests[] = array('read_model3','Read All with Name Contains Luke');
-    $tests[] = array('insert_model','Insert Model');
-    $tests[] = array('update_model','Update Model');
-    $tests[] = array('update_model2','Update Many Models Andrew to Luke');
-    $tests[] = array('update_model3','Update Many Models Luke to Andrew');
+    $tests[] = array('read_all_tables','read all tables');
+    $tests[] = array('read_single_table','read single table');
+    $tests[] = array('read_record','read record');
+    $tests[] = array('insert_record','insert record');
+    $tests[] = array('update_record','update record');
+    $tests[] = array('upsert_record','upsert record');
     $tests[] = array('delete_model','Delete Model');
-    $tests[] = array('model_exists','Model Exists');
-    $tests[] = array('form2model','Form 2 Model');
-    $tests[] = array('displaymodel','Display What\'s in the current model');
-    $tests[] = array('dosomeotheraction','Send jump Action (make all values "jump")');
-    $tests[] = array('read_models','Read All with Name Contains Luke and make a list');
         
     $form = '<form id="formid" action="model" method="post">
           <p>Name: <input type="text" name="text_input"></p>
