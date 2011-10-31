@@ -6,9 +6,10 @@ var controller_rests_method_index = new function() {
 
   this.read_all_tables = new function() {
     this.click = function() {
-			var t = $.mvcREST(mvc.path + 'rest_server/.json','GET');
-			$.log(t);
-			
+			var tables = $.mvcREST(mvc.path + 'rest_server/.json','GET');
+			$.each(tables,function (index,value) {
+				console.log(index,value);
+			});
     };
   };
 
