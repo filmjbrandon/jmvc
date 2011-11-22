@@ -142,7 +142,7 @@ var controller_mvc_method_index = new function() {
 
   this.mvcAjax = new function() {
     this.click = function() {
-      var json = $.mvcAjax('ajax');
+      var json = $.mvcAjax({"data": {"name": "Don"}});
       $("#output").html('name ' + json.name + ' age ' + json.age);
     };
   };

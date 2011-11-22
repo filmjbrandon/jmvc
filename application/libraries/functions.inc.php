@@ -5,9 +5,15 @@ function start_html() {
   <html>
   <head>
     <link rel="stylesheet" media="screen" type="text/css" href="application/libraries/application.css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="jmvc/jquery.mvcboot.js"></script>
     <script language="Javascript" type="text/javascript" src="application/libraries/application.js"></script>
+
+    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvc.js"></script>
+    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvcform.js"></script>
+    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvcmodel.js"></script>
+    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.session.js"></script>
+
   </head>
   <body>';
 }
@@ -47,6 +53,7 @@ function show_right_block($extra='') {
   echo '<div id="outputblock"></div>';
   echo $extra;
   echo '</div>';
+  echo '<div class="log"></div>';
 }
 
 function show_footer($extra='') {

@@ -27,7 +27,8 @@ mvcModel.prototype._sync = function() {
   post.payload = payload;
   
   /* send it out via blocking ajax */
-  var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post) || {};
+  //var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post) || {};
+	var json = jQuery.mvcAjax({"url": mvc.model_url + this._filename + '.js', "data": post}) || {};
 
   this._index = 0;
   this._rows_affected = json.row_affected;

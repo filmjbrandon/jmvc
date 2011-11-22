@@ -92,7 +92,7 @@ mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
 mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
-//mvc.auto_include = Array();
+mvc.auto_include = Array();
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/
 mvc.event = null;
@@ -123,14 +123,14 @@ jQuery.mvc = function (name,func) {
     /* else if they didn't send in any thing then the controller is mvc.controller */
     name = (!name) ? mvc.controller : name;
   }
-  /* load the required includes from inside the jmvc folder*/
+  /* load the required includes from inside the jmvc folder */
   for (var i=0, len = mvc.auto_include.length; i<len; ++i) {
     jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.auto_include[i] + '.js');
   }
-    
+
   /* load the main mvc file and start controller */
-  jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.main + '.js',function() {
-    jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
+  jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.main + '.js',function(data, textStatus) {		
+		jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
   });
   
 };
@@ -152,6 +152,8 @@ jQuery.log = function () {
 };
 
 /* start jmvc */
-$().ready(function(){
-  if (mvc.auto_load) { $.mvc(); }
+jQuery().ready(function(){
+  if (mvc.auto_load) {
+  	jQuery.mvc();
+  }
 });

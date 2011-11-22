@@ -32,10 +32,14 @@ jQuery.fn.mvcForm2Obj = function(obj) {
       obj[this.name] = this.value || '';
     }
   });
-  obj.mvc_post_selector = this.selector;
-  obj.mvc_timestamp = Number(new Date());
-  obj.mvc_url = mvc.self;
-  obj.mvc_application_folder = mvc.application_folder;
+
+  var mvcForm2Obj = {};
+
+  mvcForm2Obj.mvc_post_selector = this.selector;
+  mvcForm2Obj.mvc_url = mvc.self;
+  mvcForm2Obj.mvc_application_folder = mvc.application_folder;
+
+	obj.mvcForm2Obj = jQuery.extend(true,{},mvcForm2Obj);
 
   return obj;
 };
@@ -80,8 +84,9 @@ mvc_post_view with valid javascript code to run
   url = url || jQuery(this).attr('action') + mvc.validation_url;
   update_view = update_view || mvc.auto_update_view;
 
-  mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Obj(json),'json',true);
-  
+  //mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Obj(json),'json',true);
+  var data = jQuery(this).mvcForm2Obj(json);
+  mvc.ajax_responds = jQuery.mvcAjax({"url": url,"data": data, "update": true});
   if (mvc.ajax_responds !== null) {
     if (mvc.ajax_responds.mvc_model_valid === true && submit === true) {
       jQuery(this).unbind('submit').submit(); /* if returned false (no errors) then submit the form */

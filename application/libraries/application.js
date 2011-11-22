@@ -172,3 +172,9 @@ function isa(desc,input,isa) {
   }
   return desc + " is a " + isa + " false";
 }
+
+$("div.log").ajaxError(function(e, jqxhr, settings, exception) {
+  if (settings.dataType=='script') {
+    $(this).text( "Triggered ajaxError handler." );
+  }
+});

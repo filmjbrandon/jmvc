@@ -9,12 +9,14 @@ $.mvcController(name,func);
   run function or string when finished
 
 */
-jQuery.mvcController = function(name,func) {
+jQuery.mvcController = function (name,func) {
+
   var segs = name.split('/');
   var clas = segs[0];
   var meth = segs[1];
   var complete_name = mvc.controller_named + clas + mvc.method_named + meth; /* controller_index_method_index */
-  jQuery.log(name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
+  jQuery.log('MVC jQuery.mvcController Load',name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
+
   jQuery.getScript(mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js', function () {
     /* fire off construct */
     jQuery.exec(complete_name + '.' + mvc.constructor_named + '()');
@@ -42,7 +44,7 @@ func = indexController.action1.click() or func = function() { alert('welcome'); 
 optional
 data = json object
 */
-jQuery.fn.mvcAction = function(event,func,data) {
+jQuery.fn.mvcAction = function (event,func,data) {
   if (data) {
     jQuery(this).mvcData(data);
   }
@@ -61,7 +63,7 @@ this will also try to load a controller for your new view
 -- I like what jQuery is adding when it comes to a templating class not exactly sure how that fits thou...
 */
 jQuery.mvcView = function (name, json, update) {
-  var rtnjson = jQuery.mvcAjax('views/' + name, json, 'json', update);
+  var rtnjson = jQuery.mvcAjax({"url": 'views/' + name, "update": update});
   jQuery.mvcController(name);
   return rtnjson;
 };
@@ -218,21 +220,25 @@ jQuery.fn.mvcEvent = function (event, func) {
 Used in model, view, form to get json with blocking
 $.mvcAjax({});
 options
-type, method, block, update, cache, timeout, url
+type, method, blocking, update, cache, timeout, url
 */
-jQuery.mvcAjax = function(override) {
-  var settings = {}
-  
-  settings.type = 'json';
-  settings.method = 'POST';
-  settings.blocking = true;
-  settings.update = mvc.auto_update_view;
-  settings.cache = false;
-	settings.timeout = mvc.blocking_wait;
-	settings.url = '/rest';
+jQuery.mvcAjax = function (settings) {
+	settings = settings || {};
+	
+  settings.type = settings.type || 'json';
+  settings.method = settings.method || 'POST';
+  settings.blocking = settings.blocking || true;
+  settings.update = settings.update || mvc.auto_update_view;
+  settings.cache = settings.cache || false;
+	settings.timeout = settings.timeout || mvc.blocking_wait;
+	settings.url = settings.url || 'rest';
+	
+	// copy out the data for later
+	var data = settings.data || {};
+	// unset the variable
+	settings.data = undefined;
 
-  jQuery.extend(settings,override);
-
+	// only set a time stamp if not caching
   if (!settings.cache) {
 		settings.timestamp = Number(new Date());
   }
@@ -246,48 +252,43 @@ jQuery.mvcAjax = function(override) {
     settings.cookie = jQuery.cookie();
   }
 
-	// merge the settings as a data entry
-	settings.data.mvcSettings = settings;
-
-  var rtnjson = {};
+  var reply = {};
   
   jQuery.ajax({
     cache: settings.cache,
-    type: settings.type,
+    dataType: settings.type,
+    type: settings.method,
     async: !settings.blocking,
     timeout: settings.timeout,
-    url: settings.url,
-    dataType: settings.type,
-    data: settings.data,
-    success: function (ajaxjson) {
-      rtnjson = ajaxjson;
+    url: mvc.path + settings.url,
+    data: jQuery.extend(true,data,{"mvcAjax" : settings}),
+    success: function (ajax_reply) {
+      reply = ajax_reply;
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      jQuery.log(jqXHR,textStatus,errorThrown);
+      jQuery.log('MVC jQuery.ajax Error',jqXHR,textStatus,errorThrown);
     }
   });
 
-  /* blocking - continue */
-
   /* if update true then update the screen with returned json */
   if (settings.update) {
-    jQuery.mvcUpdate(rtnjson);
+    jQuery.mvcUpdate(reply);
   }
 
-  return rtnjson;
+  return reply;
 };
 
 /*
 execute code
 function or string
 */
-jQuery.exec = function(code) {
+jQuery.exec = function (code) {
   if (code !== '' || code !== undefined) {
     var func = (typeof(code) === 'function') ? code : new Function(code);
     try {
       func();
     } catch (err) {
-      jQuery.log('jQuery.exec ERROR: ',err,code);
+      jQuery.log('MVC jQuery.exec ERROR',err,code);
     }
   }
 };
@@ -295,23 +296,23 @@ jQuery.exec = function(code) {
 /*
 client based redirect
 */
-jQuery.redirect = function(url) {
+jQuery.redirect = function (url) {
   window.location.replace(url);
 };
 
-/* does a element exist in the DOM?
-another simple wrapper function
+/* 
+Does this object exist in the DOM?
 if ($("#selector).exists) {
   do something
 }
 */
-jQuery.fn.exists = function() {
+jQuery.fn.exists = function () {
   return jQuery(this).length > 0;
 };
 
 /* create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON(); */
 jQuery.extend({
-  postJSON: function( url, data, callback) {
+  postJSON: function (url, data, callback) {
     return jQuery.post(url, data, callback, 'json');
   }
 });
