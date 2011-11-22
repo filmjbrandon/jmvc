@@ -216,42 +216,49 @@ jQuery.fn.mvcEvent = function (event, func) {
 
 /*
 Used in model, view, form to get json with blocking
-$.mvcAjax();
-required
-name = url of the file either /absolute/file.js or folder/file (based off of mvc folder)
-optional
-json addition json to send
-type json{default} or any valid jQuery post dataType
-update true/false{default} weither to send to the update function
+$.mvcAjax({});
+options
+type, method, block, update, cache, timeout, url
 */
-jQuery.mvcAjax = function(posturl, json, type, update, method) {
-  /* NOTE: this is blocking ajax */
-  json = json || {};
-  type = type || 'json';
-  method = method || 'POST';
+jQuery.mvcAjax = function(override) {
+  var settings = {}
+  
+  settings.type = 'json';
+  settings.method = 'POST';
+  settings.blocking = true;
+  settings.update = mvc.auto_update_view;
+  settings.cache = false;
+	settings.timeout = mvc.blocking_wait;
+	settings.url = '/rest';
 
-  json.mvc_posturl = posturl;
-  json.mvc_type = type;
-  json.mvc_update = update;
-  json.mvc_timestamp = Number(new Date());
+  jQuery.extend(settings,override);
+
+  if (!settings.cache) {
+		settings.timestamp = Number(new Date());
+  }
 
   if (jQuery.session_uid) {
-    json.mvc_uuid = jQuery.session_uid();
-    json.mvc_session_id = jQuery.session_id();
+    settings.uuid = jQuery.session_uid();
+    settings.session_id = jQuery.session_id();
   }
+  
   if (jQuery.cookie) {
-    json.cookie = jQuery.cookie();
+    settings.cookie = jQuery.cookie();
   }
 
+	// merge the settings as a data entry
+	settings.data.mvcSettings = settings;
+
   var rtnjson = {};
+  
   jQuery.ajax({
-    cache: false,
-    type: method,
-    async: false,
-    timeout: mvc.blocking_wait,
-    url: mvc.ajax_url + posturl,
-    dataType: type,
-    data: json,
+    cache: settings.cache,
+    type: settings.type,
+    async: !settings.blocking,
+    timeout: settings.timeout,
+    url: settings.url,
+    dataType: settings.type,
+    data: settings.data,
     success: function (ajaxjson) {
       rtnjson = ajaxjson;
     },
@@ -261,45 +268,12 @@ jQuery.mvcAjax = function(posturl, json, type, update, method) {
   });
 
   /* blocking - continue */
+
   /* if update true then update the screen with returned json */
-  update = (!update) ? mvc.auto_update_view : update;
-  if (update) {
+  if (settings.update) {
     jQuery.mvcUpdate(rtnjson);
   }
-  return rtnjson;
-};
 
-/*
-Used in model, view, form to get json with blocking
-$.mvcREST();
-required
-posturl = url of the file either /absolute/file.js or folder/file (based off of mvc folder)
-optional
-method = REST Method
-payload = payload to send
-*/
-jQuery.mvcREST = function(posturl, method, payload) {
-  /* NOTE: this is blocking ajax */
-  payload = payload || {};
-  method = method || 'GET';
-
-  var rtnjson = {};
-  jQuery.ajax({
-    cache: true,
-    type: method,
-    async: false,
-    timeout: mvc.blocking_wait,
-    url: posturl,
-    dataType: 'json',
-    data: payload,
-    success: function (ajaxjson) {
-      rtnjson = ajaxjson;
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      jQuery.log(jqXHR,textStatus,errorThrown);
-    }
-  });
-  /* blocking - continue */
   return rtnjson;
 };
 

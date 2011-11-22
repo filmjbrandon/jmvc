@@ -4,11 +4,10 @@ $("#form_id").mvcFormHidden('primary',23);
 */
 jQuery.fn.mvcFormHidden = function (name, value) {
   return this.each(function () {
-    var unique = mvc.auto_gen + name;
-    if (jQuery('#' + unique).length > 0) {
-      jQuery('#' + unique).attr('value', value);
+    if (jQuery('#' + name).length > 0) {
+      jQuery('#' + name).attr('value', value);
     } else {
-      jQuery('<input />').attr('type', 'hidden').attr('id', unique).attr('name', name).val(value).appendTo(this);
+      jQuery('<input />').attr('type', 'hidden').attr('id', name).attr('name', name).val(value).appendTo(this);
     }
   });
 };
@@ -25,7 +24,7 @@ jQuery.fn.mvcForm2Obj = function(obj) {
   /* convert form to json object */
   jQuery.each(jQuery(this).serializeArray(), function () {
     if (obj[this.name]) {
-      if (!json[this.name].push) {
+      if (!obj[this.name].push) {
         obj[this.name] = [obj[this.name]];
       }
       obj[this.name].push(this.value || '');
