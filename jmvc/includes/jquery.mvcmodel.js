@@ -1,5 +1,5 @@
 /* global mvc model storage */
-mvc.model = {};
+mvc.model = (mvc.model) || {};
 
 mvcModel = function(file) {
   /* these things maintain state */
@@ -23,7 +23,8 @@ mvcModel.prototype._sync = function() {
   var post = {};
 
   post.filename = this._filename;
-  post.record = mvcModelCopy(this,'_'); /* copy this without anything with underscore */
+  //post.record = mvcModelCopy(this,'_'); /* copy this without anything with underscore */
+  post.record = jQuery.extend(true,{},this);
   post.payload = payload;
   
   /* send it out via blocking ajax */

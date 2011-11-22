@@ -10,10 +10,6 @@ function start_html() {
     <script language="Javascript" type="text/javascript" src="application/libraries/application.js"></script>
 
     <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvc.js"></script>
-    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvcform.js"></script>
-    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvcmodel.js"></script>
-    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.session.js"></script>
-
   </head>
   <body>';
 }
