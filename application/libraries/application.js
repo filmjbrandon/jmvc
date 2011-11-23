@@ -178,3 +178,17 @@ $("div.log").ajaxError(function(e, jqxhr, settings, exception) {
     $(this).text( "Triggered ajaxError handler." );
   }
 });
+
+function obj2string(obj) {
+  var str = '\n';
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      if (typeof(obj[prop]) === 'object') {
+        str += prop + '->' + obj2string(obj[prop]);
+      } else {
+        str += prop + '->' + obj[prop] + '\n';
+      }
+    }
+  }
+  return str;
+}

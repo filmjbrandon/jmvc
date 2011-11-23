@@ -324,3 +324,32 @@ jQuery.extend({
   }
 });
 
+function mvcClean(obj) {
+	var clone = {};
+	for (var attr in obj) {
+		var type = typeof(obj[attr]);
+		if (type === 'boolean' || type === 'number' || type === 'string' || type === 'object') {
+			if (type === 'object') {
+				clone[attr] = mvcClean(obj[attr]);
+			} else {
+				clone[attr] = obj[attr];
+			}
+		}
+	}
+	return clone;
+};
+
+function mvcClean2(obj) {
+  var clone = {};
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      if (typeof(obj[prop]) === 'object') {
+        clone[prop] = mvcClean2(obj[prop]);
+      } else {
+				clone[prop] = obj[prop];
+      }
+    }
+  }
+  return clone;
+}
+

@@ -16,6 +16,7 @@ class rests_controller {
     $tests[] = array('delete');
     $tests[] = array('upsert_record');
     $tests[] = array('delete_model');
+    $tests[] = array('test');
         
     $form = '<form id="formid" action="model" method="post">
           <p>Name: <input type="text" name="text_input"></p>

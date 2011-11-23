@@ -8,6 +8,7 @@ var controller_rests_method_index = new function() {
     this.click = function() {
     			
 			mvc.model.user = new mvcModel('people');
+			
   		mvc.model.user.name = "Donald Myers";
   		mvc.model.user.age = 23;
   		mvc.model.user.month = "december";
@@ -28,7 +29,7 @@ var controller_rests_method_index = new function() {
   		mvc.model.user.age = 23;
   		mvc.model.user.month = "december";
   		mvc.model.user.id = 41;
-  		
+
   		mvc.model.user._get('/' + mvc.model.user.id);
   	}
   };
@@ -54,6 +55,8 @@ var controller_rests_method_index = new function() {
   		mvc.model.user.age = 23;
   		mvc.model.user.month = "december";
   		mvc.model.user.id = 41;
+
+			$.extend(mvc.model.user,$("#formid").mvcForm2Obj());
   		
   		mvc.model.user._post(mvc.model.user.id);
   	}
@@ -82,19 +85,16 @@ var controller_rests_method_index = new function() {
 	  	}
 	  };
 
+		this.test = new function() {
+			this.click = function() {
+				var cheese = {};
+				$.extend(cheese,$("#formid").mvcForm2Obj());
+				
+				console.log(mvcClean(cheese));
+				console.log(mvcClean2(cheese));
+				
+			}
+		};
 
 }; /* close class */
 
-function obj2string(obj) {
-  var str = '\n';
-  for (var prop in obj) {
-    if (obj.hasOwnProperty(prop)) {
-      if (typeof(obj[prop]) === 'object') {
-        str += prop + '->' + obj2string(obj[prop]);
-      } else {
-        str += prop + '->' + obj[prop] + '\n';
-      }
-    }
-  }
-  return str;
-}

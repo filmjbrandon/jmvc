@@ -33,32 +33,14 @@ jQuery.fn.mvcForm2Obj = function(obj) {
     }
   });
 
-  var mvcForm2Obj = {};
+  obj.mvcForm2Obj = {};
 
-  mvcForm2Obj.mvc_post_selector = this.selector;
-  mvcForm2Obj.mvc_url = mvc.self;
-  mvcForm2Obj.mvc_application_folder = mvc.application_folder;
+  obj.mvcForm2Obj.mvc_post_selector = this.selector;
+  obj.mvcForm2Obj.mvc_url = mvc.self;
+  obj.mvcForm2Obj.mvc_application_folder = mvc.application_folder;
 
-	obj.mvcForm2Obj = jQuery.extend(true,{},mvcForm2Obj);
-
-  return obj;
+  return mvcClean(obj);
 };
-
-/* 
-!needs work
-Simplify Object to Record
-*/
-/*
-jQuery.simplify = function(obj) {
-  var data = {};
-  for (var attr in obj) {
-    if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
-      data[attr] = obj[attr];
-    }
-  }
-  return data;
-};
-*/
 
 /*
 simple - send form to url from form's action attrubute + validation_url setting ie action="submit" url = submit_validate
@@ -106,16 +88,3 @@ jQuery.fn.mvcFormAction = function (url) {
     jQuery(this).attr('action', url);
   });
 };
-
-/*
-!needs work
-wrapper to unbind a forms submit action
-$("#formid").mvcUnbindSubmit();
-*/
-/*
-jQuery.fn.mvcUnbindSubmit = function () {
-  jQuery(this).submit(function() {
-    return false;
-  });
-}
-*/
