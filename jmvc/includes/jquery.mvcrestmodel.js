@@ -15,27 +15,30 @@ mvcModel = function(file) {
 	this.mvcState.external_id = -1;
 };
 
-mvcModel.prototype.mvcsync = function() {
-	/* 
-	GET /rest/server/tablename/1/.json
-	GET /rest/server/tablename/.json
-	GET /rest/server/tablename/by/lastname/myers/.json 
-	GET /rest/server/tablename/orderby/lastname/desc/.json
-	GET /rest/server/tablename/limit/0/32/.json
-	GET /rest/server/tablename/by/lastname/m%/orderby/lastname/limit/0/32/.json
-	
-	PUT /rest/server/tablename/1
-	PUT /rest/server/tablename/
-	
-	DELETE /rest/server/tablename/1
-	*/
-
-	/* build the rest url */
-	var resturl = mvc.rest_url;
-
-	var json = jQuery.mvcAjax({"url": resturl, "data": jQuery(true,{},this)}) || {};
-
+mvcModel.prototype._rest = function(url,method) {
+	url = (url) || '/';
+	var data = this._copy(this);
+	data.mvcState = this.mvcState;
+	var url = mvc.rest_url + '/' + this.mvcState.filename + url;
+	url = (/\/$/.test(url)) ? url.replace(/\/$/,"") : url;
+	var json = jQuery.mvcAjax({"url": url + '.json', "method": method, "data": data}) || {};
   jQuery.extend(true,this,json); /* merge the record values back over this object */
+};
+
+mvcModel.prototype._get = function(url) {
+	this._rest(url,'GET');	
+};
+
+mvcModel.prototype._post = function(id) {
+	this._rest('/' + id,'POST');	
+};
+
+mvcModel.prototype._put = function(id) {
+	this._rest('/' + id,'PUT');	
+};
+
+mvcModel.prototype._delete = function(id) {
+	this._rest('/' + id,'DELETE');	
 };
 
 mvcModel.prototype._fetch = function() {
@@ -54,6 +57,16 @@ mvcModel.prototype._seek = function(index) {
   return true;
 };
 
+mvcModel.prototype._copy = function(obj) {
+	var final = {};
+	for (var attr in obj) {
+		if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
+			final[attr] = obj[attr];
+		}
+	}
+	return final;
+};
+
 /*
 jquery.mvcform.js needed to use this funciton
 to make this super safe either do ajax to server or uuid
@@ -62,6 +75,12 @@ jQuery.fn.mvcForm2Model = function(file,json) {
   var tempmodel = new mvcModel(file);
   return jQuery.extend(tempmodel,jQuery(this).mvcForm2Obj(json));
 };
+
+/*
+jQuery.fn.createModel = function(name) {
+	mvc.model[name] = new mvcModel(name);
+};
+*/
 
 jQuery.mvcModelId = function () {
   var now = new Date().getTime() / 1000;

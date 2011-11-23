@@ -224,7 +224,6 @@ type, method, blocking, update, cache, timeout, url
 */
 jQuery.mvcAjax = function (settings) {
 	settings = settings || {};
-	
   settings.type = settings.type || 'json';
   settings.method = settings.method || 'POST';
   settings.blocking = settings.blocking || true;
@@ -234,9 +233,9 @@ jQuery.mvcAjax = function (settings) {
 	settings.url = settings.url || 'rest';
 	
 	// copy out the data for later
-	var data = settings.data || {};
+	var org_data = jQuery.extend(true,{},settings.data);
 	// unset the variable
-	settings.data = undefined;
+	delete settings.data;
 
 	// only set a time stamp if not caching
   if (!settings.cache) {
@@ -252,6 +251,14 @@ jQuery.mvcAjax = function (settings) {
     settings.cookie = jQuery.cookie();
   }
 
+	// if this is a get then the url will have the needed data.
+	var final_data = jQuery.extend(true,org_data,{"mvcAjax" : settings});
+	if (settings.method.toLowerCase() == 'get') {
+		// clear a few things so they don't jack up the url 
+		final_data = '';
+		settings.cache = true;
+	}
+
   var reply = {};
   
   jQuery.ajax({
@@ -261,7 +268,7 @@ jQuery.mvcAjax = function (settings) {
     async: !settings.blocking,
     timeout: settings.timeout,
     url: mvc.path + settings.url,
-    data: jQuery.extend(true,data,{"mvcAjax" : settings}),
+    data: final_data,
     success: function (ajax_reply) {
       reply = ajax_reply;
     },

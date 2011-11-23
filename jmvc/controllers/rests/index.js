@@ -4,14 +4,84 @@ var controller_rests_method_index = new function() {
     $.log('controller_rest_method_index init');
   };
 
-  this.read_all_tables = new function() {
+  this.get = new function() {
     this.click = function() {
-			var tables = $.mvcREST(mvc.path + 'rest_server/.json','GET');
-			$.each(tables,function (index,value) {
-				console.log(index,value);
-			});
-    };
+    			
+			mvc.model.user = new mvcModel('people');
+  		mvc.model.user.name = "Donald Myers";
+  		mvc.model.user.age = 23;
+  		mvc.model.user.month = "december";
+  		mvc.model.user.id = 41;
+  		
+  		mvc.model.user._get('/45');
+  		mvc.model.user._get('/by/lastname/myers');
+  		mvc.model.user._get('/by/lastname/myers/orderby/lastname');
+  		mvc.model.user._get('/by/lastname/myers/orderby/lastname/limit/0/999');
+  	}
   };
+  
+  this.get_one = new function() {
+    this.click = function() {
+    			
+			mvc.model.user = new mvcModel('people');
+  		mvc.model.user.name = "Donald Myers";
+  		mvc.model.user.age = 23;
+  		mvc.model.user.month = "december";
+  		mvc.model.user.id = 41;
+  		
+  		mvc.model.user._get('/' + mvc.model.user.id);
+  	}
+  };
+  
+  this.get_all = new function() {
+    this.click = function() {
+    			
+			mvc.model.user = new mvcModel('people');
+  		mvc.model.user.name = "Donald Myers";
+  		mvc.model.user.age = 23;
+  		mvc.model.user.month = "december";
+  		mvc.model.user.id = 41;
+  		
+  		mvc.model.user._get();
+  	}
+  };
+
+  this.post = new function() {
+    this.click = function() {
+    			
+			mvc.model.user = new mvcModel('people');
+  		mvc.model.user.name = "Donald Myers";
+  		mvc.model.user.age = 23;
+  		mvc.model.user.month = "december";
+  		mvc.model.user.id = 41;
+  		
+  		mvc.model.user._post(mvc.model.user.id);
+  	}
+  };
+  
+    this.put = new function() {
+	    this.click = function() {
+	    			
+				mvc.model.user = new mvcModel('people');
+	  		mvc.model.user.name = "Donald Myers";
+	  		mvc.model.user.age = 23;
+	  		mvc.model.user.month = "december";
+	  		mvc.model.user.id = 42;
+	  		
+	  		mvc.model.user._put(mvc.model.user.id);
+	  	}
+	  };
+
+    this.delete = new function() {
+	    this.click = function() {
+	    			
+				mvc.model.user = new mvcModel('people');
+	  		mvc.model.user.id = 43;	  		
+	  		mvc.model.user._delete(mvc.model.user.id);
+
+	  	}
+	  };
+
 
 }; /* close class */
 

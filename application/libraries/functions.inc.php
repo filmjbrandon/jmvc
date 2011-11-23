@@ -31,7 +31,13 @@ function show_left_block($tests,$extra='') {
   foreach ((array)$tests as $test) {
     $data = (isset($test[2])) ? ' data-mvc=\''.json_encode($test[2]).'\'' : '';
     echo '<div class="button column" id="'.$test[0].$data.'">';
-    echo '<div class="column1">'.$test[1].' / '.$test[0].'</div>';
+    if (isset($test[1])) {
+   		$title = $test[1];
+    } else {
+    	$title = str_replace('_',' ',$test[0]);
+    	$title = ucwords($title);
+    }
+    echo '<div class="column1">'.$title.' ['.$test[0].']</div>';
     echo '</div>'.chr(10);
   }
   echo '<div id="output"></div>';

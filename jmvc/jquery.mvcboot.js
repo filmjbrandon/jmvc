@@ -44,7 +44,7 @@ mvc.validation_url = '_validate';
 mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 
 /* location of the rest server - absolute path */
-mvc.rest_url = mvc.path + mvc.application_folder + 'rest/';
+mvc.rest_url = 'rest/server';
 
 /* auto generated prefix */
 mvc.auto_gen = '';
@@ -94,7 +94,7 @@ mvc.default_cursor = 'pointer';
 mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
-mvc.auto_include = Array('jquery.mvcform','jquery.mvcmodel','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
+mvc.auto_include = Array('jquery.mvcrestmodel','jquery.mvcform','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
 //mvc.auto_include = Array();
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/

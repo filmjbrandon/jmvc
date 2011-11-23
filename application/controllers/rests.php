@@ -8,13 +8,14 @@ class rests_controller {
 
     show_header();
 
-    $tests[] = array('read_all_tables','read all tables');
-    $tests[] = array('read_single_table','read single table');
-    $tests[] = array('read_record','read record');
-    $tests[] = array('insert_record','insert record');
-    $tests[] = array('update_record','update record');
-    $tests[] = array('upsert_record','upsert record');
-    $tests[] = array('delete_model','Delete Model');
+    $tests[] = array('get');
+    $tests[] = array('get_one');
+    $tests[] = array('get_all');
+    $tests[] = array('post');
+    $tests[] = array('put');
+    $tests[] = array('delete');
+    $tests[] = array('upsert_record');
+    $tests[] = array('delete_model');
         
     $form = '<form id="formid" action="model" method="post">
           <p>Name: <input type="text" name="text_input"></p>
