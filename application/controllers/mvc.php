@@ -34,7 +34,11 @@ class mvc_controller {
 
     $tests[] = array('seteventandfunciton','set a event and function');
     
-    $tests[] = array('mvcAjax','Making Blocking Ajax Call');
+    $tests[] = array('mvcAjaxGETnd','Making Blocking GET no data Ajax Call');
+    $tests[] = array('mvcAjaxGETwd','Making Blocking GET with data Ajax Call');
+    $tests[] = array('mvcAjaxPOST','Making Blocking POST Ajax Call');
+    $tests[] = array('mvcAjaxPUT','Making Blocking PUT Ajax Call');
+    $tests[] = array('mvcAjaxDELETE','Making Blocking DELETE Ajax Call');
     
     $tests[] = array('execstring','Execute a function by string');
     $tests[] = array('execfunction','Execute a function by function');

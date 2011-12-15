@@ -43,7 +43,7 @@ mvc.validation_url = '_validate';
 /* location of the models - absolute path */
 mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 
-/* location of the rest server - absolute path */
+/* location of the rest server from mvc.path */
 mvc.rest_url = 'rest/server';
 
 /* auto generated prefix */
@@ -81,11 +81,17 @@ mvc.mvcpath = mvc.path + mvc.application_folder;
 /* allow console output (if present) */
 mvc.debug = true;
 
-/* auto update views on ajax */
-mvc.auto_update_view = false;
-
-/* we uses a few blocking ajax calls how long should we wait? */
-mvc.blocking_wait = 3000;
+/* mvc ajax defaults */
+mvc.options = {
+	type: 'json', /* default return type */
+	method: 'post', /* ajax default request method */
+	blocking: true, /* leave this on */
+	update: false, /* auto update views on with returned ajax */
+	cache: false, /* should ajax requests be cached - should be false
+	timeout: 3000, /* we uses a few blocking ajax calls how long should we wait? */
+	url: 'rest', /* default url to request */
+	data: {} /* default data sent */
+};
 
 /* if a element has a method add this css cursor by default */
 mvc.default_cursor = 'pointer';

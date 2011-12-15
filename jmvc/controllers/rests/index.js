@@ -87,12 +87,6 @@ var controller_rests_method_index = new function() {
 
 		this.test = new function() {
 			this.click = function() {
-				var cheese = {};
-				$.extend(cheese,$("#formid").mvcForm2Obj());
-				
-				console.log(mvcClean(cheese));
-				console.log(mvcClean2(cheese));
-				
 			}
 		};
 

@@ -140,9 +140,41 @@ var controller_mvc_method_index = new function() {
     };
   };
 
-  this.mvcAjax = new function() {
+  this.mvcAjaxGETwd = new function() {
     this.click = function() {
-      var json = $.mvcAjax({"data": {"name": "Don"}});
+    	var d = {name: "Don", age: 41};
+      var json = $.mvcAjax({url: "rest", data: d, method: 'get'});
+      $("#output").html('name ' + json.name + ' age ' + json.age);
+    };
+  };
+
+  this.mvcAjaxGETnd = new function() {
+    this.click = function() {
+      var json = $.mvcAjax({url: "rest", method: 'get'});
+      $("#output").html('name ' + json.name + ' age ' + json.age);
+    };
+  };
+
+  this.mvcAjaxPOST = new function() {
+    this.click = function() {
+    	var d = {name: "Don", age: 41};
+      var json = $.mvcAjax({url: "rest", data: d, method: 'post'});
+      $("#output").html('name ' + json.name + ' age ' + json.age);
+    };
+  };
+
+  this.mvcAjaxPUT = new function() {
+    this.click = function() {
+    	var d = {name: "Don", age: 41};
+      var json = $.mvcAjax({url: "rest", data: d, method: 'put'});
+      $("#output").html('name ' + json.name + ' age ' + json.age);
+    };
+  };
+
+  this.mvcAjaxDELETE = new function() {
+    this.click = function() {
+    	var d = {name: "Don", age: 41};
+      var json = $.mvcAjax({url: "rest", data: d, method: 'delete'});
       $("#output").html('name ' + json.name + ' age ' + json.age);
     };
   };

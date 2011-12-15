@@ -63,7 +63,7 @@ this will also try to load a controller for your new view
 -- I like what jQuery is adding when it comes to a templating class not exactly sure how that fits thou...
 */
 jQuery.mvcView = function (name, json, update) {
-  var rtnjson = jQuery.mvcAjax({"url": 'views/' + name, "update": update});
+  var rtnjson = jQuery.mvcAjax({"url": 'views/' + name, "update": update, "data": json});
   jQuery.mvcController(name);
   return rtnjson;
 };
@@ -223,62 +223,42 @@ options
 type, method, blocking, update, cache, timeout, url
 */
 jQuery.mvcAjax = function (settings) {
-	settings = settings || {};
-  settings.type = settings.type || 'json';
-  settings.method = settings.method || 'POST';
-  settings.blocking = settings.blocking || true;
-  settings.update = settings.update || mvc.auto_update_view;
-  settings.cache = settings.cache || false;
-	settings.timeout = settings.timeout || mvc.blocking_wait;
-	settings.url = settings.url || 'rest';
+	jQuery.extend(mvc.options,settings);
 	
-	// copy out the data for later
-	var org_data = jQuery.extend(true,{},settings.data);
-	// unset the variable
-	delete settings.data;
-
-	// only set a time stamp if not caching
-  if (!settings.cache) {
-		settings.timestamp = Number(new Date());
-  }
-
-  if (jQuery.session_uid) {
-    settings.uuid = jQuery.session_uid();
-    settings.session_id = jQuery.session_id();
+  if (jQuery.session_uid && mvc.options.method.toUpperCase() == 'GET') {
+    mvc.options.data._uuid = jQuery.session_uid();
+    mvc.options.data._session_id = jQuery.session_id();
   }
   
-  if (jQuery.cookie) {
-    settings.cookie = jQuery.cookie();
+  if (jQuery.cookie && mvc.options.method.toUpperCase() == 'GET') {
+    mvc.options.data._cookie = jQuery.cookie();
   }
 
-	// if this is a get then the url will have the needed data.
-	var final_data = jQuery.extend(true,org_data,{"mvcAjax" : settings});
-	if (settings.method.toLowerCase() == 'get') {
-		// clear a few things so they don't jack up the url 
-		final_data = '';
-		settings.cache = true;
+	if (options.method.toUpperCase() == 'GET') {
+		/* if you don't turn on caching jquery-ajax will attach a timestamp to the url so it always changes */
+		options.cache = true;
 	}
 
   var reply = {};
   
   jQuery.ajax({
-    cache: settings.cache,
-    dataType: settings.type,
-    type: settings.method,
-    async: !settings.blocking,
-    timeout: settings.timeout,
-    url: mvc.path + settings.url,
-    data: final_data,
-    success: function (ajax_reply) {
-      reply = ajax_reply;
+    cache: mvc.options.cache,
+    dataType: mvc.options.type,
+    type: mvc.options.method,
+    async: !mvc.options.blocking,
+    timeout: mvc.options.timeout,
+    url: mvc.path + mvc.options.url,
+    data: mvc.clone(mvc.options.data),
+    success: function (responds) {
+      reply = responds;
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      jQuery.log('MVC jQuery.ajax Error',jqXHR,textStatus,errorThrown);
+      jQuery.log('MVC jQuery.ajax Error',jqXHR, textStatus, errorThrown);
     }
   });
 
   /* if update true then update the screen with returned json */
-  if (settings.update) {
+  if (options.update) {
     jQuery.mvcUpdate(reply);
   }
 
@@ -317,34 +297,16 @@ jQuery.fn.exists = function () {
   return jQuery(this).length > 0;
 };
 
-/* create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON(); */
-jQuery.extend({
-  postJSON: function (url, data, callback) {
-    return jQuery.post(url, data, callback, 'json');
-  }
-});
-
-function mvcClean(obj) {
-	var clone = {};
-	for (var attr in obj) {
-		var type = typeof(obj[attr]);
-		if (type === 'boolean' || type === 'number' || type === 'string' || type === 'object') {
-			if (type === 'object') {
-				clone[attr] = mvcClean(obj[attr]);
-			} else {
-				clone[attr] = obj[attr];
-			}
-		}
-	}
-	return clone;
-};
-
-function mvcClean2(obj) {
+/*
+this will make a copy of a object without the methods
+which jack up some ajax calls
+*/
+mvc.clone = function(obj) {
   var clone = {};
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       if (typeof(obj[prop]) === 'object') {
-        clone[prop] = mvcClean2(obj[prop]);
+        clone[prop] = mvc.clone(obj[prop]);
       } else {
 				clone[prop] = obj[prop];
       }
@@ -352,4 +314,13 @@ function mvcClean2(obj) {
   }
   return clone;
 }
+
+/*
+create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON();
+*/
+jQuery.extend({
+  postJSON: function (url, data, callback) {
+    return jQuery.post(url, data, callback, 'json');
+  }
+});
 

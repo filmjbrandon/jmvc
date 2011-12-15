@@ -39,7 +39,7 @@ jQuery.fn.mvcForm2Obj = function(obj) {
   obj.mvcForm2Obj.mvc_url = mvc.self;
   obj.mvcForm2Obj.mvc_application_folder = mvc.application_folder;
 
-  return mvcClean(obj);
+  return mvc.clone(obj);
 };
 
 /*

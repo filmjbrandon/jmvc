@@ -16,7 +16,7 @@ mvcModel = function(table) {
 };
 
 mvcModel.prototype._rest = function(url,method) {
-	var json = jQuery.mvcAjax({"url": mvc.rest_url + '/' + this.mvcState.table + url + '.json', "method": method, "data": this._copy(this)}) || {};
+	var json = jQuery.mvcAjax({"url": mvc.rest_url + '/' + this.mvcState.table + url + '.json', "method": method, "data": mvc.clone(this)}) || {};
   jQuery.extend(true,this,json); /* merge the record values back over this object (model) */
 };
 

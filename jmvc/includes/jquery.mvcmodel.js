@@ -13,6 +13,7 @@ mvcModel = function(file) {
 };
 
 mvcModel.prototype._sync = function() {
+// !todo make this more like the rest module I just made
   /* build payload (all args) */
   var payload = [];
   for (var idx = 0; idx < arguments.length; idx++) {
@@ -23,7 +24,6 @@ mvcModel.prototype._sync = function() {
   var post = {};
 
   post.filename = this._filename;
-  //post.record = mvcModelCopy(this,'_'); /* copy this without anything with underscore */
   post.record = jQuery.extend(true,{},this);
   post.payload = payload;
   
@@ -57,30 +57,9 @@ mvcModel.prototype._seek = function(index) {
   return true;
 };
 
-/* jquery.mvcform.js needed to use this funciton */
-/* to make this super safe either do ajax to server or uuid */
-jQuery.fn.mvcForm2Model = function(file,json) {
-  var tempmodel = new mvcModel(file);
-  return jQuery.extend(tempmodel,jQuery(this).mvcForm2Obj(json));
-};
-
 jQuery.mvcModelId = function () {
   var now = new Date().getTime() / 1000;
   var s = parseInt(now, 10);
   var rnd = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
   return s + rnd;
 }
-
-/* Copy */
-mvcModelCopy = function(obj,strip_extra) {
-  var final = {};
-  strip_extra = strip_extra || '';
-  for (var attr in obj) {
-    if (typeof(obj[attr]) === 'boolean' || typeof(obj[attr]) === 'number' || typeof(obj[attr]) === 'string') {
-      if (attr.substr(0,1) != strip_extra) {
-        final[attr] = obj[attr];
-      }
-    }
-  }
-  return final;
-};
