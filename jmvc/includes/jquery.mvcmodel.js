@@ -1,9 +1,8 @@
-/* global mvc model storage */
-mvc.model = (mvc.model) || {};
+/* I attach all models to the mvc super global mvc.user_m = mvcModel('user'); */
 
-mvcModel = function(file) {
+mvcModel = function(table) {
   /* these things maintain state */
-  this._filename = file;
+  this._table = table;
   this._records = {};
   this._index = 0;
   this._rows_affected = 0;
@@ -12,33 +11,35 @@ mvcModel = function(file) {
   this._internal_id = jQuery.mvcModelId();
 };
 
-mvcModel.prototype._sync = function() {
-// !todo make this more like the rest module I just made
-  /* build payload (all args) */
-  var payload = [];
-  for (var idx = 0; idx < arguments.length; idx++) {
-    payload[idx] = arguments[idx];
-  }
+mvcModel.prototype._get = function(url) {
+	this._post(url,'get',{});
+}
 
-  /* build our post */
-  var post = {};
+mvcModel.prototype._post = function(url) {
+	this._rest(url,'post');
+}
 
-  post.filename = this._filename;
-  post.record = jQuery.extend(true,{},this);
-  post.payload = payload;
-  
+mvcModel.prototype._put = function(url) {
+	this._rest(url,'put');
+}
+
+mvcModel.prototype._delete = function(url) {
+	this._rest(url,'delete');
+}
+
+mvcModel.prototype._rest = function(url,method,data) {
+	payload = (data) || mvc.clone(this);
+	var json = jQuery.mvcAjax({url: mvc.rest_url + this._table + url, data: payload, method: method}) || {};
+  jQuery.extend(this,json); 
+}
+
+/* none REST */
+mvcModel.prototype._sync = function(extras) {
   /* send it out via blocking ajax */
-  //var json = jQuery.mvcAjax(mvc.model_url + this._filename + '.js',post) || {};
-	var json = jQuery.mvcAjax({"url": mvc.model_url + this._filename + '.js', "data": post}) || {};
+	var json = jQuery.mvcAjax({url: mvc.model_url + this._table + '.js', data: {table: this._table, record: jQuery.clone(this), extra: extra}, method: 'post'}) || {};
 
-  this._index = 0;
-  this._rows_affected = json.row_affected;
-  this._error = json.error;
-  this._error_no = json.error_no;
-  this._records = json.records; /* array of records - even if only 1 returned */
-  this._sql = json.sql; /* usually empty unless debugging - this is controlled server side! */
-
-  jQuery.extend(this,json.record); /* merge the record values back over this object */
+	/* merge the json reply back over this object it should include the _ properties above */
+  jQuery.extend(this,json); 
 };
 
 mvcModel.prototype._fetch = function() {

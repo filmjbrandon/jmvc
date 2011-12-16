@@ -44,7 +44,7 @@ mvc.validation_url = '_validate';
 mvc.model_url = mvc.path + mvc.application_folder + 'models/';
 
 /* location of the rest server from mvc.path */
-mvc.rest_url = 'rest/server';
+mvc.rest_url = mvc.path + mvc.application_folder + 'rest/server/';
 
 /* auto generated prefix */
 mvc.auto_gen = '';
