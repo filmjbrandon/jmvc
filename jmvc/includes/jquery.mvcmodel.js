@@ -3,44 +3,57 @@
 mvcModel = function(table) {
   /* these things maintain state */
   this._table = table;
-  this._records = {};
+	this._clear();
+};
+
+mvcModel.prototype._clear = function() {
+  this._records = [];
   this._index = 0;
   this._rows_affected = 0;
   this._error = '';
   this._error_no = 0;
-  this._internal_id = jQuery.mvcModelId();
-};
+  this._internal_id = this._id();
+	this.id = -1;
+}
 
+/* select */
 mvcModel.prototype._get = function(url) {
-	this._post(url,'get',{});
+	url = (url) || '';
+	url = (this.id != -1) ? '/' + this.id : url;
+	this.__ajax(mvc.rest_url + this._table + url,'get',{});
 }
 
-mvcModel.prototype._post = function(url) {
-	this._rest(url,'post');
+/* insert unless there is a id then update */
+mvcModel.prototype._post = function() {
+	id = (this.id != -1) ? '/' + this.id : '';
+	this.__ajax(mvc.rest_url + this._table + id,'post',mvc.clone(this));
 }
 
-mvcModel.prototype._put = function(url) {
-	this._rest(url,'put');
+/* update */
+mvcModel.prototype._put = function() {
+	this.__ajax(mvc.rest_url + this._table,'put',mvc.clone(this));
 }
 
-mvcModel.prototype._delete = function(url) {
-	this._rest(url,'delete');
+/* delete */
+mvcModel.prototype._delete = function() {
+	this.__ajax(mvc.rest_url + this._table + '/' + this.id,'delete',mvc.clone(this));
+	this.id = -1; /* set the id to null */
 }
 
-mvcModel.prototype._rest = function(url,method,data) {
-	payload = (data) || mvc.clone(this);
-	var json = jQuery.mvcAjax({url: mvc.rest_url + this._table + url, data: payload, method: method}) || {};
-  jQuery.extend(this,json); 
-}
-
-/* none REST */
+/* generic REST */
 mvcModel.prototype._sync = function(extras) {
-  /* send it out via blocking ajax */
-	var json = jQuery.mvcAjax({url: mvc.model_url + this._table + '.js', data: {table: this._table, record: jQuery.clone(this), extra: extra}, method: 'post'}) || {};
-
-	/* merge the json reply back over this object it should include the _ properties above */
-  jQuery.extend(this,json); 
+	this.__ajax(mvc.model_url + this._table + '.js', 'post', {table: this._table, record: mvc.clone(this), extra: extra});
 };
+
+mvcModel.prototype.__ajax = function(url,method,data) {
+  /* send it out via blocking ajax */
+	var json = jQuery.mvcAjax({url: url, data: data, method: method}) || {};
+	
+	/* merge the json reply back over this object it should include the _ properties above */
+  this._clear();
+  jQuery.extend(this,json);
+  console.log(this);
+}
 
 mvcModel.prototype._fetch = function() {
   if ((this._index + 1) > this._rows_affected) {
@@ -58,9 +71,9 @@ mvcModel.prototype._seek = function(index) {
   return true;
 };
 
-jQuery.mvcModelId = function () {
-  var now = new Date().getTime() / 1000;
-  var s = parseInt(now, 10);
-  var rnd = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-  return s + rnd;
+mvcModel.prototype._id = function () {
+  return "xxxxxxxxxxxxxxxyxxxxxxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c === "x" ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  }).toUpperCase();
 }

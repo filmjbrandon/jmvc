@@ -7,81 +7,71 @@ var controller_rests_method_index = new function() {
   this.get = new function() {
     this.click = function() {
     			
-			mvc.model.user = new mvcModel('people');
-			
-  		mvc.model.user.name = "Donald Myers";
-  		mvc.model.user.age = 23;
-  		mvc.model.user.month = "december";
-  		mvc.model.user.id = 41;
-  		
-  		mvc.model.user._get('/45');
-  		mvc.model.user._get('/by/lastname/myers');
-  		mvc.model.user._get('/by/lastname/myers/orderby/lastname');
-  		mvc.model.user._get('/by/lastname/myers/orderby/lastname/limit/0/999');
+			mvc.user_m = new mvcModel('user');
+			mvc.user_m._get();
   	}
   };
   
   this.get_one = new function() {
     this.click = function() {
     			
-			mvc.model.user = new mvcModel('people');
-  		mvc.model.user.name = "Donald Myers";
-  		mvc.model.user.age = 23;
-  		mvc.model.user.month = "december";
-  		mvc.model.user.id = 41;
-
-  		mvc.model.user._get('/' + mvc.model.user.id);
+			mvc.user_m = new mvcModel('user');
+			mvc.user_m.id = 2;
+			
+  		mvc.user_m._get();
   	}
   };
   
-  this.get_all = new function() {
+  this.get_where = new function() {
     this.click = function() {
     			
-			mvc.model.user = new mvcModel('people');
-  		mvc.model.user.name = "Donald Myers";
-  		mvc.model.user.age = 23;
-  		mvc.model.user.month = "december";
-  		mvc.model.user.id = 41;
-  		
-  		mvc.model.user._get();
+			mvc.user_m = new mvcModel('user');
+  		mvc.user_m._get('/where/id/gt/3');
+  	}
+  };
+
+  this.get_big_sample = new function() {
+    this.click = function() {
+    			
+			mvc.user_m = new mvcModel('user');
+  		mvc.user_m._get('/where/id/gt/3/orderby/id/desc/limit/0/999');
+  	}
+  };
+
+  this.get_function = new function() {
+    this.click = function() {
+    			
+			mvc.user_m = new mvcModel('user');
+  		mvc.user_m._get('/method/2/3');
   	}
   };
 
   this.post = new function() {
     this.click = function() {
-    			
-			mvc.model.user = new mvcModel('people');
-  		mvc.model.user.name = "Donald Myers";
-  		mvc.model.user.age = 23;
-  		mvc.model.user.month = "december";
-  		mvc.model.user.id = 41;
+			mvc.user_m = new mvcModel('user');
+  		mvc.user_m.name = "Donald Myers";
+  		mvc.user_m.age = 23;
+  		mvc.user_m.id = 123;
 
-			$.extend(mvc.model.user,$("#formid").mvcForm2Obj());
-  		
-  		mvc.model.user._post(mvc.model.user.id);
+  		mvc.user_m._post();
   	}
   };
   
     this.put = new function() {
 	    this.click = function() {
-	    			
-				mvc.model.user = new mvcModel('people');
-	  		mvc.model.user.name = "Donald Myers";
-	  		mvc.model.user.age = 23;
-	  		mvc.model.user.month = "december";
-	  		mvc.model.user.id = 42;
-	  		
-	  		mvc.model.user._put(mvc.model.user.id);
+				mvc.user_m = new mvcModel('user');
+	  		mvc.user_m.name = "Donald Myers";
+	  		mvc.user_m.age = 23;
+	
+	  		mvc.user_m._put();
 	  	}
 	  };
 
     this.delete = new function() {
 	    this.click = function() {
-	    			
-				mvc.model.user = new mvcModel('people');
-	  		mvc.model.user.id = 43;	  		
-	  		mvc.model.user._delete(mvc.model.user.id);
-
+				mvc.user_m = new mvcModel('user');
+	  		mvc.user_m.id = 2;
+	  		mvc.user_m._delete();
 	  	}
 	  };
 

@@ -234,9 +234,9 @@ jQuery.mvcAjax = function (settings) {
     mvc.options.data._cookie = jQuery.cookie();
   }
 
-	if (options.method.toUpperCase() == 'GET') {
+	if (mvc.options.method.toUpperCase() == 'GET') {
 		/* if you don't turn on caching jquery-ajax will attach a timestamp to the url so it always changes */
-		options.cache = true;
+		mvc.options.cache = true;
 	}
 
   var reply = {};
@@ -251,14 +251,20 @@ jQuery.mvcAjax = function (settings) {
     data: mvc.clone(mvc.options.data),
     success: function (responds) {
       reply = responds;
+      mvc.jqXHR = null;
+      mvc.textStatus = null;
+      mvc.errorThrown = null;
     },
     error: function(jqXHR, textStatus, errorThrown) {
       jQuery.log('MVC jQuery.ajax Error',jqXHR, textStatus, errorThrown);
+      mvc.jqXHR = jqXHR;
+      mvc.textStatus = textStatus;
+      mvc.errorThrown = errorThrown;
     }
   });
 
   /* if update true then update the screen with returned json */
-  if (options.update) {
+  if (mvc.options.update) {
     jQuery.mvcUpdate(reply);
   }
 

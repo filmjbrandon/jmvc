@@ -10,7 +10,9 @@ class rests_controller {
 
     $tests[] = array('get');
     $tests[] = array('get_one');
-    $tests[] = array('get_all');
+    $tests[] = array('get_where');
+    $tests[] = array('get_big_sample');
+    $tests[] = array('get_function');
     $tests[] = array('post');
     $tests[] = array('put');
     $tests[] = array('delete');

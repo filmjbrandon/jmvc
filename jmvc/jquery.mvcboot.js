@@ -15,7 +15,7 @@ var mvc = {};
 /* mvc settings */
 
 /* Domain */
-mvc.domain = 'http://localhost'; /* NO trailing slash */
+mvc.domain = 'http://localhost'; /* WITHOUT trailing slash */
 
 /* Folder (if any) */
 mvc.folder = '/jmvc'; /* NO trailing slash */
@@ -28,7 +28,7 @@ mvc.auto_load = true;
 /* complete path */
 mvc.path = mvc.domain + mvc.folder + '/'; 
 
-/* name of the folder containing the mvc javascript files with trailing slash */
+/* name of the folder containing the mvc javascript files WITH trailing slash */
 mvc.application_folder = 'jmvc/';
 
 /* prepend this to all ajax request urls */
@@ -40,11 +40,11 @@ mvc.validation_submit = true;
 /* append to validation action url if no URL provied */
 mvc.validation_url = '_validate';
 
-/* location of the models - absolute path */
-mvc.model_url = mvc.path + mvc.application_folder + 'models/';
+/* location of the models WITH trailing slash */
+mvc.model_url = mvc.application_folder + 'models/';
 
-/* location of the rest server from mvc.path */
-mvc.rest_url = mvc.path + mvc.application_folder + 'rest/server/';
+/* location of the rest server from mvc.path WITH trailing slash */
+mvc.rest_url = 'rest/';
 
 /* auto generated prefix */
 mvc.auto_gen = '';
@@ -87,7 +87,7 @@ mvc.options = {
 	method: 'post', /* ajax default request method */
 	blocking: true, /* leave this on */
 	update: false, /* auto update views on with returned ajax */
-	cache: false, /* should ajax requests be cached - should be false
+	cache: false, /* should ajax requests be cached - should be false */
 	timeout: 3000, /* we uses a few blocking ajax calls how long should we wait? */
 	url: 'rest', /* default url to request */
 	data: {} /* default data sent */
@@ -100,7 +100,7 @@ mvc.default_cursor = 'pointer';
 mvc.main = 'jquery.mvc';
 
 /* name of the libraries to include */
-mvc.auto_include = Array('jquery.mvcrestmodel','jquery.mvcform','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
+mvc.auto_include = Array('jquery.mvcmodel','jquery.mvcform','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
 //mvc.auto_include = Array();
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/
