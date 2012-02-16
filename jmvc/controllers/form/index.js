@@ -61,7 +61,7 @@ var controller_form_method_index = new function() {
       data.select_input = 'third';
       data.textarea_input = 'This is a test';
       data.output = 'Put this in the output element';
-      $.mvcUpdate(data);
+      $.mvcMerge(data);
       writeDebug(data);
       writeDebug('updated DOM automatically');
     };

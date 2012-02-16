@@ -62,7 +62,7 @@ var controller_mvc_method_index = new function() {
   this.mvcUpdate = new function() {
     this.click = function() {
       json = {'output':'Donald Myers','bogus':123};
-      $.mvcUpdate(json);
+      $.mvcMerge(json);
     };
   };
 

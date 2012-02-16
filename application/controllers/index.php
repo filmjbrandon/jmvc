@@ -13,6 +13,7 @@ class index_controller {
     echo '<p><a class="link" href="'.$this->path.'session">Session Test</a></p>';
     echo '<p><a class="link" href="'.$this->path.'cookie">Cookie Test</a></p>';
     echo '<p><a class="link" href="'.$this->path.'rests">REST Model Test</a></p>';
+    echo '<p><a class="link" href="'.$this->path.'template">Template Test</a></p>';
     
     end_html();
   }

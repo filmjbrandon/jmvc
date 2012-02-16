@@ -39,6 +39,7 @@ jQuery.mvcController = function (name,func) {
 };
 
 /*
+$("#id").mvcAction('click',function() { alert('welcome'); }, {});
 event = click,mouseover,change,keyup
 func = indexController.action1.click() or func = function() { alert('welcome'); };
 optional
@@ -52,29 +53,45 @@ jQuery.fn.mvcAction = function (event,func,data) {
 };
 
 /*
-get view and send it to mvc.update to populate the html
-required
-name: name of the view file either absolute or relative /folder/file or folder/folder/file or file
-optional
-json: extra variables sent to view ajax call
-update: true/false{default} update the DOM when id's or classes match
-this will also try to load a controller for your new view
+var output = jQuery.mvcView('template',movies);
 
--- I like what jQuery is adding when it comes to a templating class not exactly sure how that fits thou...
+Get view template, compile it, and phrase it.
+name = name of the template file to load - also used as the name of the compiled template
+data = phrase into the template
+optional
+replace = replace the html that matches this selector with the phrased template
 */
-jQuery.mvcView = function (name, json, update) {
-  var rtnjson = jQuery.mvcAjax({"url": 'views/' + name, "update": update, "data": json});
-  jQuery.mvcController(name);
-  return rtnjson;
-};
+jQuery.mvcView = function (name,data) {
+	// jQuery template stores them in .template[name] so let's see if there have one named?
+	if (!jQuery.template[name]) {
+		// get the template
+		var template = jQuery.mvcAjax({url: mvc.view_url + ((mvc.views_in_controller_folder) ? mvc.folder + '/' : '') + name + mvc.view_extension, type: 'html' });
+		
+		// compile and save the template as name
+		jQuery.template(name,template);
+	}
+	
+	// phrase and render the template
+	return jQuery.tmpl(name,data);
+}
+
+/*
+jQuery('#movieList2').mvcView('logic',movies);
+*/
+jQuery.fn.mvcView = function (name,data) {
+	// phrase and render the template
+	jQuery(this).html(jQuery.mvcView(name,data));	
+}
+
 
 /*
 load json properties into html based on matching selectors
 matches on id,class,form element name
+will also run scripts mvc_pre_merge and mvc_post_merge
 */
-jQuery.mvcUpdate = function (json) {
+jQuery.mvcMerge = function (json) {
   if (json) {
-    jQuery.exec(json.mvc_pre_view);
+    jQuery.exec(json.mvc_pre_merge);
     for (var property in json) { /* we are only using strings or numbers */
       if (typeof(json[property]) === 'string' || typeof(json[property]) === 'number' || typeof(json[property]) === 'boolean') {
         var value = json[property];
@@ -105,7 +122,7 @@ jQuery.mvcUpdate = function (json) {
       }
 
     }
-    jQuery.exec(json.mvc_post_view);
+    jQuery.exec(json.mvc_post_merge);
   }
 };
 
@@ -254,12 +271,14 @@ jQuery.mvcAjax = function (settings) {
       mvc.jqXHR = null;
       mvc.textStatus = null;
       mvc.errorThrown = null;
+      // add callback support here
     },
     error: function(jqXHR, textStatus, errorThrown) {
       jQuery.log('MVC jQuery.ajax Error',jqXHR, textStatus, errorThrown);
       mvc.jqXHR = jqXHR;
       mvc.textStatus = textStatus;
       mvc.errorThrown = errorThrown;
+      // add callback support here
     }
   });
 
@@ -305,7 +324,7 @@ jQuery.fn.exists = function () {
 
 /*
 this will make a copy of a object without the methods
-which jack up some ajax calls
+which jack up some ajax calls and other stuff
 */
 mvc.clone = function(obj) {
   var clone = {};

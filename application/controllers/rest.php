@@ -39,8 +39,8 @@ switch($method) {
 	case 'PUT':
 		$idx = 7;
 		$data['id'] = $idx;
-		$data['name'] = $data['_records'][$idx]['name'];
-		$data['age'] = $data['_records'][$idx]['age'];
+		$data['name'] = $records[$idx]['name'];
+		$data['age'] = $records[$idx]['age'];
 		$data['_records'][] = $records[$idx];
 		$data['_rows_affected'] = 1;
 		$data['_error'] = '';

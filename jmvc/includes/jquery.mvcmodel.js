@@ -24,20 +24,23 @@ mvcModel.prototype._get = function(url) {
 }
 
 /* insert unless there is a id then update */
-mvcModel.prototype._post = function() {
-	id = (this.id != -1) ? '/' + this.id : '';
-	this.__ajax(mvc.rest_url + this._table + id,'post',mvc.clone(this));
+mvcModel.prototype._post = function(method) {
+	arg = (this.id != -1) ? '/' + this.id : '';
+	arg = (method) ? arg : '/' + method;
+	this.__ajax(mvc.rest_url + this._table + arg,'post',mvc.clone(this));
 }
 
 /* update */
-mvcModel.prototype._put = function() {
-	this.__ajax(mvc.rest_url + this._table,'put',mvc.clone(this));
+mvcModel.prototype._put = function(method) {
+	method = (method) ? '/' + method : '';
+	this.__ajax(mvc.rest_url + this._table + method,'put',mvc.clone(this));
 }
 
 /* delete */
-mvcModel.prototype._delete = function() {
-	this.__ajax(mvc.rest_url + this._table + '/' + this.id,'delete',mvc.clone(this));
-	this.id = -1; /* set the id to null */
+mvcModel.prototype._delete = function(method) {
+	arg = (this.id != -1) ? '/' + this.id : '';
+	arg = (method) ? arg : '/' + method;
+	this.__ajax(mvc.rest_url + this._table + arg,'delete',mvc.clone(this));
 }
 
 /* generic REST */

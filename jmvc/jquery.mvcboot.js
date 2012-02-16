@@ -10,7 +10,7 @@
 */
 /* MUST load jquery 1.4.2+ */
 
-var mvc = {};
+var mvc = (mvc) || {};
 
 /* mvc settings */
 
@@ -43,6 +43,15 @@ mvc.validation_url = '_validate';
 /* location of the models WITH trailing slash */
 mvc.model_url = mvc.application_folder + 'models/';
 
+/* location of the views WITH trailing slash */
+mvc.view_url = mvc.application_folder + 'views/';
+
+/* append current controller to views */
+mvc.views_in_controller_folder = true;
+
+/* view extension */
+mvc.view_extension = '.tmpl.js';
+
 /* location of the rest server from mvc.path WITH trailing slash */
 mvc.rest_url = 'rest/';
 
@@ -58,11 +67,11 @@ mvc.segs = mvc.self.split('/');
 /* which segment is the controller + 1 is the method */
 mvc.shift = 4;
 
-var folder = (mvc.segs[mvc.shift] == '' || mvc.segs[mvc.shift] == undefined) ? 'index' : mvc.segs[mvc.shift];
-var file = (mvc.segs[mvc.shift+1] == '' || mvc.segs[mvc.shift+1] == undefined) ? 'index' : mvc.segs[mvc.shift+1];
+mvc.folder = (mvc.segs[mvc.shift] == '' || mvc.segs[mvc.shift] == undefined) ? 'index' : mvc.segs[mvc.shift];
+mvc.file = (mvc.segs[mvc.shift+1] == '' || mvc.segs[mvc.shift+1] == undefined) ? 'index' : mvc.segs[mvc.shift+1];
 
 /* setup default controller + method */
-mvc.controller = folder + '/' + file;
+mvc.controller = mvc.folder + '/' + mvc.file;
 
 /* appended to the controller name in the controller js file */
 mvc.controller_named = 'controller_';
@@ -70,7 +79,7 @@ mvc.controller_named = 'controller_';
 /* appened to the method name in the contoller js file */
 mvc.method_named = '_method_';
 
-/* ie var controller_jstorage_method_index = new function() { */
+/* example var controller_jstorage_method_index = new function() { */
 
 /* in the attached javascript object the constructor is called the */
 mvc.constructor_named = '__construct';
@@ -99,9 +108,9 @@ mvc.default_cursor = 'pointer';
 /* name of the main mvc javascript file */
 mvc.main = 'jquery.mvc';
 
-/* name of the libraries to include */
-mvc.auto_include = Array('jquery.mvcmodel','jquery.mvcform','jquery.session','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage'); /*  */
-//mvc.auto_include = Array();
+/* name of the libraries to auto include */
+mvc.auto_include = ['jquery.mvcmodel','jquery.mvcform','jquery.session','third_party/jquery.tmpl','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage']; /*  */
+//mvc.auto_include = [];
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/
 mvc.event = null;
@@ -111,6 +120,9 @@ mvc.data = null;
 
 /* ajax returned responds */
 mvc.ajax_responds = null;
+
+/* hold the compiled views */
+mvc.templates = [];
 
 /* a few other holders */
 mvc.output = {};
@@ -147,7 +159,7 @@ jQuery.mvc = function (name,func) {
 /*
 console logging function if exists and debug is on
 IE (no console) safe
-Load it here this way it's avaiable before the includes are loaded incase we want to log something
+Load it here this way it's available before the includes are loaded incase we want to log something
 */
 jQuery.log = function () {
   /* unlimited arguments */

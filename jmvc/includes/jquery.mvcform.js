@@ -43,7 +43,7 @@ jQuery.fn.mvcForm2Obj = function(obj) {
 };
 
 /*
-simple - send form to url from form's action attrubute + validation_url setting ie action="submit" url = submit_validate
+simple - send form to url from form's action attribute + validation_url setting ie action="submit" url = submit_validate
 $("#form_id").mvcFormValidate();
 basic - send the form id as json to given url
 $("#form_id").mvcFormValidate('url');
@@ -68,7 +68,7 @@ mvc_post_view with valid javascript code to run
 
   //mvc.ajax_responds = jQuery.mvcAjax(url,jQuery(this).mvcForm2Obj(json),'json',true);
   var data = jQuery(this).mvcForm2Obj(json);
-  mvc.ajax_responds = jQuery.mvcAjax({"url": url,"data": data, "update": true});
+  mvc.ajax_responds = jQuery.mvcAjax({"url": url,"data": data, "update": update_view});
   if (mvc.ajax_responds !== null) {
     if (mvc.ajax_responds.mvc_model_valid === true && submit === true) {
       jQuery(this).unbind('submit').submit(); /* if returned false (no errors) then submit the form */
