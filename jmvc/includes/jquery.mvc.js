@@ -66,8 +66,6 @@ jQuery.mvcView = function (name,data) {
 	if (!jQuery.template[name]) {
 		// get the template
 		var template = jQuery.mvcAjax({url: mvc.view_url + ((mvc.views_in_controller_folder) ? mvc.folder + '/' : '') + name + mvc.view_extension, type: 'html' });
-		
-		// compile and save the template as name
 		jQuery.template(name,template);
 	}
 	

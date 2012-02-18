@@ -5,11 +5,10 @@ function start_html() {
   <html>
   <head>
     <link rel="stylesheet" media="screen" type="text/css" href="application/libraries/application.css"/>
-    <script type="text/javascript" src="jquery/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="jmvc/jquery.mvcboot.js"></script>
-    <script language="Javascript" type="text/javascript" src="application/libraries/application.js"></script>
 
-    <script language="Javascript" type="text/javascript" src="jmvc/includes/jquery.mvc.js"></script>
+    <script type="text/javascript" src="application/libraries/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="application/libraries/application.js"></script>
+    <script type="text/javascript" src="jmvc/jquery.mvcboot.js"></script>
   </head>
   <body>';
 }

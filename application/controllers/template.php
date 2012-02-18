@@ -12,6 +12,10 @@ class template_controller {
 		
 		echo '<ul id="movieList2"></ul>';
 
+		echo '<p>compiled</p><ul id="movieList3"></ul>';
+
+		echo '<div id="area"></div>';
+
 		echo '<input type="text" id="consoleoutput">';
 
     $tests[] = array('run_template','Run Template');

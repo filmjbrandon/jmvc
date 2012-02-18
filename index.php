@@ -5,8 +5,8 @@
 /* basic config */
 $server_url = 'http://localhost'; /* NO Trailing Slash */
 $application_path = '/jmvc'; /* NO Trailing Slash */
+/* basic config done */
 
-/* done */
 $complete_path = $server_url.$application_path.'/';
 $parts = explode('/',$complete_path);
 $controller_seg = count($parts) - 3;

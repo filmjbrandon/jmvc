@@ -28,6 +28,8 @@ var controller_template_method_index = new function() {
 			];
 
 			jQuery('#movieList2').mvcView('logic',movies);
+			
+			jQuery('#movieList3').mvcView('compiled',movies,true);
     	
     };
   };
