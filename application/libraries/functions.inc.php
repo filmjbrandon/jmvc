@@ -9,6 +9,13 @@ function start_html() {
     <script type="text/javascript" src="application/libraries/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="application/libraries/application.js"></script>
     <script type="text/javascript" src="jmvc/jquery.mvcboot.js"></script>
+
+    <script type="text/javascript" src="jmvc/includes/jquery.mvc.js"></script>
+    <script type="text/javascript" src="jmvc/includes/jquery.mvcform.js"></script>
+    <script type="text/javascript" src="jmvc/includes/jquery.mvcmodel.js"></script>
+    <script type="text/javascript" src="jmvc/includes/jquery.session.js"></script>
+
+
   </head>
   <body>';
 }

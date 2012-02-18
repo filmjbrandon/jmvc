@@ -9,33 +9,36 @@ $.mvcController(name,func);
   run function or string when finished
 
 */
-jQuery.mvcController = function (name,func) {
-
+jQuery.mvcController = function (name, func) {
   var segs = name.split('/');
   var clas = segs[0];
   var meth = segs[1];
   var complete_name = mvc.controller_named + clas + mvc.method_named + meth; /* controller_index_method_index */
-  jQuery.log('MVC jQuery.mvcController Load',name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
 
-  jQuery.getScript(mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js', function () {
-    /* fire off construct */
-    jQuery.exec(complete_name + '.' + mvc.constructor_named + '()');
-    var ctrlr = window[complete_name];
-    for (var elementid in ctrlr) {
-      if (typeof(ctrlr[elementid]) === 'object') {
-        for (var eventname in ctrlr[elementid]) {
-          if (typeof(ctrlr[elementid][eventname]) === 'function') {
-            /* data-mvc is now automagically attached via jquery 1.4.3+ */
-            /* attach any events to matching classes and ids */
-            jQuery('#' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');
-            jQuery('.' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');
-          }
-        }
-      }
-    }
-    /* fire off any when complete code sent in */
-    jQuery.exec(func);
-  });
+  jQuery.log('MVC jQuery.mvcController Load',name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
+	jQuery.ajax({url: mvc.folders.controller + clas + '/' + meth + '.js', dataType: 'script', cache: true, async: false });
+
+	// if there is now a controller object run it.
+	if (window[complete_name]) {
+		var ctrlr = window[complete_name];
+		/* fire off construct */
+		jQuery.exec(ctrlr[mvc.constructor_named]);
+		for (var elementid in ctrlr) {
+	  	if (typeof(ctrlr[elementid]) === 'object') {
+	    	for (var eventname in ctrlr[elementid]) {
+	      	if (typeof(ctrlr[elementid][eventname]) === 'function') {
+	        	/* data-mvc is now automagically attached via jquery 1.4.3+ */
+	        	/* attach any events to matching classes and ids */
+	        	jQuery('#' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');
+	        	jQuery('.' + elementid).mvcEvent(eventname,complete_name + '.' + elementid + '.' + eventname + '();');
+	      	}
+	    	}
+	  	}
+		}
+	}
+
+	/* fire off any when complete code sent in */
+	jQuery.exec(func);
 };
 
 /*
@@ -45,7 +48,7 @@ func = indexController.action1.click() or func = function() { alert('welcome'); 
 optional
 data = json object
 */
-jQuery.fn.mvcAction = function (event,func,data) {
+jQuery.fn.mvcAction = function (event, func, data) {
   if (data) {
     jQuery(this).mvcData(data);
   }
@@ -65,7 +68,9 @@ jQuery.mvcView = function (name,data) {
 	// jQuery template stores them in .template[name] so let's see if there have one named?
 	if (!jQuery.template[name]) {
 		// get the template
-		var template = jQuery.mvcAjax({url: mvc.view_url + ((mvc.views_in_controller_folder) ? mvc.folder + '/' : '') + name + mvc.view_extension, type: 'html' });
+		var template = jQuery.mvcAjax({url: mvc.folders.view + ((mvc.views_in_controller_folder) ? mvc.folder + '/' : '') + name + mvc.view_extension + '.js', type: 'html' });
+
+		template = (typeof(template) == 'string') ? template : ' ';
 		jQuery.template(name,template);
 	}
 	
@@ -232,63 +237,6 @@ jQuery.fn.mvcEvent = function (event, func) {
 }
 
 /*
-Used in model, view, form to get json with blocking
-$.mvcAjax({});
-options
-type, method, blocking, update, cache, timeout, url
-*/
-jQuery.mvcAjax = function (settings) {
-	jQuery.extend(mvc.options,settings);
-	
-  if (jQuery.session_uid && mvc.options.method.toUpperCase() == 'GET') {
-    mvc.options.data._uuid = jQuery.session_uid();
-    mvc.options.data._session_id = jQuery.session_id();
-  }
-  
-  if (jQuery.cookie && mvc.options.method.toUpperCase() == 'GET') {
-    mvc.options.data._cookie = jQuery.cookie();
-  }
-
-	if (mvc.options.method.toUpperCase() == 'GET') {
-		/* if you don't turn on caching jquery-ajax will attach a timestamp to the url so it always changes */
-		mvc.options.cache = true;
-	}
-
-  var reply = {};
-  
-  jQuery.ajax({
-    cache: mvc.options.cache,
-    dataType: mvc.options.type,
-    type: mvc.options.method,
-    async: !mvc.options.blocking,
-    timeout: mvc.options.timeout,
-    url: mvc.path + mvc.options.url,
-    data: mvc.clone(mvc.options.data),
-    success: function (responds) {
-      reply = responds;
-      mvc.jqXHR = null;
-      mvc.textStatus = null;
-      mvc.errorThrown = null;
-      // add callback support here
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      jQuery.log('MVC jQuery.ajax Error',jqXHR, textStatus, errorThrown);
-      mvc.jqXHR = jqXHR;
-      mvc.textStatus = textStatus;
-      mvc.errorThrown = errorThrown;
-      // add callback support here
-    }
-  });
-
-  /* if update true then update the screen with returned json */
-  if (mvc.options.update) {
-    jQuery.mvcUpdate(reply);
-  }
-
-  return reply;
-};
-
-/*
 execute code
 function or string
 */
@@ -321,6 +269,63 @@ jQuery.fn.exists = function () {
 };
 
 /*
+create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON();
+*/
+jQuery.extend({
+  postJSON: function (url, data, callback) {
+    return jQuery.post(url, data, callback, 'json');
+  }
+});
+
+/*
+More complete Ajax
+$.mvcAjax({});
+options
+type, method, blocking, update, cache, timeout, url
+*/
+jQuery.mvcAjax = function (settings) {
+	jQuery.extend(mvc.options,settings);
+	
+  if (jQuery.session_uid && mvc.options.method.toUpperCase() == 'GET') {
+    mvc.options.data._uuid = jQuery.session_uid();
+    mvc.options.data._session_id = jQuery.session_id();
+  }
+  
+  if (jQuery.cookie && mvc.options.method.toUpperCase() == 'GET') {
+    mvc.options.data._cookie = jQuery.cookie();
+  }
+
+	if (mvc.options.method.toUpperCase() == 'GET') {
+		/* if you don't turn on caching jquery-ajax will attach a timestamp to the url so it always changes */
+		mvc.options.cache = true;
+	}
+  
+  jQuery.ajax({
+    cache: mvc.options.cache,
+    dataType: mvc.options.type,
+    type: mvc.options.method,
+    async: !mvc.options.blocking,
+    timeout: mvc.options.timeout,
+    url: mvc.path + mvc.options.url,
+    data: mvc.clone(mvc.options.data),
+    success: function (responds) {
+      mvc.ajax_responds = responds;
+      // add callback support here
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      //jQuery.log('MVC jQuery.ajax Error',jqXHR, textStatus, errorThrown);
+      mvc.ajax_error.jqXHR = jqXHR;
+      mvc.ajax_error.textStatus = textStatus;
+      mvc.ajax_error.errorThrown = errorThrown;
+      // add callback support here
+    }
+  });
+
+  return mvc.ajax_responds;
+};
+
+
+/*
 this will make a copy of a object without the methods
 which jack up some ajax calls and other stuff
 */
@@ -338,12 +343,12 @@ mvc.clone = function(obj) {
   return clone;
 }
 
-/*
-create a wrapper for $.postJSON(); - uses post instead of get as in $.getJSON();
-*/
-jQuery.extend({
-  postJSON: function (url, data, callback) {
-    return jQuery.post(url, data, callback, 'json');
-  }
-});
-
+jQuery.mvcModel = function(name) {
+	jQuery.mvcAjax({url: mvc.folders[model] + name + '.js', type: 'script' });
+	
+	if (mvc.jqXHR.status == 404) {
+		return new mvcModel(name);
+	}
+	
+	return new window[name];
+}

@@ -11,6 +11,8 @@ class template_controller {
 		echo '<ul id="movieList"></ul>';
 		
 		echo '<ul id="movieList2"></ul>';
+		
+		echo '<ul id="movieList4"></ul>';
 
 		echo '<p>compiled</p><ul id="movieList3"></ul>';
 

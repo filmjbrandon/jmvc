@@ -18,9 +18,10 @@ var controller_template_method_index = new function() {
 			
 			// add directly in element
     	var output = jQuery.mvcView('template',movies);
-    	jQuery("#movieList").html(output);
-    	
-    	
+    	jQuery('#movieList').html(output);
+
+			jQuery('#movieList4').mvcView('missing',movies);
+    	    	
     	var movies = [
 			    { Name: "Meet Joe Black", Languages: "French" },
 			    { Name: "The Mighty" },
@@ -29,7 +30,8 @@ var controller_template_method_index = new function() {
 
 			jQuery('#movieList2').mvcView('logic',movies);
 			
-			jQuery('#movieList3').mvcView('compiled',movies,true);
+			jQuery('#movieList3').mvcView('compiled',movies);
+			
     	
     };
   };

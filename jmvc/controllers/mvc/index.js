@@ -13,7 +13,7 @@ var controller_mvc_method_index = new function() {
   this.mvcController1 = new function() {
     this.click = function() {
       /* load controller by name */
-      var x = $.mvc('mycontroller');
+      var x = $.mvcController('mvc/index');
       writeDebug(x);
     };
   };
@@ -21,7 +21,7 @@ var controller_mvc_method_index = new function() {
   this.mvcController2 = new function() {
     this.click = function() {
       /* load controller by name then run function */
-      var x = $.mvc('mycontroller',function() { writeDebug("click"); });
+      var x = $.mvcController('mycontroller',function() { writeDebug("click"); });
       writeDebug(x);
     };
   };
@@ -29,7 +29,7 @@ var controller_mvc_method_index = new function() {
   this.mvcController3 = new function() {
     this.click = function() {
       /* load default controller then run function */
-      var x = $.mvc(function() { writeDebug("click"); });
+      var x = $.mvcController(function() { writeDebug("click"); });
       writeDebug(x);
     };
   };

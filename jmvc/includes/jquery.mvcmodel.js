@@ -1,10 +1,8 @@
-/* I attach all models to the mvc super global mvc.user_m = mvcModel('user'); */
-
-mvcModel = function(table) {
-  /* these things maintain state */
-  this._table = table;
+/* I attach all models to the mvc super global mvc.user_m = new mvcModel('user'); */
+function mvcModel(name){
 	this._clear();
-};
+	this._table = name;
+}
 
 mvcModel.prototype._clear = function() {
   this._records = [];
@@ -33,7 +31,7 @@ mvcModel.prototype._post = function(method) {
 /* update */
 mvcModel.prototype._put = function(method) {
 	method = (method) ? '/' + method : '';
-	this.__ajax(mvc.rest_url + this._table + method,'put',mvc.clone(this));
+	this.__ajax(mvc.rest_url + this._table + method,'post',mvc.clone(this));
 }
 
 /* delete */

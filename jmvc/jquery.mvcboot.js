@@ -40,20 +40,28 @@ mvc.validation_submit = true;
 /* append to validation action url if no URL provied */
 mvc.validation_url = '_validate';
 
+mvc.folders = {};
+
+/* location of the controllers WITH trailing slash */
+mvc.folders.controller = mvc.application_folder + 'controllers/';
+
 /* location of the models WITH trailing slash */
-mvc.model_url = mvc.application_folder + 'models/';
+mvc.folders.model = mvc.application_folder + 'models/';
+
+/* location of the includes WITH trailing slash */
+mvc.folders.include = mvc.application_folder + 'includes/';
 
 /* location of the views WITH trailing slash */
-mvc.view_url = mvc.application_folder + 'views/';
+mvc.folders.view = mvc.application_folder + 'views/';
 
 /* append current controller to views */
 mvc.views_in_controller_folder = true;
 
 /* view extension */
-mvc.view_extension = '.tmpl.js';
+mvc.view_extension = '.tmpl';
 
 /* location of the rest server from mvc.path WITH trailing slash */
-mvc.rest_url = 'rest/';
+mvc.rest_url = mvc.path + 'restserver/';
 
 /* auto generated prefix */
 mvc.auto_gen = '';
@@ -105,12 +113,8 @@ mvc.options = {
 /* if a element has a method add this css cursor by default */
 mvc.default_cursor = 'pointer';
 
-/* name of the main mvc javascript file */
-mvc.main = 'jquery.mvc';
-
 /* name of the libraries to auto include */
-mvc.auto_include = ['jquery.mvcmodel','jquery.mvcform','jquery.session','third_party/jquery.tmpl','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage']; /*  */
-//mvc.auto_include = [];
+mvc.auto_include = ['jquery.mvc','jquery.mvcmodel','jquery.mvcform','jquery.session','third_party/jquery.tmpl','third_party/jquery.cookie','third_party/jquery.json-2.2','third_party/jstorage']; /*  */
 
 /* holds jquery "this" that called the function for function calls object (actually contains data as well)*/
 mvc.event = null;
@@ -120,9 +124,7 @@ mvc.data = null;
 
 /* ajax returned responds */
 mvc.ajax_responds = null;
-
-/* hold the compiled views */
-mvc.templates = [];
+mvc.ajax_error = {};
 
 /* a few other holders */
 mvc.output = {};
@@ -136,6 +138,7 @@ jQuery.mvc = function (name,func) {
   for (idx=0;idx<=mvc.shift;idx++) {
     mvc.segs.shift();
   }
+  
   /* did they send in just a function? if so then the controller is mvc.controller */
   if (typeof(name) == 'function') {
     func = name;
@@ -144,16 +147,14 @@ jQuery.mvc = function (name,func) {
     /* else if they didn't send in any thing then the controller is mvc.controller */
     name = (!name) ? mvc.controller : name;
   }
+  
   /* load the required includes from inside the jmvc folder */
   for (var i=0, len = mvc.auto_include.length; i<len; ++i) {
-    jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.auto_include[i] + '.js');
+  	jQuery.ajax({url: mvc.folders.include + mvc.auto_include[i] + '.js', dataType: 'script', cache: true, async: false });
   }
 
-  /* load the main mvc file and start controller */
-  jQuery.getScript(mvc.mvcpath + 'includes/' + mvc.main + '.js',function(data, textStatus) {		
-		jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
-  });
-  
+	// load a controller and try to run it.
+	jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
 };
 
 /*

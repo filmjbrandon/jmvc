@@ -1,0 +1,325 @@
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312221917222
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222010644
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222016111
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222042467
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222085825
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222088598
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222088655
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222093553
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222111089
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222116588
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222117014
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222122128
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222355593
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222377266
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222401049
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222407381
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [payload] => Array
+        (
+            [0] => load
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222410502
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1312222452943
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [payload] => Array
+        (
+            [0] => load
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1318476448549
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1318476456953
+    [cookie] => null
+)
+
+Array
+(
+    [filename] => people
+    [record] => Array
+        (
+            [id] => 123
+        )
+
+    [payload] => Array
+        (
+            [0] => load
+            [1] => where
+            [2] => monkey
+            [3] => > 1
+        )
+
+    [mvc_posturl] => http://localhost/jmvc/jmvc/models/people.js
+    [mvc_type] => json
+    [mvc_timestamp] => 1318476459428
+    [cookie] => null
+)
+
