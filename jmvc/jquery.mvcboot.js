@@ -15,21 +15,42 @@ var mvc = (mvc) || {};
 /* mvc settings */
 
 /* Domain */
-mvc.domain = 'http://localhost'; /* WITHOUT trailing slash */
+mvc.domain = 'http://jmvc.localhost'; /* WITHOUT trailing slash */
 
 /* Folder (if any) */
-mvc.folder = '/jmvc'; /* NO trailing slash */
+mvc.folder = ''; /* WITHOUT trailing slash */
+
+/* which segment is the controller (hint: the host is #2) */
+mvc.controller_seg = 3;
 
 /* ** That should be all you need to config JMVC! ** */
 
-/* auto load everything including starting the router */
-mvc.auto_load = true;
+/* setup folders */
+mvc.folders = {};
 
 /* complete path */
-mvc.path = mvc.domain + mvc.folder + '/'; 
+mvc.folders.path = mvc.domain + mvc.folder + '/';
 
 /* name of the folder containing the mvc javascript files WITH trailing slash */
-mvc.application_folder = 'jmvc/';
+mvc.folders.application = 'jmvc/';
+
+/* location of the controllers WITH trailing slash */
+mvc.folders.controller = mvc.folders.path + mvc.folders.application + 'controllers/';
+
+/* location of the models WITH trailing slash */
+mvc.folders.model = mvc.folders.path + mvc.folders.application + 'models/';
+
+/* location of the includes WITH trailing slash */
+mvc.folders.include = mvc.folders.path + mvc.folders.application + 'includes/';
+
+/* location of the views WITH trailing slash */
+mvc.folders.view = mvc.folders.path + mvc.folders.application + 'views/';
+
+/* location of the rest server from mvc.folders.path WITH trailing slash */
+mvc.rest_url = mvc.folders.path + 'restserver/';
+
+/* auto load everything including starting the router */
+mvc.auto_load = true;
 
 /* prepend this to all ajax request urls */
 mvc.ajax_url = '';
@@ -37,22 +58,8 @@ mvc.ajax_url = '';
 /* form submit on validation passed default value */
 mvc.validation_submit = true;
 
-/* append to validation action url if no URL provied */
+/* append to the form element's action attribute action="/post/here" = url="/post/here_validate" - form element url if no URL provied */
 mvc.validation_url = '_validate';
-
-mvc.folders = {};
-
-/* location of the controllers WITH trailing slash */
-mvc.folders.controller = mvc.application_folder + 'controllers/';
-
-/* location of the models WITH trailing slash */
-mvc.folders.model = mvc.application_folder + 'models/';
-
-/* location of the includes WITH trailing slash */
-mvc.folders.include = mvc.application_folder + 'includes/';
-
-/* location of the views WITH trailing slash */
-mvc.folders.view = mvc.application_folder + 'views/';
 
 /* append current controller to views */
 mvc.views_in_controller_folder = true;
@@ -60,23 +67,14 @@ mvc.views_in_controller_folder = true;
 /* view extension */
 mvc.view_extension = '.tmpl';
 
-/* location of the rest server from mvc.path WITH trailing slash */
-mvc.rest_url = mvc.path + 'restserver/';
-
-/* auto generated prefix */
-mvc.auto_gen = '';
-
 /* reference to self */
 mvc.self = location.href;
 
 /* get URL parts */
 mvc.segs = mvc.self.split('/');
 
-/* which segment is the controller + 1 is the method */
-mvc.shift = 4;
-
-mvc.folder = (mvc.segs[mvc.shift] == '' || mvc.segs[mvc.shift] == undefined) ? 'index' : mvc.segs[mvc.shift];
-mvc.file = (mvc.segs[mvc.shift+1] == '' || mvc.segs[mvc.shift+1] == undefined) ? 'index' : mvc.segs[mvc.shift+1];
+mvc.folder = (mvc.segs[mvc.controller_seg] == '' || mvc.segs[mvc.controller_seg] == undefined) ? 'index' : mvc.segs[mvc.controller_seg];
+mvc.file = (mvc.segs[mvc.controller_seg+1] == '' || mvc.segs[mvc.controller_seg+1] == undefined) ? 'index' : mvc.segs[mvc.controller_seg+1];
 
 /* setup default controller + method */
 mvc.controller = mvc.folder + '/' + mvc.file;
@@ -92,9 +90,6 @@ mvc.method_named = '_method_';
 /* in the attached javascript object the constructor is called the */
 mvc.constructor_named = '__construct';
 
-/*  path to mvc parts folder */
-mvc.mvcpath = mvc.path + mvc.application_folder;
-
 /* allow console output (if present) */
 mvc.debug = true;
 
@@ -106,7 +101,7 @@ mvc.options = {
 	update: false, /* auto update views on with returned ajax */
 	cache: false, /* should ajax requests be cached - should be false */
 	timeout: 3000, /* we uses a few blocking ajax calls how long should we wait? */
-	url: 'rest', /* default url to request */
+	url: mvc.folders.path, /* default url to request */
 	data: {} /* default data sent */
 };
 
@@ -134,11 +129,10 @@ mvc.global = {};
 /* the router */
 jQuery.mvc = function (name,func) {
   /* set up segs for user */
-  mvc.shift--;
-  for (idx=0;idx<=mvc.shift;idx++) {
+  for (var idx=0;idx<=(mvc.controller_seg + 1);idx++) {
     mvc.segs.shift();
   }
-  
+
   /* did they send in just a function? if so then the controller is mvc.controller */
   if (typeof(name) == 'function') {
     func = name;
@@ -147,14 +141,18 @@ jQuery.mvc = function (name,func) {
     /* else if they didn't send in any thing then the controller is mvc.controller */
     name = (!name) ? mvc.controller : name;
   }
-  
+
+	//console.log(name,mvc.folder,mvc.file,mvc.segs);
+   
+  /* !TODO need to make this less blocking */
   /* load the required includes from inside the jmvc folder */
   for (var i=0, len = mvc.auto_include.length; i<len; ++i) {
   	jQuery.ajax({url: mvc.folders.include + mvc.auto_include[i] + '.js', dataType: 'script', cache: true, async: false });
   }
-
+	
 	// load a controller and try to run it.
 	jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
+	
 };
 
 /*

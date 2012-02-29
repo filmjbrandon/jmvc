@@ -37,7 +37,7 @@ jQuery.fn.mvcForm2Obj = function(obj) {
 
   obj.mvcForm2Obj.mvc_post_selector = this.selector;
   obj.mvcForm2Obj.mvc_url = mvc.self;
-  obj.mvcForm2Obj.mvc_application_folder = mvc.application_folder;
+  obj.mvcForm2Obj.mvc_application_folder = mvc.folders.application;
 
   return mvc.clone(obj);
 };

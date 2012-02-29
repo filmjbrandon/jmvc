@@ -15,7 +15,7 @@ jQuery.mvcController = function (name, func) {
   var meth = segs[1];
   var complete_name = mvc.controller_named + clas + mvc.method_named + meth; /* controller_index_method_index */
 
-  jQuery.log('MVC jQuery.mvcController Load',name,complete_name + '.' + mvc.constructor_named + '()',mvc.mvcpath + 'controllers/' + clas + '/' + meth + '.js');
+	jQuery.log(mvc.folders.controller + clas + '/' + meth + '.js',complete_name);
 	jQuery.ajax({url: mvc.folders.controller + clas + '/' + meth + '.js', dataType: 'script', cache: true, async: false });
 
 	// if there is now a controller object run it.
@@ -85,7 +85,6 @@ jQuery.fn.mvcView = function (name,data) {
 	// phrase and render the template
 	jQuery(this).html(jQuery.mvcView(name,data));	
 }
-
 
 /*
 load json properties into html based on matching selectors
@@ -306,7 +305,7 @@ jQuery.mvcAjax = function (settings) {
     type: mvc.options.method,
     async: !mvc.options.blocking,
     timeout: mvc.options.timeout,
-    url: mvc.path + mvc.options.url,
+    url: mvc.folders.path + mvc.options.url,
     data: mvc.clone(mvc.options.data),
     success: function (responds) {
       mvc.ajax_responds = responds;
