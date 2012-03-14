@@ -15,13 +15,13 @@ var mvc = (mvc) || {};
 /* mvc settings */
 
 /* Domain */
-mvc.domain = 'http://jmvc.localhost'; /* WITHOUT trailing slash */
+mvc.domain = 'http://localhost'; /* WITHOUT trailing slash */
 
 /* Folder (if any) */
-mvc.folder = ''; /* WITHOUT trailing slash */
+mvc.folder = '/jmvc'; /* WITHOUT trailing slash */
 
 /* which segment is the controller (hint: the host is #2) */
-mvc.controller_seg = 3;
+mvc.controller_seg = 4;
 
 /* ** That should be all you need to config JMVC! ** */
 
@@ -142,17 +142,17 @@ jQuery.mvc = function (name,func) {
     name = (!name) ? mvc.controller : name;
   }
 
-	//console.log(name,mvc.folder,mvc.file,mvc.segs);
-   
-  /* !TODO need to make this less blocking */
+	/* jQuery.log(name,mvc.folder,mvc.file,mvc.segs); */
+  
   /* load the required includes from inside the jmvc folder */
   for (var i=0, len = mvc.auto_include.length; i<len; ++i) {
-  	jQuery.ajax({url: mvc.folders.include + mvc.auto_include[i] + '.js', dataType: 'script', cache: true, async: false });
+  	jQuery.ajax({url: mvc.folders.include + mvc.auto_include[i] + '.js', dataType: 'script', cache: true, async: true });
   }
-	
-	// load a controller and try to run it.
-	jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
-	
+
+	/* after the ajax is done. load a controller and try to run it. */
+	$(document).one('ajaxStop', function() {
+		jQuery.mvcController(name.replace(/#/g,'').replace(/-/g,'_'),func);
+	});
 };
 
 /*
