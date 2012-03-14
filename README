@@ -1,0 +1,19 @@
+This is a MVC Framework which makes it easier to create client side applications
+
+It includes:
+
+My Libs Includes
+jquery.mvcboot.js - configs and boot strap
+jquery.mvc.js - core functions
+jquery.mvcform.js - form functions
+jquery.mvcmodel.js - model functions
+jquery.session.js - simulated sessions
+
+Other 3rd Party Open Source libraries used
+jquery.cookie.js
+jquery.json-2.2.js
+jstorage.js
+jquery.tmpl.js
+
+In addition I am also re working the models and hopefully will clean up the examples when I have time.
+
